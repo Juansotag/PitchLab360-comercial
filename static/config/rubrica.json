@@ -1,0 +1,11 @@
+{
+  "dimensiones": [
+    {"id": "exactitud_compliance", "peso": 0.35, "limite_duro": true},
+    {"id": "manejo_objeciones", "peso": 0.20},
+    {"id": "claridad_estructura", "peso": 0.15},
+    {"id": "descubrimiento", "peso": 0.10},
+    {"id": "cierre_compromiso", "peso": 0.15},
+    {"id": "disciplina_tiempo", "peso": 0.05}
+  ],
+  "regla_limite_duro": "Si veredicto de compliance == 'violacion', el puntaje global se topa en 40/100."
+}

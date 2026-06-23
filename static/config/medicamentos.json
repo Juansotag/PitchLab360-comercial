@@ -1,0 +1,17 @@
+{
+  "medicamentos": [{
+    "id": "demo",
+    "nombre_comercial": "Ejemplo XR",
+    "principio_activo": "ejemplafenina 50 mg",
+    "indicaciones_aprobadas": ["Hipertensión arterial esencial / resistente en adultos"],
+    "eficacia": [{"desenlace": "Reducción PAS a 12 sem", "dato": "-14 mmHg vs -9 mmHg comparador", "fuente": "fase III pivotal"}],
+    "seguridad": {"adversos_frecuentes": ["cefalea","mareo"], "advertencias": ["Monitorear función renal >65"]},
+    "contexto_cobertura": {
+      "financiado_upc": false,
+      "alternativas_pbs": ["enalapril","losartán"],
+      "criterios_uso": ["Tras fracaso o intolerancia a IECA/ARA-II", "Hipertensión resistente documentada"],
+      "costo_relativo": "alto"
+    },
+    "registro_invima": "INVIMA-0000000"
+  }]
+}

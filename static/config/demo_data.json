@@ -1,0 +1,86 @@
+{
+  "escenario": {
+    "medicamento_id": "demo",
+    "interlocutor_id": "auditor_eps",
+    "reto": "Negar la autorización por costo",
+    "tiempo_min": 5
+  },
+  "metricas": {
+    "TTR": 0.52,
+    "legibilidad_flesch": 45.2,
+    "longitud_promedio_oracion": 18.5,
+    "negaciones": {
+      "count": 4,
+      "densidad_pct": 1.5
+    },
+    "conteo_cifras": 8,
+    "densidad_jerga": 12,
+    "palabras_frecuentes": [
+      ["paciente", 12],
+      ["presión", 9],
+      ["ejemplo", 8],
+      ["xr", 8],
+      ["control", 6]
+    ]
+  },
+  "exactitud_evidencia": {
+    "ok": true,
+    "data": {
+      "veredicto_global": "advertencia",
+      "afirmaciones": [
+        {
+          "afirmacion": "Reduce la presión arterial de forma sostenida durante 24 horas",
+          "estado": "respaldado",
+          "evidencia_ficha": "50 mg una vez al día; reducción de PAS a 12 semanas",
+          "gravedad": "baja"
+        },
+        {
+          "afirmacion": "Es el único del mercado que no causa mareo",
+          "estado": "exagerado",
+          "evidencia_ficha": "efectos adversos frecuentes: cefalea, mareo",
+          "gravedad": "media"
+        }
+      ]
+    }
+  },
+  "fuerza_justificacion": {
+    "ok": true,
+    "data": {
+      "anclo_en_evidencia": true,
+      "anclo_en_caso_particular": false,
+      "justifico_vs_alternativa": true,
+      "puntaje": 85,
+      "observaciones": [
+        "Buena apertura reconociendo el tiempo del auditor.",
+        "El mensaje central es claro pero podría apoyar con más datos clínicos."
+      ]
+    }
+  },
+  "manejo_objeciones": {
+    "ok": true,
+    "data": {
+      "objecion_central": "Costo de la terapia vs alternativas",
+      "fue_abordada": true,
+      "calidad": "con_evidencia",
+      "puntaje": 80
+    }
+  },
+  "argumentacion_cobertura": {
+    "ok": true,
+    "data": {
+      "argumentos_usados": ["Fracaso con enalapril", "Hipertensión resistente"],
+      "argumentos_faltantes": ["Costo-efectividad"],
+      "puntaje": 75
+    }
+  },
+  "scorecard": {
+    "global": 72,
+    "dimensiones": {
+      "exactitud_evidencia": 60,
+      "fuerza_justificacion": 85,
+      "manejo_objeciones": 80,
+      "argumentacion_cobertura": 75
+    },
+    "veredicto_evidencia": "advertencia"
+  }
+}

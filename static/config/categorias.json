@@ -1,0 +1,186 @@
+{
+  "tipos_discurso": [
+    {
+      "nombre": "conversacional",
+      "descripcion": "Lenguaje cercano, informal y directo. Simula un diálogo con la audiencia."
+    },
+    {
+      "nombre": "combativo",
+      "descripcion": "Confronta explícitamente a adversarios políticos o instituciones. Alta carga de denuncia."
+    },
+    {
+      "nombre": "pedagógico",
+      "descripcion": "Explica conceptos, datos o propuestas de forma didáctica y accesible."
+    },
+    {
+      "nombre": "tecnocrático",
+      "descripcion": "Fundamentado en datos, cifras y argumentos técnicos. Apela a la razón sobre la emoción."
+    },
+    {
+      "nombre": "inspirador",
+      "descripcion": "Usa metáforas, narrativa y llamados emocionales para movilizar a la audiencia."
+    },
+    {
+      "nombre": "emocional",
+      "descripcion": "Prioriza la conexión afectiva con la audiencia sobre los argumentos racionales."
+    }
+  ],
+
+  "emociones_politicas": [
+    { "nombre": "Esperanza",       "descripcion": "Proyección positiva del futuro. Activa la movilización voluntaria." },
+    { "nombre": "Miedo",           "descripcion": "Activado por amenazas reales o percibidas al statu quo o a la seguridad." },
+    { "nombre": "Indignación",     "descripcion": "Reacción moral ante la injusticia, la corrupción o el abuso de poder." },
+    { "nombre": "Orgullo",         "descripcion": "Identificación positiva con la nación, la región o el grupo propio." },
+    { "nombre": "Orden",           "descripcion": "Demanda de estabilidad, institucionalidad y previsibilidad." },
+    { "nombre": "Cambio",          "descripcion": "Impulso de transformación frente al statu quo percibido como fallido." },
+    { "nombre": "Seguridad",       "descripcion": "Necesidad de protección física, económica o jurídica." },
+    { "nombre": "Estabilidad",     "descripcion": "Valoración de la continuidad y la previsibilidad sobre la ruptura." },
+    { "nombre": "Antiélite",       "descripcion": "Antagonismo hacia grupos percibidos como privilegiados o extractivos." },
+    { "nombre": "Cercanía",        "descripcion": "Empatía y proximidad emocional con las realidades cotidianas del electorado." },
+    { "nombre": "Futuro",          "descripcion": "Orientación hacia horizontes de largo plazo, progreso y legado." },
+    { "nombre": "Urgencia",        "descripcion": "Sensación de ventana de oportunidad limitada o de crisis inminente." },
+    { "nombre": "Solidaridad",     "descripcion": "Vínculo emocional con grupos vulnerables o afectados por la crisis." },
+    { "nombre": "Desconfianza",    "descripcion": "Escepticismo hacia instituciones, medios o líderes establecidos." },
+    { "nombre": "Nostalgia",       "descripcion": "Referencia idealizada a un pasado mejor como base de contraste." },
+    { "nombre": "Entusiasmo",      "descripcion": "Energía colectiva y optimismo activo frente a la propuesta del candidato." },
+    { "nombre": "Tristeza",        "descripcion": "Lamento compartido por pérdidas colectivas: vidas, oportunidades, cohesión." }
+  ],
+
+  "tipos_frases_memorables": [
+    {
+      "nombre": "Denuncia",
+      "descripcion": "Señala responsables concretos de una situación negativa. Alta carga moral."
+    },
+    {
+      "nombre": "Propuesta",
+      "descripcion": "Anuncia una acción concreta y verificable que el candidato implementaría."
+    },
+    {
+      "nombre": "Llamado a la acción",
+      "descripcion": "Invita a la audiencia a actuar: votar, organizarse, compartir, movilizarse."
+    },
+    {
+      "nombre": "Contraste (nosotros vs. ellos)",
+      "descripcion": "Construye una dicotomía moral entre el grupo propio y un adversario."
+    },
+    {
+      "nombre": "Promesa",
+      "descripcion": "Compromiso explícito con un resultado futuro, generalmente con plazo o cifra."
+    },
+    {
+      "nombre": "Declaración de identidad",
+      "descripcion": "El candidato define quién es, de dónde viene o a quién representa."
+    },
+    {
+      "nombre": "Apelación emocional",
+      "descripcion": "Evoca experiencias concretas de dolor, pérdida, orgullo o esperanza colectiva."
+    },
+    {
+      "nombre": "Eslogan",
+      "descripcion": "Frase corta y repetible que condensa la propuesta o identidad del candidato."
+    },
+    {
+      "nombre": "Dato o cifra clave",
+      "descripcion": "Estadística que se presenta con carga moral, no solo informativa."
+    },
+    {
+      "nombre": "Metáfora política",
+      "descripcion": "Imagen o analogía vívida que simplifica y hace memorable un argumento complejo."
+    }
+  ],
+
+  "plataformas_digitales": [
+    {
+      "nombre": "Tweet/X",
+      "descripcion": "Formato ultra-breve (<280 caracteres). Ideal para frases contundentes, contrastes y denuncias."
+    },
+    {
+      "nombre": "Historia de Instagram",
+      "descripcion": "Formato efímero de 15 segundos. Ideal para frases breves sobre imagen o video corto."
+    },
+    {
+      "nombre": "Reel de Instagram",
+      "descripcion": "Video de 30-90 segundos. Ideal para momentos emotivos, contrastes visuales o cierres impactantes."
+    },
+    {
+      "nombre": "TikTok",
+      "descripcion": "Video de 15-60 segundos. Alta prioridad en ritmo, gancho en los primeros 3 segundos y tono auténtico."
+    },
+    {
+      "nombre": "Short de YouTube",
+      "descripcion": "Video vertical de hasta 60 segundos. Alcance orgánico alto. Ideal para datos con impacto visual."
+    },
+    {
+      "nombre": "Post en Facebook",
+      "descripcion": "Texto largo con imagen. Audiencia adulta. Funciona bien para propuestas con contexto y cifras."
+    },
+    {
+      "nombre": "Titular para medios tradicionales",
+      "descripcion": "Frase citada en prensa, radio o TV. Debe ser precisa, verificable y de alto valor noticioso."
+    }
+  ],
+
+  "categorias_stakeholders": [
+    { "nombre": "Funcionarios públicos de nivel bajo",       "ejemplos": "Inspectores, secretarios locales, funcionarios de ventanilla" },
+    { "nombre": "Funcionarios públicos de nivel medio",      "ejemplos": "Directores de entidades, subsecretarios, jefes de departamento" },
+    { "nombre": "Funcionarios públicos de nivel alto",       "ejemplos": "Ministros, directores de agencias nacionales, superintendentes" },
+    { "nombre": "Funcionarios electos del nivel municipal",  "ejemplos": "Alcaldes, concejales, personeros" },
+    { "nombre": "Funcionarios electos del nivel regional",   "ejemplos": "Gobernadores, diputados, asambleístas" },
+    { "nombre": "Funcionarios electos del nivel nacional",   "ejemplos": "Presidente, congresistas, senadores" },
+    { "nombre": "Líderes de opinión",                        "ejemplos": "Influencers políticos, columnistas, académicos públicos" },
+    { "nombre": "Medios de comunicación",                    "ejemplos": "Canales de TV, periódicos, portales digitales, emisoras" },
+    { "nombre": "Ciudadanía en general",                     "ejemplos": "Comunidades, barrios, familias, jóvenes, trabajadores" },
+    { "nombre": "Sector privado",                            "ejemplos": "Empresas, gremios, cámaras de comercio, sector financiero" },
+    { "nombre": "Organizaciones no gubernamentales",         "ejemplos": "Fundaciones, colectivos, organizaciones de base, sindicatos" },
+    { "nombre": "Organismos internacionales",                "ejemplos": "ONU, BID, FMI, Banco Mundial, misiones diplomáticas" },
+    { "nombre": "Partidos políticos",                        "ejemplos": "Partidos de gobierno, oposición, movimientos alternativos" },
+    { "nombre": "Fuerzas de seguridad",                      "ejemplos": "Ejército, Policía, inteligencia, fuerzas especiales" },
+    { "nombre": "Sistema judicial",                          "ejemplos": "Cortes, fiscalía, procuraduría, defensoría del pueblo" },
+    { "nombre": "Grupos armados",                            "ejemplos": "Guerrillas, paramilitares, disidencias, grupos irregulares" },
+    { "nombre": "Crimen organizado",                         "ejemplos": "Narcotráfico, bandas criminales, estructuras de extorsión" },
+    { "nombre": "Economía informal",                         "ejemplos": "Vendedores ambulantes, trabajadores sin contrato, economía de subsistencia" },
+    { "nombre": "Economía formal",                           "ejemplos": "Empresas legalmente constituidas, sector financiero regulado, gremios" }
+  ],
+
+  "relaciones_stakeholders": {
+    "negativa": {
+      "subcategorias": [
+        { "nombre": "Bloqueador/Conspirador", "descripcion": "Actúa deliberadamente para impedir reformas o el bien común." },
+        { "nombre": "Atacante",               "descripcion": "Dirige ataques directos al candidato o a su propuesta." },
+        { "nombre": "Actor apático",          "descripcion": "Podría actuar pero no lo hace; indiferente ante la crisis." },
+        { "nombre": "Actor ilegítimo",        "descripcion": "Carece de mandato moral o legal para ocupar su posición." },
+        { "nombre": "Actor incompetente",     "descripcion": "No tiene las capacidades para cumplir su rol." },
+        { "nombre": "Actor deshonesto",       "descripcion": "Actúa con corrupción, engaño o doble discurso." }
+      ]
+    },
+    "positiva": {
+      "subcategorias": [
+        { "nombre": "Aliado potencial",   "descripcion": "Podría sumarse a la propuesta con las condiciones adecuadas." },
+        { "nombre": "Aliado estratégico", "descripcion": "Comparte objetivos y puede fortalecer la propuesta activamente." },
+        { "nombre": "Inspiración",        "descripcion": "Modelo a seguir que el candidato evoca para dar legitimidad." },
+        { "nombre": "Ejemplo",            "descripcion": "Caso concreto de virtud o buen hacer que se cita positivamente." }
+      ]
+    },
+    "neutra": {
+      "subcategorias": [
+        { "nombre": "Referencia neutral", "descripcion": "Mencionado como dato de contexto sin carga emocional." },
+        { "nombre": "Actor contextual",   "descripcion": "Presente en el escenario pero sin rol activo en la narrativa." }
+      ]
+    }
+  },
+
+  "severidades_riesgo": [
+    {
+      "nivel": "alta",
+      "descripcion": "Puede generar crisis mediática, desmentido viral o acción legal. Requiere atención inmediata."
+    },
+    {
+      "nivel": "media",
+      "descripcion": "Puede ser aprovechada por la oposición o generar cobertura negativa si se viralizas."
+    },
+    {
+      "nivel": "baja",
+      "descripcion": "Imprecisión o área gris que conviene aclarar pero que no representa amenaza inmediata."
+    }
+  ]
+}

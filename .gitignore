@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Variables de entorno (NO subir al repositorio)
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Archivos grandes de modelos NLP
+*.whl
+*.whl.*

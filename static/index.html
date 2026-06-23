@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabina de Defensa Clínica - GovLab | Universidad de La Sabana</title>
+    <link rel="icon" href="data:,">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- ===================== SIDEBAR ===================== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+
+                <div class="main-logo-container">
+                    <a href="https://www.unisabana.edu.co/proyeccion-social/laboratorio-de-gobierno" target="_blank" rel="noopener noreferrer">
+                        <img src="/assets/PitchLab360.jpg" alt="PitchLab360 Logo" class="logo logo-pitchlab-main"
+                            title="PitchLab360">
+                    </a>
+                </div>
+
+                <!-- ── MÓDULOS VIEW (default) ── -->
+                <div id="sidebar-modules-view">
+                    <h2 class="sidebar-title">Secciones del Informe</h2>
+                    <div class="modules-container">
+                        <div class="module-card metrics-card" data-target="res-scorecard">
+                            <div class="module-header">
+                                <div class="module-title-wrapper">
+                                    <i class="fa-solid fa-chart-pie metric-icon"></i>
+                                    <span>SCORECARD</span>
+                                </div>
+                                <span class="status-badge pending">Pendiente</span>
+                            </div>
+                        </div>
+                        <div class="module-card llm-card" data-target="res-exactitud-evidencia">
+                            <div class="module-header">
+                                <div class="module-title-wrapper">
+                                    <i class="fa-solid fa-shield-halved llm-icon"></i>
+                                    <span>FUNDAMENTO EN EVIDENCIA</span>
+                                </div>
+                                <span class="status-badge pending">Pendiente</span>
+                            </div>
+                        </div>
+                        <div class="module-card llm-card" data-target="res-fuerza-defensa">
+                            <div class="module-header">
+                                <div class="module-title-wrapper">
+                                    <i class="fa-solid fa-bolt llm-icon"></i>
+                                    <span>FUERZA DE LA DEFENSA</span>
+                                </div>
+                                <span class="status-badge pending">Pendiente</span>
+                            </div>
+                        </div>
+                        <div class="module-card llm-card" data-target="res-claridad-estructura">
+                            <div class="module-header">
+                                <div class="module-title-wrapper">
+                                    <i class="fa-solid fa-list-check llm-icon"></i>
+                                    <span>CLARIDAD</span>
+                                </div>
+                                <span class="status-badge pending">Pendiente</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── RESULTS VIEW (shown after analysis) ── -->
+                <div id="sidebar-results-view" style="display:none">
+                    <div class="results-view-header">
+                        <h2 class="sidebar-title" style="margin:0">Resultados</h2>
+                    </div>
+
+                    <!-- SECCIÓN 0: Scorecard -->
+                    <section class="res-section-sb" id="res-scorecard">
+                        <div class="res-section-hdr metrics-header">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>SCORECARD</span>
+                            <i class="fa-solid fa-chevron-down res-toggle"></i>
+                        </div>
+                        <div class="res-section-body-sb" id="body-scorecard"></div>
+                    </section>
+
+                    <!-- SECCIÓN 1: Fundamento en evidencia -->
+                    <section class="res-section-sb" id="res-exactitud-evidencia">
+                        <div class="res-section-hdr llm-header">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>FUNDAMENTO EN EVIDENCIA</span>
+                            <i class="fa-solid fa-chevron-down res-toggle"></i>
+                        </div>
+                        <div class="res-section-body-sb" id="body-exactitud-evidencia"></div>
+                    </section>
+
+                    <!-- SECCIÓN 2: Fuerza de la defensa -->
+                    <section class="res-section-sb" id="res-fuerza-defensa">
+                        <div class="res-section-hdr llm-header">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>FUERZA DE LA DEFENSA</span>
+                            <i class="fa-solid fa-chevron-down res-toggle"></i>
+                        </div>
+                        <div class="res-section-body-sb" id="body-fuerza-defensa"></div>
+                    </section>
+
+                    <!-- SECCIÓN 3: Claridad -->
+                    <section class="res-section-sb" id="res-claridad-estructura">
+                        <div class="res-section-hdr llm-header">
+                            <i class="fa-solid fa-list-check"></i>
+                            <span>CLARIDAD</span>
+                            <i class="fa-solid fa-chevron-down res-toggle"></i>
+                        </div>
+                        <div class="res-section-body-sb" id="body-claridad-estructura"></div>
+                    </section>
+                </div>
+
+                <div class="sidebar-footer">
+                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+                        <button class="btn btn-export btn-export-html-style" id="btn-export-html" style="display:none;flex:1">
+                            <i class="fa-solid fa-file-code"></i> Descargar HTML
+                        </button>
+                    </div>
+                    <div class="methodology-note-box">
+                        <p><strong>Alcance metodológico:</strong> Herramienta de entrenamiento en defensa clínica. Analiza la justificación contra una objeción, contrastando con la ficha técnica.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drag-handle" id="drag-handle">
+                <div class="handle-line"></div>
+                <div class="handle-line"></div>
+            </div>
+        </aside>
+
+        <!-- ===================== MAIN PANEL ===================== -->
+        <main class="main-panel">
+            <header class="top-nav">
+                <span style="font-size:0.95rem;font-weight:600;color:var(--text-muted)"></span>
+                <button class="btn btn-outline" id="btn-load-demo">
+                    <i class="fa-solid fa-database"></i> Cargar Resultados Prueba
+                </button>
+            </header>
+
+            <div class="work-area" id="work-area-input">
+
+                <!-- Metadata Form -->
+                <div class="metadata-section">
+                    <h3><i class="fa-solid fa-user-doctor"></i> Contexto del Escenario</h3>
+                    <div class="metadata-grid">
+                        <div class="input-group">
+                            <label>ID Medicamento</label>
+                            <input type="text" id="meta-medicamento"
+                                value="demo"
+                                placeholder="Ej: demo">
+                        </div>
+                        <div class="input-group">
+                            <label>ID Interlocutor</label>
+                            <input type="text" id="meta-interlocutor"
+                                value="auditor_eps"
+                                placeholder="Ej: auditor_eps">
+                        </div>
+                        <div class="input-group">
+                            <label>Reto Principal</label>
+                            <input type="text" id="meta-reto"
+                                value="Negar la autorización por costo"
+                                placeholder="Ej: Objeción de costo">
+                        </div>
+                        <div class="input-group">
+                            <label>Tiempo Disponible (min)</label>
+                            <input type="number" id="meta-tiempo"
+                                value="5"
+                                placeholder="Ej: 5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div class="editor-section" style="display: flex; flex-direction: column; flex: 1;">
+                    <div class="section-header">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <h3>Conversación de Defensa</h3>
+                            <button class="btn btn-outline" id="btn-toggle-tts" style="padding: 0.3rem 0.6rem; font-size: 0.85rem;" title="Activar/Desactivar lectura en voz alta">
+                                <i class="fa-solid fa-volume-xmark" id="tts-icon"></i> Voz IA: Inactiva
+                            </button>
+                        </div>
+                        <span class="word-count" id="turn-count">0 turnos</span>
+                    </div>
+                    <div class="chat-history" id="chat-history" style="flex: 1; overflow-y: auto; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+                        <div class="chat-message system" style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                            La conversación comenzará cuando envíes tu argumento de defensa inicial.
+                        </div>
+                    </div>
+                    <div class="chat-input-area" style="display: flex; gap: 0.5rem;">
+                        <textarea class="discourse-textarea" placeholder="Escribe tu argumento o respuesta aquí (o usa el micrófono)..."
+                            id="discourse-text" style="min-height: 80px; flex: 1; padding: 0.8rem;"></textarea>
+                        <button class="btn btn-outline" id="btn-mic" style="height: auto; align-self: stretch; padding: 0 1.2rem; font-size: 1.2rem; transition: background-color 0.3s, color 0.3s;" title="Dictar por voz">
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
+                        <button class="btn btn-primary" id="btn-send-chat" style="height: auto; align-self: stretch;">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Floating Execute Button -->
+            <div class="execution-bar">
+                <button class="btn btn-giant-primary" id="btn-analyze">
+                    TERMINAR CONVERSACIÓN Y ANALIZAR
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="/static/app.js?v=3.0"></script>
+</body>
+
+</html>

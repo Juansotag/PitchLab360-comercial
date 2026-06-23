@@ -1,0 +1,11742 @@
+{
+  "COL-05001-010": {
+    "post_count": 136,
+    "metrics": {
+      "TTR": 0.256,
+      "legibilidad_flesch": 54.32,
+      "longitud_promedio_oracion": 17.6,
+      "palabras_frecuentes": [
+        [
+          "corredoralcalde",
+          126
+        ],
+        [
+          "medellínnosune",
+          104
+        ],
+        [
+          "medellín",
+          96
+        ],
+        [
+          "gente",
+          50
+        ],
+        [
+          "vamos",
+          38
+        ],
+        [
+          "alcalde",
+          28
+        ],
+        [
+          "nuestra",
+          28
+        ],
+        [
+          "ciudad",
+          28
+        ],
+        [
+          "oportunidades",
+          24
+        ],
+        [
+          "ganar",
+          24
+        ],
+        [
+          "corredor",
+          20
+        ],
+        [
+          "barrio",
+          18
+        ],
+        [
+          "belén",
+          18
+        ],
+        [
+          "domingo",
+          16
+        ],
+        [
+          "buenavista",
+          16
+        ],
+        [
+          "personas",
+          14
+        ],
+        [
+          "política",
+          14
+        ],
+        [
+          "problemas",
+          14
+        ],
+        [
+          "tendrá",
+          14
+        ],
+        [
+          "medallo",
+          14
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 42,
+        "ellos": 10,
+        "ratio": 4.2
+      },
+      "negaciones": {
+        "count": 54,
+        "densidad_pct": 1.32
+      }
+    }
+  },
+  "COL-08433-007": {
+    "post_count": 24,
+    "metrics": {
+      "TTR": 0.296,
+      "legibilidad_flesch": 59.68,
+      "longitud_promedio_oracion": 20.9,
+      "palabras_frecuentes": [
+        [
+          "soledad",
+          34
+        ],
+        [
+          "alcira",
+          18
+        ],
+        [
+          "sandoval",
+          18
+        ],
+        [
+          "alcaldesa",
+          18
+        ],
+        [
+          "gracias",
+          18
+        ],
+        [
+          "octubre",
+          14
+        ],
+        [
+          "soledeños",
+          12
+        ],
+        [
+          "historia",
+          10
+        ],
+        [
+          "mujer",
+          10
+        ],
+        [
+          "apoyo",
+          8
+        ],
+        [
+          "será",
+          8
+        ],
+        [
+          "votar",
+          4
+        ],
+        [
+          "cariño",
+          4
+        ],
+        [
+          "respaldo",
+          4
+        ],
+        [
+          "llegó",
+          4
+        ],
+        [
+          "transformación",
+          4
+        ],
+        [
+          "infinitas",
+          4
+        ],
+        [
+          "haremos",
+          4
+        ],
+        [
+          "nombre",
+          4
+        ],
+        [
+          "ustedes",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 24,
+        "ratio": 0.17
+      },
+      "negaciones": {
+        "count": 6,
+        "densidad_pct": 0.68
+      }
+    }
+  },
+  "COL-08001-002": {
+    "post_count": 20,
+    "metrics": {
+      "TTR": 0.253,
+      "legibilidad_flesch": 69.19,
+      "longitud_promedio_oracion": 20.6,
+      "palabras_frecuentes": [
+        [
+          "ciudad",
+          22
+        ],
+        [
+          "barranquilla",
+          22
+        ],
+        [
+          "nivel",
+          22
+        ],
+        [
+          "voto",
+          20
+        ],
+        [
+          "hemos",
+          18
+        ],
+        [
+          "será",
+          14
+        ],
+        [
+          "nuestra",
+          14
+        ],
+        [
+          "atlántico",
+          14
+        ],
+        [
+          "estamos",
+          14
+        ],
+        [
+          "ustedes",
+          12
+        ],
+        [
+          "cada",
+          12
+        ],
+        [
+          "nuestro",
+          12
+        ],
+        [
+          "eduardo",
+          12
+        ],
+        [
+          "octubre",
+          12
+        ],
+        [
+          "mañana",
+          10
+        ],
+        [
+          "temprano",
+          10
+        ],
+        [
+          "verano",
+          10
+        ],
+        [
+          "votar",
+          10
+        ],
+        [
+          "alejandro",
+          10
+        ],
+        [
+          "char",
+          10
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 32,
+        "ellos": 4,
+        "ratio": 8.0
+      },
+      "negaciones": {
+        "count": 28,
+        "densidad_pct": 1.22
+      }
+    }
+  },
+  "COL-76001-002": {
+    "post_count": 169,
+    "metrics": {
+      "TTR": 0.142,
+      "legibilidad_flesch": 30.86,
+      "longitud_promedio_oracion": 15.1,
+      "palabras_frecuentes": [
+        [
+          "cali",
+          239
+        ],
+        [
+          "alcaldeeder",
+          155
+        ],
+        [
+          "alejandroeder",
+          137
+        ],
+        [
+          "revivamoscali",
+          119
+        ],
+        [
+          "votaporeder",
+          107
+        ],
+        [
+          "alcaldiadecali",
+          74
+        ],
+        [
+          "vamos",
+          66
+        ],
+        [
+          "gracias",
+          57
+        ],
+        [
+          "revivir",
+          52
+        ],
+        [
+          "alejoeder",
+          45
+        ],
+        [
+          "comovotar",
+          34
+        ],
+        [
+          "caleños",
+          34
+        ],
+        [
+          "muchas",
+          29
+        ],
+        [
+          "apoyo",
+          26
+        ],
+        [
+          "ustedes",
+          20
+        ],
+        [
+          "voteasi",
+          18
+        ],
+        [
+          "marqueasi",
+          16
+        ],
+        [
+          "vecinos",
+          16
+        ],
+        [
+          "mujeres",
+          16
+        ],
+        [
+          "alcaldia",
+          16
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 2,
+        "ellos": 6,
+        "ratio": 0.33
+      },
+      "negaciones": {
+        "count": 18,
+        "densidad_pct": 0.44
+      }
+    }
+  },
+  "COL-41001-002": {
+    "post_count": 18,
+    "metrics": {
+      "TTR": 0.403,
+      "legibilidad_flesch": 51.25,
+      "longitud_promedio_oracion": 14.2,
+      "palabras_frecuentes": [
+        [
+          "neiva",
+          10
+        ],
+        [
+          "amín",
+          8
+        ],
+        [
+          "losada",
+          8
+        ],
+        [
+          "alcalde",
+          6
+        ],
+        [
+          "comunas",
+          6
+        ],
+        [
+          "alcalde2023",
+          6
+        ],
+        [
+          "aminlosada",
+          6
+        ],
+        [
+          "victoria",
+          4
+        ],
+        [
+          "triunfo",
+          4
+        ],
+        [
+          "hombre",
+          2
+        ],
+        [
+          "trabajo",
+          2
+        ],
+        [
+          "quién",
+          2
+        ],
+        [
+          "continuará",
+          2
+        ],
+        [
+          "continuación",
+          2
+        ],
+        [
+          "será",
+          2
+        ],
+        [
+          "realidad",
+          2
+        ],
+        [
+          "nuestra",
+          2
+        ],
+        [
+          "prioridad",
+          2
+        ],
+        [
+          "tapar",
+          2
+        ],
+        [
+          "huecos",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 2,
+        "ratio": 3.0
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 0.58
+      }
+    }
+  },
+  "COL-25754-008": {
+    "post_count": 64,
+    "metrics": {
+      "TTR": 0.24,
+      "legibilidad_flesch": 67.99,
+      "longitud_promedio_oracion": 17.1,
+      "palabras_frecuentes": [
+        [
+          "soacha",
+          60
+        ],
+        [
+          "bettyzorroalcaldesa",
+          42
+        ],
+        [
+          "octubre",
+          36
+        ],
+        [
+          "próximo",
+          34
+        ],
+        [
+          "alcaldesa",
+          28
+        ],
+        [
+          "victoria",
+          24
+        ],
+        [
+          "mujer",
+          20
+        ],
+        [
+          "gracias",
+          20
+        ],
+        [
+          "historia",
+          20
+        ],
+        [
+          "ciudad",
+          18
+        ],
+        [
+          "vamos",
+          18
+        ],
+        [
+          "voto",
+          16
+        ],
+        [
+          "primera",
+          16
+        ],
+        [
+          "rescatemosasoacha",
+          16
+        ],
+        [
+          "urnas",
+          14
+        ],
+        [
+          "comuna",
+          14
+        ],
+        [
+          "domingo",
+          14
+        ],
+        [
+          "nuestro",
+          14
+        ],
+        [
+          "días",
+          12
+        ],
+        [
+          "nuestra",
+          12
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 32,
+        "ellos": 28,
+        "ratio": 1.14
+      },
+      "negaciones": {
+        "count": 32,
+        "densidad_pct": 1.1
+      }
+    }
+  },
+  "COL-20001-008": {
+    "post_count": 14,
+    "metrics": {
+      "TTR": 0.414,
+      "legibilidad_flesch": 61.54,
+      "longitud_promedio_oracion": 24.4,
+      "palabras_frecuentes": [
+        [
+          "cada",
+          8
+        ],
+        [
+          "valledupar",
+          8
+        ],
+        [
+          "gracias",
+          6
+        ],
+        [
+          "historia",
+          4
+        ],
+        [
+          "domingo",
+          4
+        ],
+        [
+          "ganamostodos",
+          4
+        ],
+        [
+          "colombia",
+          4
+        ],
+        [
+          "siente",
+          2
+        ],
+        [
+          "nunca",
+          2
+        ],
+        [
+          "cariño",
+          2
+        ],
+        [
+          "respaldo",
+          2
+        ],
+        [
+          "gente",
+          2
+        ],
+        [
+          "sonrisa",
+          2
+        ],
+        [
+          "abrazo",
+          2
+        ],
+        [
+          "voto",
+          2
+        ],
+        [
+          "confianza",
+          2
+        ],
+        [
+          "mañana",
+          2
+        ],
+        [
+          "haremos",
+          2
+        ],
+        [
+          "vamos",
+          2
+        ],
+        [
+          "ganarnos",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 6,
+        "densidad_pct": 2.24
+      }
+    }
+  },
+  "COL-47001-002": {
+    "post_count": 48,
+    "metrics": {
+      "TTR": 0.261,
+      "legibilidad_flesch": 76.91,
+      "longitud_promedio_oracion": 14.7,
+      "palabras_frecuentes": [
+        [
+          "santa",
+          64
+        ],
+        [
+          "marta",
+          64
+        ],
+        [
+          "puede",
+          36
+        ],
+        [
+          "octubre",
+          36
+        ],
+        [
+          "vota",
+          26
+        ],
+        [
+          "carlos",
+          24
+        ],
+        [
+          "pinedo",
+          24
+        ],
+        [
+          "transformación",
+          24
+        ],
+        [
+          "cuello",
+          22
+        ],
+        [
+          "voto",
+          20
+        ],
+        [
+          "ciudad",
+          20
+        ],
+        [
+          "cada",
+          14
+        ],
+        [
+          "esperanza",
+          14
+        ],
+        [
+          "nuestra",
+          12
+        ],
+        [
+          "gracias",
+          8
+        ],
+        [
+          "juntos",
+          8
+        ],
+        [
+          "historia",
+          8
+        ],
+        [
+          "gente",
+          8
+        ],
+        [
+          "samarios",
+          8
+        ],
+        [
+          "nuestro",
+          8
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 22,
+        "ellos": 12,
+        "ratio": 1.83
+      },
+      "negaciones": {
+        "count": 14,
+        "densidad_pct": 0.74
+      }
+    }
+  },
+  "COL-11001-005": {
+    "post_count": 87,
+    "metrics": {
+      "TTR": 0.409,
+      "legibilidad_flesch": 66.21,
+      "longitud_promedio_oracion": 13.2,
+      "palabras_frecuentes": [
+        [
+          "bogotá",
+          71
+        ],
+        [
+          "segura",
+          21
+        ],
+        [
+          "camine",
+          20
+        ],
+        [
+          "gustavo",
+          13
+        ],
+        [
+          "vamos",
+          13
+        ],
+        [
+          "gente",
+          13
+        ],
+        [
+          "alcalde",
+          11
+        ],
+        [
+          "gracias",
+          10
+        ],
+        [
+          "defender",
+          10
+        ],
+        [
+          "ciudad",
+          10
+        ],
+        [
+          "tenemos",
+          10
+        ],
+        [
+          "equipo",
+          10
+        ],
+        [
+          "bogotácaminasegura",
+          10
+        ],
+        [
+          "ataques",
+          10
+        ],
+        [
+          "necesita",
+          10
+        ],
+        [
+          "petro",
+          9
+        ],
+        [
+          "metro",
+          9
+        ],
+        [
+          "convéncemegalán",
+          9
+        ],
+        [
+          "apoyo",
+          8
+        ],
+        [
+          "mejor",
+          8
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 18,
+        "ellos": 27,
+        "ratio": 0.67
+      },
+      "negaciones": {
+        "count": 34,
+        "densidad_pct": 1.25
+      }
+    }
+  },
+  "COL-11001-008": {
+    "post_count": 65,
+    "metrics": {
+      "TTR": 0.356,
+      "legibilidad_flesch": 62.65,
+      "longitud_promedio_oracion": 13.4,
+      "palabras_frecuentes": [
+        [
+          "bogotá",
+          49
+        ],
+        [
+          "oviedoenprimera",
+          44
+        ],
+        [
+          "octubre",
+          37
+        ],
+        [
+          "miedo",
+          25
+        ],
+        [
+          "vamos",
+          25
+        ],
+        [
+          "votemos",
+          21
+        ],
+        [
+          "nosotros",
+          20
+        ],
+        [
+          "contodaporbogotá",
+          18
+        ],
+        [
+          "ciudad",
+          16
+        ],
+        [
+          "propuestas",
+          15
+        ],
+        [
+          "inteligente",
+          15
+        ],
+        [
+          "verdad",
+          15
+        ],
+        [
+          "segunda",
+          15
+        ],
+        [
+          "oviedoalcalde",
+          14
+        ],
+        [
+          "vuelta",
+          14
+        ],
+        [
+          "soluciones",
+          13
+        ],
+        [
+          "vota",
+          12
+        ],
+        [
+          "listos",
+          11
+        ],
+        [
+          "voten",
+          11
+        ],
+        [
+          "confianza",
+          10
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 35,
+        "ellos": 11,
+        "ratio": 3.18
+      },
+      "negaciones": {
+        "count": 31,
+        "densidad_pct": 1.43
+      }
+    }
+  },
+  "COL-11001-006": {
+    "post_count": 79,
+    "metrics": {
+      "TTR": 0.481,
+      "legibilidad_flesch": 71.86,
+      "longitud_promedio_oracion": 17.7,
+      "palabras_frecuentes": [
+        [
+          "bogotá",
+          43
+        ],
+        [
+          "octubre",
+          15
+        ],
+        [
+          "historia",
+          15
+        ],
+        [
+          "nuestra",
+          15
+        ],
+        [
+          "ciudad",
+          15
+        ],
+        [
+          "vida",
+          15
+        ],
+        [
+          "metro",
+          14
+        ],
+        [
+          "gobierno",
+          13
+        ],
+        [
+          "bolivar",
+          12
+        ],
+        [
+          "cómo",
+          11
+        ],
+        [
+          "seguridad",
+          10
+        ],
+        [
+          "cuento",
+          9
+        ],
+        [
+          "jóvenes",
+          9
+        ],
+        [
+          "campaña",
+          8
+        ],
+        [
+          "todas",
+          8
+        ],
+        [
+          "mujeres",
+          8
+        ],
+        [
+          "propuestas",
+          8
+        ],
+        [
+          "reescribir",
+          7
+        ],
+        [
+          "elecciones",
+          7
+        ],
+        [
+          "junto",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 29,
+        "ellos": 31,
+        "ratio": 0.94
+      },
+      "negaciones": {
+        "count": 39,
+        "densidad_pct": 1.19
+      }
+    }
+  },
+  "COL-76001-007": {
+    "post_count": 34,
+    "metrics": {
+      "TTR": 0.532,
+      "legibilidad_flesch": 57.6,
+      "longitud_promedio_oracion": 16.8,
+      "palabras_frecuentes": [
+        [
+          "otracalisíesposible",
+          27
+        ],
+        [
+          "robertoortizalcalde",
+          22
+        ],
+        [
+          "cali",
+          18
+        ],
+        [
+          "alcaldíadecali",
+          14
+        ],
+        [
+          "votexrobertoortiz",
+          13
+        ],
+        [
+          "gracias",
+          12
+        ],
+        [
+          "octubre",
+          10
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "ciudad",
+          9
+        ],
+        [
+          "alcalde",
+          8
+        ],
+        [
+          "personas",
+          5
+        ],
+        [
+          "oportunidades",
+          5
+        ],
+        [
+          "propuestas",
+          5
+        ],
+        [
+          "seguridad",
+          5
+        ],
+        [
+          "social",
+          5
+        ],
+        [
+          "gente",
+          4
+        ],
+        [
+          "necesidades",
+          4
+        ],
+        [
+          "estoy",
+          4
+        ],
+        [
+          "ustedes",
+          4
+        ],
+        [
+          "compromiso",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 7,
+        "ellos": 13,
+        "ratio": 0.54
+      },
+      "negaciones": {
+        "count": 23,
+        "densidad_pct": 1.63
+      }
+    }
+  },
+  "COL-13001-012": {
+    "post_count": 39,
+    "metrics": {
+      "TTR": 0.523,
+      "legibilidad_flesch": 54.37,
+      "longitud_promedio_oracion": 14.6,
+      "palabras_frecuentes": [
+        [
+          "cartagena",
+          41
+        ],
+        [
+          "unidosparaavanzar",
+          25
+        ],
+        [
+          "gracias",
+          8
+        ],
+        [
+          "unidos",
+          7
+        ],
+        [
+          "octubre",
+          7
+        ],
+        [
+          "cada",
+          7
+        ],
+        [
+          "foryou",
+          7
+        ],
+        [
+          "parati",
+          7
+        ],
+        [
+          "elecciones2023",
+          7
+        ],
+        [
+          "cartageneros",
+          6
+        ],
+        [
+          "seguimos",
+          6
+        ],
+        [
+          "juntos",
+          6
+        ],
+        [
+          "paramos",
+          6
+        ],
+        [
+          "apoyo",
+          6
+        ],
+        [
+          "dumekturbay",
+          6
+        ],
+        [
+          "cartagenadeindias",
+          6
+        ],
+        [
+          "ciudad",
+          5
+        ],
+        [
+          "mejor",
+          5
+        ],
+        [
+          "historia",
+          5
+        ],
+        [
+          "cambio",
+          5
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 9,
+        "ellos": 10,
+        "ratio": 0.9
+      },
+      "negaciones": {
+        "count": 13,
+        "densidad_pct": 1.54
+      }
+    }
+  },
+  "COL-23001-008": {
+    "post_count": 17,
+    "metrics": {
+      "TTR": 0.765,
+      "legibilidad_flesch": 60.89,
+      "longitud_promedio_oracion": 13.3,
+      "palabras_frecuentes": [
+        [
+          "unasolamontería",
+          15
+        ],
+        [
+          "gracias",
+          6
+        ],
+        [
+          "ustedes",
+          6
+        ],
+        [
+          "montería",
+          5
+        ],
+        [
+          "mañana",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "estamos",
+          4
+        ],
+        [
+          "invito",
+          4
+        ],
+        [
+          "ciudad",
+          3
+        ],
+        [
+          "sueños",
+          3
+        ],
+        [
+          "lograr",
+          3
+        ],
+        [
+          "juntos",
+          3
+        ],
+        [
+          "seguimos",
+          3
+        ],
+        [
+          "mismo",
+          2
+        ],
+        [
+          "mensaje",
+          2
+        ],
+        [
+          "amor",
+          2
+        ],
+        [
+          "jóvenes",
+          2
+        ],
+        [
+          "decisión",
+          2
+        ],
+        [
+          "votar",
+          2
+        ],
+        [
+          "forma",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 12,
+        "ratio": 0.33
+      },
+      "negaciones": {
+        "count": 8,
+        "densidad_pct": 1.4
+      }
+    }
+  },
+  "COL-05001-012": {
+    "post_count": 4,
+    "metrics": {
+      "TTR": 0.875,
+      "legibilidad_flesch": 74.4,
+      "longitud_promedio_oracion": 12.2,
+      "palabras_frecuentes": [
+        [
+          "estas",
+          2
+        ],
+        [
+          "obras",
+          2
+        ],
+        [
+          "medellín",
+          2
+        ],
+        [
+          "teleantioquiaeslaelección",
+          2
+        ],
+        [
+          "mejorar",
+          1
+        ],
+        [
+          "movilidad",
+          1
+        ],
+        [
+          "merece",
+          1
+        ],
+        [
+          "grandes",
+          1
+        ],
+        [
+          "infraestructura",
+          1
+        ],
+        [
+          "haremos",
+          1
+        ],
+        [
+          "realidad",
+          1
+        ],
+        [
+          "conocían",
+          1
+        ],
+        [
+          "presento",
+          1
+        ],
+        [
+          "padres",
+          1
+        ],
+        [
+          "corazón",
+          1
+        ],
+        [
+          "siempre",
+          1
+        ],
+        [
+          "estaré",
+          1
+        ],
+        [
+          "agradecido",
+          1
+        ],
+        [
+          "fico",
+          1
+        ],
+        [
+          "prepara",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 1.64
+      }
+    }
+  },
+  "COL-68001-001": {
+    "post_count": 72,
+    "metrics": {
+      "TTR": 0.521,
+      "legibilidad_flesch": 61.09,
+      "longitud_promedio_oracion": 16.2,
+      "palabras_frecuentes": [
+        [
+          "bucaramanga",
+          48
+        ],
+        [
+          "jaimeandrésalcalde",
+          30
+        ],
+        [
+          "alcalde",
+          29
+        ],
+        [
+          "seguridad",
+          23
+        ],
+        [
+          "vota",
+          22
+        ],
+        [
+          "jaimeandresbeltran",
+          18
+        ],
+        [
+          "gente",
+          15
+        ],
+        [
+          "vamos",
+          15
+        ],
+        [
+          "paratii",
+          15
+        ],
+        [
+          "jaime",
+          14
+        ],
+        [
+          "octubre",
+          14
+        ],
+        [
+          "votar",
+          13
+        ],
+        [
+          "andrés",
+          13
+        ],
+        [
+          "ciudad",
+          12
+        ],
+        [
+          "gracias",
+          10
+        ],
+        [
+          "familia",
+          8
+        ],
+        [
+          "domingo",
+          7
+        ],
+        [
+          "conseguridadganamostodos",
+          6
+        ],
+        [
+          "defender",
+          6
+        ],
+        [
+          "forma",
+          6
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 13,
+        "ellos": 16,
+        "ratio": 0.81
+      },
+      "negaciones": {
+        "count": 29,
+        "densidad_pct": 1.44
+      }
+    }
+  },
+  "COL-54001-011": {
+    "post_count": 32,
+    "metrics": {
+      "TTR": 0.614,
+      "legibilidad_flesch": 36.33,
+      "longitud_promedio_oracion": 35.2,
+      "palabras_frecuentes": [
+        [
+          "perseverancia",
+          21
+        ],
+        [
+          "cucuta",
+          18
+        ],
+        [
+          "vamos",
+          7
+        ],
+        [
+          "cucuteños",
+          5
+        ],
+        [
+          "mañana",
+          4
+        ],
+        [
+          "familias",
+          4
+        ],
+        [
+          "voto",
+          3
+        ],
+        [
+          "política",
+          3
+        ],
+        [
+          "jorgeacevedo",
+          3
+        ],
+        [
+          "quiero",
+          3
+        ],
+        [
+          "mejorar",
+          3
+        ],
+        [
+          "nuestro",
+          3
+        ],
+        [
+          "apoyo",
+          3
+        ],
+        [
+          "cúcuta",
+          2
+        ],
+        [
+          "investigación",
+          2
+        ],
+        [
+          "intención",
+          2
+        ],
+        [
+          "firma",
+          2
+        ],
+        [
+          "internacional",
+          2
+        ],
+        [
+          "consolidamos",
+          2
+        ],
+        [
+          "primera",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 5,
+        "ellos": 4,
+        "ratio": 1.25
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.24
+      }
+    }
+  },
+  "COL-23001-006": {
+    "post_count": 9,
+    "metrics": {
+      "TTR": 0.83,
+      "legibilidad_flesch": 69.69,
+      "longitud_promedio_oracion": 14.5,
+      "palabras_frecuentes": [
+        [
+          "historia",
+          3
+        ],
+        [
+          "mujer",
+          3
+        ],
+        [
+          "montería",
+          3
+        ],
+        [
+          "monterianos",
+          3
+        ],
+        [
+          "hagamos",
+          2
+        ],
+        [
+          "apoyo",
+          2
+        ],
+        [
+          "será",
+          2
+        ],
+        [
+          "alcaldesa",
+          2
+        ],
+        [
+          "vamos",
+          2
+        ],
+        [
+          "alcaldesanatalia",
+          2
+        ],
+        [
+          "domingo",
+          2
+        ],
+        [
+          "natalia",
+          2
+        ],
+        [
+          "monteríaescapaz",
+          2
+        ],
+        [
+          "nuestro",
+          2
+        ],
+        [
+          "octubre",
+          2
+        ],
+        [
+          "bendición",
+          1
+        ],
+        [
+          "dios",
+          1
+        ],
+        [
+          "primera",
+          1
+        ],
+        [
+          "llenar",
+          1
+        ],
+        [
+          "prosperidad",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 2,
+        "ratio": 1.5
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-76001-009": {
+    "post_count": 14,
+    "metrics": {
+      "TTR": 0.696,
+      "legibilidad_flesch": 66.57,
+      "longitud_promedio_oracion": 19.5,
+      "palabras_frecuentes": [
+        [
+          "vota",
+          13
+        ],
+        [
+          "cali",
+          11
+        ],
+        [
+          "alcaldía",
+          9
+        ],
+        [
+          "pacto",
+          8
+        ],
+        [
+          "danis",
+          7
+        ],
+        [
+          "rentería",
+          7
+        ],
+        [
+          "vote",
+          5
+        ],
+        [
+          "adelante",
+          4
+        ],
+        [
+          "petro",
+          4
+        ],
+        [
+          "salir",
+          3
+        ],
+        [
+          "domingo",
+          3
+        ],
+        [
+          "debe",
+          3
+        ],
+        [
+          "elcambioesimparable",
+          3
+        ],
+        [
+          "camino",
+          3
+        ],
+        [
+          "nuestra",
+          3
+        ],
+        [
+          "pueblo",
+          3
+        ],
+        [
+          "vamos",
+          3
+        ],
+        [
+          "danisalcalde",
+          3
+        ],
+        [
+          "octubre",
+          2
+        ],
+        [
+          "cambio",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 6,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 3,
+        "densidad_pct": 0.5
+      }
+    }
+  },
+  "COL-47001-001": {
+    "post_count": 43,
+    "metrics": {
+      "TTR": 0.451,
+      "legibilidad_flesch": 74.32,
+      "longitud_promedio_oracion": 17.2,
+      "palabras_frecuentes": [
+        [
+          "cambio",
+          34
+        ],
+        [
+          "santa",
+          28
+        ],
+        [
+          "marta",
+          28
+        ],
+        [
+          "octubre",
+          27
+        ],
+        [
+          "mafias",
+          24
+        ],
+        [
+          "fuerza",
+          21
+        ],
+        [
+          "alcaldía",
+          16
+        ],
+        [
+          "ciudadana",
+          13
+        ],
+        [
+          "agudelo",
+          12
+        ],
+        [
+          "jorge",
+          10
+        ],
+        [
+          "años",
+          10
+        ],
+        [
+          "pueblo",
+          10
+        ],
+        [
+          "nuestra",
+          10
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "venceremos",
+          9
+        ],
+        [
+          "defender",
+          9
+        ],
+        [
+          "siga",
+          8
+        ],
+        [
+          "rafa",
+          8
+        ],
+        [
+          "firme",
+          8
+        ],
+        [
+          "obras",
+          8
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 21,
+        "ellos": 29,
+        "ratio": 0.72
+      },
+      "negaciones": {
+        "count": 34,
+        "densidad_pct": 1.58
+      }
+    }
+  },
+  "COL-66001-006": {
+    "post_count": 7,
+    "metrics": {
+      "TTR": 0.56,
+      "legibilidad_flesch": 77.21,
+      "longitud_promedio_oracion": 9.8,
+      "palabras_frecuentes": [
+        [
+          "dios",
+          5
+        ],
+        [
+          "equivocar",
+          5
+        ],
+        [
+          "mauricio",
+          5
+        ],
+        [
+          "salazar",
+          5
+        ],
+        [
+          "alcalde",
+          5
+        ],
+        [
+          "familia",
+          4
+        ],
+        [
+          "nadie",
+          4
+        ],
+        [
+          "pereira",
+          4
+        ],
+        [
+          "gracias",
+          4
+        ],
+        [
+          "victoria",
+          3
+        ],
+        [
+          "vamos",
+          2
+        ],
+        [
+          "manos",
+          2
+        ],
+        [
+          "pereiracolombia",
+          2
+        ],
+        [
+          "dará",
+          1
+        ],
+        [
+          "cuento",
+          1
+        ],
+        [
+          "ustedes",
+          1
+        ],
+        [
+          "llueva",
+          1
+        ],
+        [
+          "truene",
+          1
+        ],
+        [
+          "mañana",
+          1
+        ],
+        [
+          "votar",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 1,
+        "ellos": 1,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 1.27
+      }
+    }
+  },
+  "COL-70001-014": {
+    "post_count": 3,
+    "metrics": {
+      "TTR": 0.731,
+      "legibilidad_flesch": 64.53,
+      "longitud_promedio_oracion": 17.6,
+      "palabras_frecuentes": [
+        [
+          "cada",
+          4
+        ],
+        [
+          "sincelejo",
+          4
+        ],
+        [
+          "alcalde",
+          3
+        ],
+        [
+          "palante",
+          3
+        ],
+        [
+          "demostrado",
+          2
+        ],
+        [
+          "cariño",
+          2
+        ],
+        [
+          "respaldo",
+          2
+        ],
+        [
+          "mejor",
+          2
+        ],
+        [
+          "jamás",
+          2
+        ],
+        [
+          "tenido",
+          2
+        ],
+        [
+          "yahiracuñaalcalde",
+          2
+        ],
+        [
+          "sido",
+          2
+        ],
+        [
+          "agradecimiento",
+          1
+        ],
+        [
+          "hacia",
+          1
+        ],
+        [
+          "ustedes",
+          1
+        ],
+        [
+          "infinito",
+          1
+        ],
+        [
+          "reunión",
+          1
+        ],
+        [
+          "salida",
+          1
+        ],
+        [
+          "calles",
+          1
+        ],
+        [
+          "manifestación",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 2,
+        "ratio": 0.0
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 1.63
+      }
+    }
+  },
+  "COL-73001-007": {
+    "post_count": 41,
+    "metrics": {
+      "TTR": 0.623,
+      "legibilidad_flesch": 75.14,
+      "longitud_promedio_oracion": 14.0,
+      "palabras_frecuentes": [
+        [
+          "mujer",
+          15
+        ],
+        [
+          "johana",
+          15
+        ],
+        [
+          "ibagué",
+          13
+        ],
+        [
+          "ibague",
+          12
+        ],
+        [
+          "gracias",
+          11
+        ],
+        [
+          "victoria",
+          11
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "días",
+          8
+        ],
+        [
+          "elecciones",
+          8
+        ],
+        [
+          "alcaldesa",
+          8
+        ],
+        [
+          "apoyo",
+          7
+        ],
+        [
+          "mujeres",
+          7
+        ],
+        [
+          "cariño",
+          6
+        ],
+        [
+          "gobierno",
+          5
+        ],
+        [
+          "compromiso",
+          5
+        ],
+        [
+          "29deoctubre",
+          5
+        ],
+        [
+          "viral",
+          5
+        ],
+        [
+          "ibaguereños",
+          4
+        ],
+        [
+          "domingo",
+          4
+        ],
+        [
+          "única",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 9,
+        "ratio": 0.67
+      },
+      "negaciones": {
+        "count": 10,
+        "densidad_pct": 0.94
+      }
+    }
+  },
+  "COL-52001-006": {
+    "post_count": 45,
+    "metrics": {
+      "TTR": 0.393,
+      "legibilidad_flesch": 26.25,
+      "longitud_promedio_oracion": 24.8,
+      "palabras_frecuentes": [
+        [
+          "ahorasípastotendráalcalde",
+          42
+        ],
+        [
+          "pasto",
+          41
+        ],
+        [
+          "elecciones2023",
+          29
+        ],
+        [
+          "nicolastoroalcalde",
+          24
+        ],
+        [
+          "nuestro",
+          24
+        ],
+        [
+          "alcalde",
+          24
+        ],
+        [
+          "municipio",
+          23
+        ],
+        [
+          "quevivapastocarajo",
+          22
+        ],
+        [
+          "sueñoscumplidos",
+          17
+        ],
+        [
+          "29deoctubre",
+          17
+        ],
+        [
+          "alcaldia",
+          17
+        ],
+        [
+          "elcambioesahora",
+          16
+        ],
+        [
+          "progresos",
+          16
+        ],
+        [
+          "oportunidades",
+          16
+        ],
+        [
+          "ganadores",
+          15
+        ],
+        [
+          "ahora",
+          14
+        ],
+        [
+          "nuestra",
+          14
+        ],
+        [
+          "jovenesconproposito",
+          14
+        ],
+        [
+          "comunas",
+          14
+        ],
+        [
+          "nicolás",
+          13
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 42,
+        "ellos": 13,
+        "ratio": 3.23
+      },
+      "negaciones": {
+        "count": 19,
+        "densidad_pct": 1.01
+      }
+    }
+  },
+  "COL-20001-007": {
+    "post_count": 24,
+    "metrics": {
+      "TTR": 0.63,
+      "legibilidad_flesch": 50.46,
+      "longitud_promedio_oracion": 36.2,
+      "palabras_frecuentes": [
+        [
+          "valledupar",
+          30
+        ],
+        [
+          "ernesto",
+          26
+        ],
+        [
+          "orozco",
+          21
+        ],
+        [
+          "campaña",
+          12
+        ],
+        [
+          "alcalde",
+          11
+        ],
+        [
+          "siempre",
+          9
+        ],
+        [
+          "dios",
+          9
+        ],
+        [
+          "alcaldía",
+          8
+        ],
+        [
+          "gente",
+          8
+        ],
+        [
+          "gracias",
+          7
+        ],
+        [
+          "vallenatos",
+          7
+        ],
+        [
+          "octubre",
+          7
+        ],
+        [
+          "días",
+          7
+        ],
+        [
+          "apoyo",
+          6
+        ],
+        [
+          "detalles",
+          6
+        ],
+        [
+          "nuestra",
+          6
+        ],
+        [
+          "página",
+          6
+        ],
+        [
+          "oficial",
+          6
+        ],
+        [
+          "alcaldia2023",
+          6
+        ],
+        [
+          "ernestoorozco",
+          6
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 7,
+        "ellos": 45,
+        "ratio": 0.16
+      },
+      "negaciones": {
+        "count": 21,
+        "densidad_pct": 0.94
+      }
+    }
+  },
+  "COL-73001-001": {
+    "post_count": 33,
+    "metrics": {
+      "TTR": 0.653,
+      "legibilidad_flesch": 64.52,
+      "longitud_promedio_oracion": 21.4,
+      "palabras_frecuentes": [
+        [
+          "ibagué",
+          18
+        ],
+        [
+          "ibaguérenace",
+          13
+        ],
+        [
+          "bolívaralcalde",
+          10
+        ],
+        [
+          "personas",
+          10
+        ],
+        [
+          "solo",
+          9
+        ],
+        [
+          "vamos",
+          8
+        ],
+        [
+          "voteporelcalvo",
+          7
+        ],
+        [
+          "ciudad",
+          7
+        ],
+        [
+          "gracias",
+          7
+        ],
+        [
+          "días",
+          6
+        ],
+        [
+          "elecciones",
+          6
+        ],
+        [
+          "nuestro",
+          6
+        ],
+        [
+          "cada",
+          5
+        ],
+        [
+          "apoyo",
+          5
+        ],
+        [
+          "renazca",
+          5
+        ],
+        [
+          "ustedes",
+          5
+        ],
+        [
+          "ibaguereños",
+          5
+        ],
+        [
+          "calvo",
+          4
+        ],
+        [
+          "domingo",
+          4
+        ],
+        [
+          "trabajar",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 13,
+        "ellos": 13,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 7,
+        "densidad_pct": 0.61
+      }
+    }
+  },
+  "COL-11001-003": {
+    "post_count": 42,
+    "metrics": {
+      "TTR": 0.557,
+      "legibilidad_flesch": 53.68,
+      "longitud_promedio_oracion": 23.7,
+      "palabras_frecuentes": [
+        [
+          "parati",
+          19
+        ],
+        [
+          "rodrigolara",
+          18
+        ],
+        [
+          "alcalde",
+          17
+        ],
+        [
+          "bogota",
+          15
+        ],
+        [
+          "bogotá",
+          14
+        ],
+        [
+          "vamos",
+          8
+        ],
+        [
+          "octubre",
+          7
+        ],
+        [
+          "maquinarias",
+          6
+        ],
+        [
+          "domingo",
+          6
+        ],
+        [
+          "nueva",
+          6
+        ],
+        [
+          "debate",
+          6
+        ],
+        [
+          "rodrigolararestrepo",
+          6
+        ],
+        [
+          "mañana",
+          4
+        ],
+        [
+          "apoyo",
+          4
+        ],
+        [
+          "elecciones",
+          3
+        ],
+        [
+          "votar",
+          3
+        ],
+        [
+          "decisión",
+          3
+        ],
+        [
+          "claudia",
+          3
+        ],
+        [
+          "lópez",
+          3
+        ],
+        [
+          "ciudad",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 10,
+        "ratio": 0.3
+      },
+      "negaciones": {
+        "count": 12,
+        "densidad_pct": 1.75
+      }
+    }
+  },
+  "COL-11001-002": {
+    "post_count": 57,
+    "metrics": {
+      "TTR": 0.581,
+      "legibilidad_flesch": 50.95,
+      "longitud_promedio_oracion": 17.7,
+      "palabras_frecuentes": [
+        [
+          "bogotá",
+          17
+        ],
+        [
+          "molanoalcalde",
+          15
+        ],
+        [
+          "diegomolano",
+          13
+        ],
+        [
+          "jóvenes",
+          9
+        ],
+        [
+          "alcaldebogotano",
+          9
+        ],
+        [
+          "vota",
+          8
+        ],
+        [
+          "alcalde",
+          8
+        ],
+        [
+          "primera",
+          7
+        ],
+        [
+          "vote",
+          7
+        ],
+        [
+          "familia",
+          7
+        ],
+        [
+          "diego",
+          7
+        ],
+        [
+          "molano",
+          7
+        ],
+        [
+          "vamos",
+          7
+        ],
+        [
+          "valores",
+          6
+        ],
+        [
+          "parati",
+          6
+        ],
+        [
+          "alcaldiadebogota",
+          6
+        ],
+        [
+          "bogota",
+          6
+        ],
+        [
+          "vuelta",
+          5
+        ],
+        [
+          "gustavo",
+          5
+        ],
+        [
+          "vida",
+          5
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 7,
+        "ellos": 12,
+        "ratio": 0.58
+      },
+      "negaciones": {
+        "count": 12,
+        "densidad_pct": 1.11
+      }
+    }
+  },
+  "COL-05049-003": {
+    "post_count": 24,
+    "metrics": {
+      "TTR": 0.41,
+      "legibilidad_flesch": 58.2,
+      "longitud_promedio_oracion": 18.7,
+      "palabras_frecuentes": [
+        [
+          "yulieth",
+          24
+        ],
+        [
+          "lorena",
+          24
+        ],
+        [
+          "gonzález",
+          24
+        ],
+        [
+          "bello",
+          22
+        ],
+        [
+          "pelirrojaalcaldesa",
+          18
+        ],
+        [
+          "octubre",
+          17
+        ],
+        [
+          "bellonosune",
+          16
+        ],
+        [
+          "vota",
+          13
+        ],
+        [
+          "alcaldía",
+          11
+        ],
+        [
+          "ciudad",
+          10
+        ],
+        [
+          "ospina",
+          9
+        ],
+        [
+          "amor",
+          7
+        ],
+        [
+          "voto",
+          7
+        ],
+        [
+          "nuestra",
+          7
+        ],
+        [
+          "vida",
+          6
+        ],
+        [
+          "bellanitas",
+          6
+        ],
+        [
+          "seguridad",
+          6
+        ],
+        [
+          "familia",
+          5
+        ],
+        [
+          "mejor",
+          5
+        ],
+        [
+          "opción",
+          5
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 12,
+        "ellos": 3,
+        "ratio": 4.0
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.1
+      }
+    }
+  },
+  "COL-66001-001": {
+    "post_count": 6,
+    "metrics": {
+      "TTR": 0.819,
+      "legibilidad_flesch": 78.23,
+      "longitud_promedio_oracion": 14.8,
+      "palabras_frecuentes": [
+        [
+          "pereira",
+          5
+        ],
+        [
+          "vamos",
+          4
+        ],
+        [
+          "cuidar",
+          4
+        ],
+        [
+          "familia",
+          2
+        ],
+        [
+          "maicol",
+          2
+        ],
+        [
+          "alcalde",
+          2
+        ],
+        [
+          "base",
+          1
+        ],
+        [
+          "cumplir",
+          1
+        ],
+        [
+          "propósitos",
+          1
+        ],
+        [
+          "mirándolos",
+          1
+        ],
+        [
+          "ojos",
+          1
+        ],
+        [
+          "decimos",
+          1
+        ],
+        [
+          "defraudar",
+          1
+        ],
+        [
+          "domingo",
+          1
+        ],
+        [
+          "fiesta",
+          1
+        ],
+        [
+          "democracia",
+          1
+        ],
+        [
+          "invito",
+          1
+        ],
+        [
+          "salgamos",
+          1
+        ],
+        [
+          "votar",
+          1
+        ],
+        [
+          "camiseta",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 2,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.68
+      }
+    }
+  },
+  "COL-50001-003": {
+    "post_count": 23,
+    "metrics": {
+      "TTR": 0.62,
+      "legibilidad_flesch": 68.33,
+      "longitud_promedio_oracion": 20.2,
+      "palabras_frecuentes": [
+        [
+          "gracias",
+          12
+        ],
+        [
+          "villavicencio",
+          11
+        ],
+        [
+          "ciudad",
+          11
+        ],
+        [
+          "vamos",
+          11
+        ],
+        [
+          "octubre",
+          7
+        ],
+        [
+          "ustedes",
+          6
+        ],
+        [
+          "nuestra",
+          6
+        ],
+        [
+          "ordenar",
+          5
+        ],
+        [
+          "casa",
+          5
+        ],
+        [
+          "villavo",
+          4
+        ],
+        [
+          "dios",
+          4
+        ],
+        [
+          "nuestro",
+          4
+        ],
+        [
+          "bella",
+          3
+        ],
+        [
+          "haremos",
+          3
+        ],
+        [
+          "juan",
+          3
+        ],
+        [
+          "camilo",
+          3
+        ],
+        [
+          "alcalde",
+          3
+        ],
+        [
+          "mano",
+          3
+        ],
+        [
+          "niños",
+          3
+        ],
+        [
+          "estoy",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 12,
+        "ellos": 11,
+        "ratio": 1.09
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-25754-006": {
+    "post_count": 58,
+    "metrics": {
+      "TTR": 0.382,
+      "legibilidad_flesch": 64.47,
+      "longitud_promedio_oracion": 19.4,
+      "palabras_frecuentes": [
+        [
+          "ciudad",
+          47
+        ],
+        [
+          "lasoachaquesoñamos",
+          41
+        ],
+        [
+          "soacha",
+          39
+        ],
+        [
+          "nuestra",
+          29
+        ],
+        [
+          "pericoalcalde",
+          27
+        ],
+        [
+          "vamos",
+          23
+        ],
+        [
+          "gente",
+          19
+        ],
+        [
+          "nuestro",
+          18
+        ],
+        [
+          "todas",
+          17
+        ],
+        [
+          "territorio",
+          16
+        ],
+        [
+          "guerrera",
+          16
+        ],
+        [
+          "construir",
+          15
+        ],
+        [
+          "perico",
+          15
+        ],
+        [
+          "gracias",
+          15
+        ],
+        [
+          "oportunidades",
+          15
+        ],
+        [
+          "sueño",
+          14
+        ],
+        [
+          "soachavotaperico",
+          13
+        ],
+        [
+          "calidad",
+          13
+        ],
+        [
+          "familias",
+          13
+        ],
+        [
+          "nuestros",
+          12
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 66,
+        "ellos": 32,
+        "ratio": 2.06
+      },
+      "negaciones": {
+        "count": 10,
+        "densidad_pct": 0.3
+      }
+    }
+  },
+  "COL-76520-007": {
+    "post_count": 14,
+    "metrics": {
+      "TTR": 0.468,
+      "legibilidad_flesch": 71.12,
+      "longitud_promedio_oracion": 10.6,
+      "palabras_frecuentes": [
+        [
+          "palmira",
+          19
+        ],
+        [
+          "vamos",
+          18
+        ],
+        [
+          "víctor",
+          16
+        ],
+        [
+          "ramos",
+          16
+        ],
+        [
+          "alcalde",
+          8
+        ],
+        [
+          "ciudad",
+          7
+        ],
+        [
+          "oportunidades",
+          7
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "juntos",
+          5
+        ],
+        [
+          "ejemplar",
+          5
+        ],
+        [
+          "atractiva",
+          4
+        ],
+        [
+          "gracias",
+          4
+        ],
+        [
+          "trabajar",
+          3
+        ],
+        [
+          "compromiso",
+          3
+        ],
+        [
+          "segura",
+          3
+        ],
+        [
+          "competitiva",
+          3
+        ],
+        [
+          "tods",
+          3
+        ],
+        [
+          "confianza",
+          3
+        ],
+        [
+          "presente",
+          3
+        ],
+        [
+          "futuro",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 5,
+        "ratio": 0.8
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 0.43
+      }
+    }
+  },
+  "COL-41001-007": {
+    "post_count": 13,
+    "metrics": {
+      "TTR": 0.574,
+      "legibilidad_flesch": 41.64,
+      "longitud_promedio_oracion": 25.1,
+      "palabras_frecuentes": [
+        [
+          "neivanos",
+          7
+        ],
+        [
+          "ciudad",
+          6
+        ],
+        [
+          "yovotocasagua",
+          6
+        ],
+        [
+          "accionesporneiva",
+          6
+        ],
+        [
+          "neiva",
+          4
+        ],
+        [
+          "gracias",
+          4
+        ],
+        [
+          "viral",
+          4
+        ],
+        [
+          "viralvideo",
+          4
+        ],
+        [
+          "tendenciasdetiktok",
+          4
+        ],
+        [
+          "oportunidades",
+          3
+        ],
+        [
+          "cada",
+          3
+        ],
+        [
+          "recuperar",
+          3
+        ],
+        [
+          "apoyo",
+          3
+        ],
+        [
+          "fypシ",
+          3
+        ],
+        [
+          "fypシviral",
+          3
+        ],
+        [
+          "fypage",
+          3
+        ],
+        [
+          "fypdong",
+          3
+        ],
+        [
+          "viraltiktok",
+          3
+        ],
+        [
+          "tendencias",
+          3
+        ],
+        [
+          "tendenciatiktok",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.27
+      }
+    }
+  },
+  "COL-13001-010": {
+    "post_count": 19,
+    "metrics": {
+      "TTR": 0.612,
+      "legibilidad_flesch": 75.23,
+      "longitud_promedio_oracion": 12.2,
+      "palabras_frecuentes": [
+        [
+          "compártelo",
+          16
+        ],
+        [
+          "pactohistórico",
+          13
+        ],
+        [
+          "seguimoscreciendo",
+          12
+        ],
+        [
+          "alcaldede4años",
+          11
+        ],
+        [
+          "𝗔𝗟𝗖𝗔𝗟𝗗𝗘",
+          3
+        ],
+        [
+          "octubre",
+          3
+        ],
+        [
+          "𝗡𝗨𝗘𝗦𝗧𝗥𝗔",
+          3
+        ],
+        [
+          "𝗖𝗔𝗥𝗔𝗩𝗔𝗡𝗔",
+          3
+        ],
+        [
+          "𝗘𝗦𝗧𝗘",
+          2
+        ],
+        [
+          "𝗢𝗖𝗧𝗨𝗕𝗥𝗘",
+          2
+        ],
+        [
+          "𝗘𝗦𝗣𝗘𝗥𝗔𝗡𝗭𝗔",
+          2
+        ],
+        [
+          "𝗩𝗢𝗧𝗔",
+          2
+        ],
+        [
+          "𝗝𝗔𝗩𝗜𝗘𝗥",
+          2
+        ],
+        [
+          "𝗝𝗨𝗟𝗜𝗢",
+          2
+        ],
+        [
+          "𝗕𝗘𝗝𝗔𝗥𝗔𝗡𝗢",
+          2
+        ],
+        [
+          "años",
+          2
+        ],
+        [
+          "hemos",
+          2
+        ],
+        [
+          "compra",
+          2
+        ],
+        [
+          "venta",
+          2
+        ],
+        [
+          "votos",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.33
+      }
+    }
+  },
+  "COL-05049-008": {
+    "post_count": 41,
+    "metrics": {
+      "TTR": 0.32,
+      "legibilidad_flesch": 74.03,
+      "longitud_promedio_oracion": 15.5,
+      "palabras_frecuentes": [
+        [
+          "bello",
+          34
+        ],
+        [
+          "ciudad",
+          25
+        ],
+        [
+          "enserio",
+          25
+        ],
+        [
+          "vamos",
+          24
+        ],
+        [
+          "esperanza",
+          19
+        ],
+        [
+          "bellanitas",
+          18
+        ],
+        [
+          "juntos",
+          17
+        ],
+        [
+          "imparable",
+          16
+        ],
+        [
+          "nuestra",
+          15
+        ],
+        [
+          "gente",
+          15
+        ],
+        [
+          "ganar",
+          15
+        ],
+        [
+          "historia",
+          12
+        ],
+        [
+          "será",
+          10
+        ],
+        [
+          "nueva",
+          9
+        ],
+        [
+          "cambio",
+          9
+        ],
+        [
+          "campaña",
+          8
+        ],
+        [
+          "lograremos",
+          8
+        ],
+        [
+          "nuestro",
+          8
+        ],
+        [
+          "nosotros",
+          7
+        ],
+        [
+          "octubre",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 31,
+        "ellos": 11,
+        "ratio": 2.82
+      },
+      "negaciones": {
+        "count": 20,
+        "densidad_pct": 1.33
+      }
+    }
+  },
+  "COL-68276-004": {
+    "post_count": 22,
+    "metrics": {
+      "TTR": 0.516,
+      "legibilidad_flesch": 39.27,
+      "longitud_promedio_oracion": 16.0,
+      "palabras_frecuentes": [
+        [
+          "floridablanca",
+          22
+        ],
+        [
+          "recuperemosfloridablanca",
+          18
+        ],
+        [
+          "recuperar",
+          11
+        ],
+        [
+          "joséfernandoalcalde",
+          9
+        ],
+        [
+          "quedan",
+          8
+        ],
+        [
+          "florideños",
+          7
+        ],
+        [
+          "ordenar",
+          7
+        ],
+        [
+          "josefernandoalcalde",
+          7
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "municipio",
+          6
+        ],
+        [
+          "estamos",
+          6
+        ],
+        [
+          "sueño",
+          5
+        ],
+        [
+          "enmedios",
+          4
+        ],
+        [
+          "nuestro",
+          4
+        ],
+        [
+          "recta",
+          4
+        ],
+        [
+          "final",
+          4
+        ],
+        [
+          "días",
+          4
+        ],
+        [
+          "apoyo",
+          3
+        ],
+        [
+          "recuperemos",
+          3
+        ],
+        [
+          "esperanza",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 1,
+        "ratio": 4.0
+      },
+      "negaciones": {
+        "count": 4,
+        "densidad_pct": 0.76
+      }
+    }
+  },
+  "COL-08433-001": {
+    "post_count": 11,
+    "metrics": {
+      "TTR": 0.686,
+      "legibilidad_flesch": 52.67,
+      "longitud_promedio_oracion": 21.5,
+      "palabras_frecuentes": [
+        [
+          "soledad",
+          21
+        ],
+        [
+          "joao",
+          11
+        ],
+        [
+          "motocarristas",
+          8
+        ],
+        [
+          "nuestra",
+          7
+        ],
+        [
+          "joaoherrera",
+          6
+        ],
+        [
+          "herrera",
+          5
+        ],
+        [
+          "elecciones",
+          5
+        ],
+        [
+          "futuro",
+          4
+        ],
+        [
+          "juntos",
+          4
+        ],
+        [
+          "ciudad",
+          4
+        ],
+        [
+          "alcalde",
+          4
+        ],
+        [
+          "seguridad",
+          4
+        ],
+        [
+          "alcaldía",
+          3
+        ],
+        [
+          "nuestro",
+          3
+        ],
+        [
+          "compromiso",
+          3
+        ],
+        [
+          "construir",
+          3
+        ],
+        [
+          "apoyo",
+          3
+        ],
+        [
+          "hacia",
+          3
+        ],
+        [
+          "vota",
+          3
+        ],
+        [
+          "segura",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 14,
+        "ellos": 6,
+        "ratio": 2.33
+      },
+      "negaciones": {
+        "count": 3,
+        "densidad_pct": 0.45
+      }
+    }
+  },
+  "COL-25754-009": {
+    "post_count": 51,
+    "metrics": {
+      "TTR": 0.508,
+      "legibilidad_flesch": 66.84,
+      "longitud_promedio_oracion": 14.9,
+      "palabras_frecuentes": [
+        [
+          "dannysíesalcalde",
+          39
+        ],
+        [
+          "paraavanzarmás",
+          38
+        ],
+        [
+          "soacha",
+          35
+        ],
+        [
+          "gracias",
+          21
+        ],
+        [
+          "nuestra",
+          16
+        ],
+        [
+          "ciudad",
+          15
+        ],
+        [
+          "avanzar",
+          11
+        ],
+        [
+          "amor",
+          11
+        ],
+        [
+          "octubre",
+          10
+        ],
+        [
+          "nuestro",
+          10
+        ],
+        [
+          "personas",
+          10
+        ],
+        [
+          "gente",
+          10
+        ],
+        [
+          "nuestros",
+          9
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "cada",
+          8
+        ],
+        [
+          "cariño",
+          8
+        ],
+        [
+          "equipo",
+          8
+        ],
+        [
+          "enlosmedios",
+          8
+        ],
+        [
+          "vota",
+          7
+        ],
+        [
+          "encuesta",
+          6
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 39,
+        "ellos": 22,
+        "ratio": 1.77
+      },
+      "negaciones": {
+        "count": 12,
+        "densidad_pct": 0.59
+      }
+    }
+  },
+  "COL-05266-001": {
+    "post_count": 25,
+    "metrics": {
+      "TTR": 0.54,
+      "legibilidad_flesch": 25.42,
+      "longitud_promedio_oracion": 14.7,
+      "palabras_frecuentes": [
+        [
+          "envigadovamosadelante",
+          22
+        ],
+        [
+          "amorporlagente",
+          22
+        ],
+        [
+          "amorporenvigado",
+          22
+        ],
+        [
+          "vivirmejorenvigado",
+          22
+        ],
+        [
+          "raúlcardonaalcalde",
+          21
+        ],
+        [
+          "votación",
+          11
+        ],
+        [
+          "puesto",
+          10
+        ],
+        [
+          "envigado",
+          8
+        ],
+        [
+          "votar",
+          7
+        ],
+        [
+          "institución",
+          7
+        ],
+        [
+          "educativa",
+          7
+        ],
+        [
+          "voto",
+          7
+        ],
+        [
+          "nuestro",
+          7
+        ],
+        [
+          "gracias",
+          7
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "futuro",
+          6
+        ],
+        [
+          "votantes",
+          5
+        ],
+        [
+          "vamos",
+          5
+        ],
+        [
+          "apoyo",
+          5
+        ],
+        [
+          "estamos",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 14,
+        "ellos": 7,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.58
+      }
+    }
+  },
+  "COL-54001-010": {
+    "post_count": 32,
+    "metrics": {
+      "TTR": 0.372,
+      "legibilidad_flesch": 40.5,
+      "longitud_promedio_oracion": 17.8,
+      "palabras_frecuentes": [
+        [
+          "cúcuta",
+          39
+        ],
+        [
+          "garciaherrerosalcalde",
+          28
+        ],
+        [
+          "pensemosengrande",
+          24
+        ],
+        [
+          "ciudad",
+          19
+        ],
+        [
+          "ganamos",
+          18
+        ],
+        [
+          "seguridad",
+          17
+        ],
+        [
+          "tuvotoesútil",
+          16
+        ],
+        [
+          "nuestra",
+          13
+        ],
+        [
+          "gana",
+          11
+        ],
+        [
+          "centro",
+          11
+        ],
+        [
+          "democrático",
+          11
+        ],
+        [
+          "cucuta",
+          10
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "vota",
+          8
+        ],
+        [
+          "centrodemocrático",
+          8
+        ],
+        [
+          "octubre",
+          8
+        ],
+        [
+          "eleccionesterritoriales",
+          7
+        ],
+        [
+          "alcalde",
+          7
+        ],
+        [
+          "territorio",
+          7
+        ],
+        [
+          "orden",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 24,
+        "ellos": 2,
+        "ratio": 12.0
+      },
+      "negaciones": {
+        "count": 7,
+        "densidad_pct": 0.5
+      }
+    }
+  },
+  "COL-76109-015": {
+    "post_count": 15,
+    "metrics": {
+      "TTR": 0.681,
+      "legibilidad_flesch": 48.7,
+      "longitud_promedio_oracion": 23.5,
+      "palabras_frecuentes": [
+        [
+          "buenaventura",
+          13
+        ],
+        [
+          "nuestro",
+          11
+        ],
+        [
+          "juntossíesposible",
+          10
+        ],
+        [
+          "mibuenaventura",
+          10
+        ],
+        [
+          "mujerdepalabra",
+          9
+        ],
+        [
+          "gracias",
+          7
+        ],
+        [
+          "territorio",
+          7
+        ],
+        [
+          "desarrollo",
+          6
+        ],
+        [
+          "mujer",
+          5
+        ],
+        [
+          "nuestra",
+          5
+        ],
+        [
+          "distrito",
+          4
+        ],
+        [
+          "cuenta",
+          4
+        ],
+        [
+          "vamos",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "gran",
+          4
+        ],
+        [
+          "construir",
+          3
+        ],
+        [
+          "trabajo",
+          3
+        ],
+        [
+          "compromiso",
+          3
+        ],
+        [
+          "amor",
+          3
+        ],
+        [
+          "trabajar",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 20,
+        "ellos": 17,
+        "ratio": 1.18
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 0.22
+      }
+    }
+  },
+  "COL-50001-016": {
+    "post_count": 26,
+    "metrics": {
+      "TTR": 0.513,
+      "legibilidad_flesch": 63.02,
+      "longitud_promedio_oracion": 17.1,
+      "palabras_frecuentes": [
+        [
+          "somoslafuerza",
+          24
+        ],
+        [
+          "villavicencio",
+          22
+        ],
+        [
+          "alcaldesa",
+          20
+        ],
+        [
+          "mujer",
+          13
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "irina",
+          8
+        ],
+        [
+          "cuidar",
+          8
+        ],
+        [
+          "primera",
+          8
+        ],
+        [
+          "ciudad",
+          7
+        ],
+        [
+          "domingo",
+          7
+        ],
+        [
+          "amor",
+          7
+        ],
+        [
+          "ganar",
+          6
+        ],
+        [
+          "mujeres",
+          5
+        ],
+        [
+          "nuestra",
+          5
+        ],
+        [
+          "vota",
+          5
+        ],
+        [
+          "voto",
+          4
+        ],
+        [
+          "tener",
+          4
+        ],
+        [
+          "solo",
+          4
+        ],
+        [
+          "cariño",
+          4
+        ],
+        [
+          "seguimos",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 4,
+        "ratio": 1.5
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.12
+      }
+    }
+  },
+  "COL-68001-008": {
+    "post_count": 52,
+    "metrics": {
+      "TTR": 0.566,
+      "legibilidad_flesch": 74.06,
+      "longitud_promedio_oracion": 18.7,
+      "palabras_frecuentes": [
+        [
+          "gracias",
+          7
+        ],
+        [
+          "vamos",
+          7
+        ],
+        [
+          "calle",
+          7
+        ],
+        [
+          "bucaramanga",
+          6
+        ],
+        [
+          "vemos",
+          6
+        ],
+        [
+          "debate",
+          5
+        ],
+        [
+          "nosotros",
+          4
+        ],
+        [
+          "corazón",
+          4
+        ],
+        [
+          "corrupción",
+          4
+        ],
+        [
+          "imposible",
+          4
+        ],
+        [
+          "estado",
+          4
+        ],
+        [
+          "firmes",
+          4
+        ],
+        [
+          "clase",
+          4
+        ],
+        [
+          "verdad",
+          4
+        ],
+        [
+          "miedo",
+          3
+        ],
+        [
+          "somos",
+          3
+        ],
+        [
+          "toda",
+          3
+        ],
+        [
+          "días",
+          3
+        ],
+        [
+          "despertó",
+          3
+        ],
+        [
+          "vergonzoso",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 10,
+        "ellos": 5,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 8,
+        "densidad_pct": 1.23
+      }
+    }
+  },
+  "COL-70001-003": {
+    "post_count": 17,
+    "metrics": {
+      "TTR": 0.623,
+      "legibilidad_flesch": 77.17,
+      "longitud_promedio_oracion": 12.2,
+      "palabras_frecuentes": [
+        [
+          "lado",
+          11
+        ],
+        [
+          "correcto",
+          11
+        ],
+        [
+          "sincelejo",
+          9
+        ],
+        [
+          "gracias",
+          7
+        ],
+        [
+          "equipo",
+          7
+        ],
+        [
+          "estamos",
+          6
+        ],
+        [
+          "sido",
+          5
+        ],
+        [
+          "sincelejanos",
+          5
+        ],
+        [
+          "campaña",
+          4
+        ],
+        [
+          "historia",
+          4
+        ],
+        [
+          "jacobo",
+          4
+        ],
+        [
+          "cosas",
+          4
+        ],
+        [
+          "dimersa",
+          3
+        ],
+        [
+          "futuro",
+          3
+        ],
+        [
+          "ustedes",
+          3
+        ],
+        [
+          "honesto",
+          3
+        ],
+        [
+          "trabajador",
+          3
+        ],
+        [
+          "esos",
+          3
+        ],
+        [
+          "quieren",
+          3
+        ],
+        [
+          "vamos",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 8,
+        "ratio": 0.5
+      },
+      "negaciones": {
+        "count": 8,
+        "densidad_pct": 1.26
+      }
+    }
+  },
+  "COL-13001-011": {
+    "post_count": 33,
+    "metrics": {
+      "TTR": 0.646,
+      "legibilidad_flesch": 58.55,
+      "longitud_promedio_oracion": 14.1,
+      "palabras_frecuentes": [
+        [
+          "cartagena",
+          31
+        ],
+        [
+          "ciudad",
+          13
+        ],
+        [
+          "vota",
+          13
+        ],
+        [
+          "mariamulata",
+          10
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "valiente",
+          8
+        ],
+        [
+          "judithpinedo",
+          8
+        ],
+        [
+          "libre",
+          7
+        ],
+        [
+          "agua",
+          7
+        ],
+        [
+          "renovación",
+          7
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "será",
+          6
+        ],
+        [
+          "todossomosmariamulata",
+          6
+        ],
+        [
+          "valientesporcartagena",
+          6
+        ],
+        [
+          "losvalientessomosmás",
+          6
+        ],
+        [
+          "política",
+          5
+        ],
+        [
+          "juntos",
+          5
+        ],
+        [
+          "cartageneros",
+          5
+        ],
+        [
+          "mujeres",
+          5
+        ],
+        [
+          "mariamulatas",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 10,
+        "ellos": 9,
+        "ratio": 1.11
+      },
+      "negaciones": {
+        "count": 15,
+        "densidad_pct": 1.14
+      }
+    }
+  },
+  "COL-19001-010": {
+    "post_count": 24,
+    "metrics": {
+      "TTR": 0.567,
+      "legibilidad_flesch": 52.52,
+      "longitud_promedio_oracion": 22.1,
+      "palabras_frecuentes": [
+        [
+          "vamos",
+          17
+        ],
+        [
+          "alcaldepopayán",
+          17
+        ],
+        [
+          "juancarlosmuñoz",
+          17
+        ],
+        [
+          "popayán",
+          17
+        ],
+        [
+          "conjuancarlosomosmás",
+          16
+        ],
+        [
+          "alianzaconpopayán",
+          15
+        ],
+        [
+          "ciudad",
+          10
+        ],
+        [
+          "victoria",
+          8
+        ],
+        [
+          "alianza",
+          8
+        ],
+        [
+          "recuperar",
+          8
+        ],
+        [
+          "apoyo",
+          8
+        ],
+        [
+          "gracias",
+          8
+        ],
+        [
+          "nuestra",
+          8
+        ],
+        [
+          "gran",
+          7
+        ],
+        [
+          "octubre",
+          7
+        ],
+        [
+          "familia",
+          6
+        ],
+        [
+          "proceso",
+          6
+        ],
+        [
+          "domingo",
+          6
+        ],
+        [
+          "estamos",
+          5
+        ],
+        [
+          "nuestro",
+          5
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 16,
+        "ellos": 12,
+        "ratio": 1.33
+      },
+      "negaciones": {
+        "count": 8,
+        "densidad_pct": 0.72
+      }
+    }
+  },
+  "COL-19001-009": {
+    "post_count": 15,
+    "metrics": {
+      "TTR": 0.598,
+      "legibilidad_flesch": 68.94,
+      "longitud_promedio_oracion": 14.4,
+      "palabras_frecuentes": [
+        [
+          "popayán",
+          35
+        ],
+        [
+          "diagoalcalde",
+          15
+        ],
+        [
+          "alcaldía",
+          15
+        ],
+        [
+          "nuestra",
+          12
+        ],
+        [
+          "octubre",
+          12
+        ],
+        [
+          "voto",
+          10
+        ],
+        [
+          "juntos",
+          10
+        ],
+        [
+          "futuro",
+          10
+        ],
+        [
+          "cambio",
+          8
+        ],
+        [
+          "cada",
+          7
+        ],
+        [
+          "nuestro",
+          7
+        ],
+        [
+          "ciudad",
+          7
+        ],
+        [
+          "domingo",
+          6
+        ],
+        [
+          "diago",
+          5
+        ],
+        [
+          "educación",
+          5
+        ],
+        [
+          "poder",
+          5
+        ],
+        [
+          "nuestras",
+          5
+        ],
+        [
+          "luis",
+          4
+        ],
+        [
+          "vida",
+          4
+        ],
+        [
+          "esperanza",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 27,
+        "ellos": 12,
+        "ratio": 2.25
+      },
+      "negaciones": {
+        "count": 9,
+        "densidad_pct": 0.81
+      }
+    }
+  },
+  "COL-76001-005": {
+    "post_count": 56,
+    "metrics": {
+      "TTR": 0.406,
+      "legibilidad_flesch": 28.7,
+      "longitud_promedio_oracion": 20.6,
+      "palabras_frecuentes": [
+        [
+          "alcaldesa",
+          47
+        ],
+        [
+          "cali",
+          44
+        ],
+        [
+          "miyerlandi",
+          42
+        ],
+        [
+          "liderazgo",
+          42
+        ],
+        [
+          "miyerxmásseguridad",
+          41
+        ],
+        [
+          "calihagamoshistoria",
+          41
+        ],
+        [
+          "calicolombia",
+          40
+        ],
+        [
+          "yovotoxmiyerlandi",
+          36
+        ],
+        [
+          "seguridad",
+          29
+        ],
+        [
+          "calicivica",
+          22
+        ],
+        [
+          "progreso",
+          22
+        ],
+        [
+          "ciudad",
+          20
+        ],
+        [
+          "movilidad",
+          20
+        ],
+        [
+          "educación",
+          19
+        ],
+        [
+          "yovotopormiyerlandi",
+          17
+        ],
+        [
+          "trabajo",
+          16
+        ],
+        [
+          "octubre",
+          16
+        ],
+        [
+          "futuro",
+          14
+        ],
+        [
+          "vamos",
+          14
+        ],
+        [
+          "emprendimientos",
+          11
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 15,
+        "ellos": 21,
+        "ratio": 0.71
+      },
+      "negaciones": {
+        "count": 17,
+        "densidad_pct": 0.66
+      }
+    }
+  },
+  "COL-11001-009": {
+    "post_count": 59,
+    "metrics": {
+      "TTR": 0.287,
+      "legibilidad_flesch": 71.64,
+      "longitud_promedio_oracion": 18.1,
+      "palabras_frecuentes": [
+        [
+          "robledo",
+          48
+        ],
+        [
+          "alcalde",
+          48
+        ],
+        [
+          "vota",
+          40
+        ],
+        [
+          "votar",
+          35
+        ],
+        [
+          "bogotá",
+          35
+        ],
+        [
+          "tiempo",
+          28
+        ],
+        [
+          "alcaldía",
+          21
+        ],
+        [
+          "mejor",
+          20
+        ],
+        [
+          "ciudad",
+          17
+        ],
+        [
+          "concejo",
+          16
+        ],
+        [
+          "nuestra",
+          16
+        ],
+        [
+          "trabajo",
+          16
+        ],
+        [
+          "octubre",
+          15
+        ],
+        [
+          "politiquería",
+          14
+        ],
+        [
+          "bolívar",
+          13
+        ],
+        [
+          "honestidad",
+          13
+        ],
+        [
+          "compromiso",
+          13
+        ],
+        [
+          "gracias",
+          13
+        ],
+        [
+          "listas",
+          12
+        ],
+        [
+          "dignidad",
+          12
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 30,
+        "ellos": 27,
+        "ratio": 1.11
+      },
+      "negaciones": {
+        "count": 32,
+        "densidad_pct": 1.01
+      }
+    }
+  },
+  "COL-68001-002": {
+    "post_count": 24,
+    "metrics": {
+      "TTR": 0.598,
+      "legibilidad_flesch": 57.17,
+      "longitud_promedio_oracion": 16.1,
+      "palabras_frecuentes": [
+        [
+          "bucaramanga",
+          19
+        ],
+        [
+          "vote",
+          13
+        ],
+        [
+          "octubre",
+          12
+        ],
+        [
+          "yovotofabianoviedoalcalde",
+          10
+        ],
+        [
+          "mano",
+          10
+        ],
+        [
+          "fabianoviedoalcalde",
+          10
+        ],
+        [
+          "próximos",
+          6
+        ],
+        [
+          "años",
+          6
+        ],
+        [
+          "ciudad",
+          5
+        ],
+        [
+          "oportunidades",
+          5
+        ],
+        [
+          "independencia",
+          5
+        ],
+        [
+          "vamos",
+          5
+        ],
+        [
+          "búcaros",
+          5
+        ],
+        [
+          "bumangueses",
+          4
+        ],
+        [
+          "calles",
+          4
+        ],
+        [
+          "transformaremos",
+          4
+        ],
+        [
+          "esos",
+          4
+        ],
+        [
+          "arquitectura",
+          3
+        ],
+        [
+          "sueño",
+          3
+        ],
+        [
+          "público",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 2,
+        "ellos": 6,
+        "ratio": 0.33
+      },
+      "negaciones": {
+        "count": 7,
+        "densidad_pct": 0.92
+      }
+    }
+  },
+  "COL-05151-002": {
+    "post_count": 38,
+    "metrics": {
+      "TTR": 0.328,
+      "legibilidad_flesch": 57.33,
+      "longitud_promedio_oracion": 19.8,
+      "palabras_frecuentes": [
+        [
+          "itagüí",
+          40
+        ],
+        [
+          "oportunidad",
+          27
+        ],
+        [
+          "alcaldesa",
+          21
+        ],
+        [
+          "rosa",
+          19
+        ],
+        [
+          "domingo",
+          16
+        ],
+        [
+          "démonos",
+          15
+        ],
+        [
+          "vota",
+          12
+        ],
+        [
+          "vamos",
+          12
+        ],
+        [
+          "rosaalcaldesa",
+          12
+        ],
+        [
+          "itagüiseños",
+          8
+        ],
+        [
+          "voto",
+          7
+        ],
+        [
+          "historia",
+          7
+        ],
+        [
+          "esperanza",
+          6
+        ],
+        [
+          "cada",
+          6
+        ],
+        [
+          "itaguiseños",
+          6
+        ],
+        [
+          "estamos",
+          5
+        ],
+        [
+          "nueva",
+          5
+        ],
+        [
+          "ganar",
+          5
+        ],
+        [
+          "escribir",
+          4
+        ],
+        [
+          "principales",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 3,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 6,
+        "densidad_pct": 0.7
+      }
+    }
+  },
+  "COL-68276-010": {
+    "post_count": 35,
+    "metrics": {
+      "TTR": 0.379,
+      "legibilidad_flesch": 41.25,
+      "longitud_promedio_oracion": 16.0,
+      "palabras_frecuentes": [
+        [
+          "sergioflechasalcalde",
+          30
+        ],
+        [
+          "vamoscontoda",
+          30
+        ],
+        [
+          "floridablanca",
+          21
+        ],
+        [
+          "florideños",
+          17
+        ],
+        [
+          "renovación",
+          15
+        ],
+        [
+          "renovarlotodo",
+          14
+        ],
+        [
+          "solo",
+          11
+        ],
+        [
+          "días",
+          10
+        ],
+        [
+          "vamos",
+          8
+        ],
+        [
+          "gente",
+          7
+        ],
+        [
+          "pensando",
+          6
+        ],
+        [
+          "estamos",
+          6
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "elegiremos",
+          5
+        ],
+        [
+          "equipo",
+          5
+        ],
+        [
+          "enmedios",
+          4
+        ],
+        [
+          "proyecto",
+          4
+        ],
+        [
+          "nuestra",
+          4
+        ],
+        [
+          "cerca",
+          4
+        ],
+        [
+          "meta",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 7,
+        "ellos": 3,
+        "ratio": 2.33
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.71
+      }
+    }
+  },
+  "COL-66001-007": {
+    "post_count": 10,
+    "metrics": {
+      "TTR": 0.759,
+      "legibilidad_flesch": 45.99,
+      "longitud_promedio_oracion": 43.8,
+      "palabras_frecuentes": [
+        [
+          "gente",
+          4
+        ],
+        [
+          "esperanza",
+          3
+        ],
+        [
+          "hazaña",
+          3
+        ],
+        [
+          "stevencardenas",
+          3
+        ],
+        [
+          "somos",
+          3
+        ],
+        [
+          "gracias",
+          2
+        ],
+        [
+          "dios",
+          2
+        ],
+        [
+          "pereira",
+          2
+        ],
+        [
+          "propuestas",
+          2
+        ],
+        [
+          "carácter",
+          2
+        ],
+        [
+          "equipo",
+          2
+        ],
+        [
+          "proyecto",
+          2
+        ],
+        [
+          "días",
+          2
+        ],
+        [
+          "campaña",
+          2
+        ],
+        [
+          "semana",
+          2
+        ],
+        [
+          "alégrense",
+          1
+        ],
+        [
+          "siempre",
+          1
+        ],
+        [
+          "oren",
+          1
+        ],
+        [
+          "cesar",
+          1
+        ],
+        [
+          "mañana",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-11001-001": {
+    "post_count": 24,
+    "metrics": {
+      "TTR": 0.408,
+      "legibilidad_flesch": 29.23,
+      "longitud_promedio_oracion": 16.6,
+      "palabras_frecuentes": [
+        [
+          "jorgeluisvargas",
+          25
+        ],
+        [
+          "bogotá",
+          21
+        ],
+        [
+          "elgeneralalcalde",
+          20
+        ],
+        [
+          "elcandidatodelaseguridad",
+          15
+        ],
+        [
+          "primeroeneltarjeton",
+          9
+        ],
+        [
+          "cuento",
+          7
+        ],
+        [
+          "seguridad",
+          6
+        ],
+        [
+          "primeroeneltarjetón",
+          5
+        ],
+        [
+          "elgeneralpropone",
+          5
+        ],
+        [
+          "vamos",
+          5
+        ],
+        [
+          "puede",
+          4
+        ],
+        [
+          "tenemos",
+          4
+        ],
+        [
+          "orden",
+          4
+        ],
+        [
+          "debate",
+          4
+        ],
+        [
+          "pongamosordenenbogotá",
+          4
+        ],
+        [
+          "acerca",
+          4
+        ],
+        [
+          "millones",
+          4
+        ],
+        [
+          "segundos",
+          4
+        ],
+        [
+          "delincuentes",
+          4
+        ],
+        [
+          "cómo",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 5,
+        "ellos": 6,
+        "ratio": 0.83
+      },
+      "negaciones": {
+        "count": 14,
+        "densidad_pct": 1.92
+      }
+    }
+  },
+  "COL-19001-001": {
+    "post_count": 33,
+    "metrics": {
+      "TTR": 0.436,
+      "legibilidad_flesch": 57.16,
+      "longitud_promedio_oracion": 15.3,
+      "palabras_frecuentes": [
+        [
+          "esnuestrotiempo",
+          27
+        ],
+        [
+          "diana",
+          26
+        ],
+        [
+          "dianafuentesalcaldesa",
+          24
+        ],
+        [
+          "popayán",
+          23
+        ],
+        [
+          "fuentes",
+          22
+        ],
+        [
+          "nuestra",
+          14
+        ],
+        [
+          "campaña",
+          14
+        ],
+        [
+          "nuestro",
+          14
+        ],
+        [
+          "alcaldesa",
+          12
+        ],
+        [
+          "primera",
+          11
+        ],
+        [
+          "animal",
+          11
+        ],
+        [
+          "octubre",
+          10
+        ],
+        [
+          "gracias",
+          10
+        ],
+        [
+          "mujer",
+          9
+        ],
+        [
+          "apoyo",
+          9
+        ],
+        [
+          "historia",
+          9
+        ],
+        [
+          "municipio",
+          9
+        ],
+        [
+          "tarjetón",
+          8
+        ],
+        [
+          "domingo",
+          7
+        ],
+        [
+          "vamos",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 40,
+        "ellos": 20,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 4,
+        "densidad_pct": 0.23
+      }
+    }
+  },
+  "COL-44001-003": {
+    "post_count": 28,
+    "metrics": {
+      "TTR": 0.598,
+      "legibilidad_flesch": 62.95,
+      "longitud_promedio_oracion": 22.1,
+      "palabras_frecuentes": [
+        [
+          "genaro",
+          33
+        ],
+        [
+          "riohacha",
+          19
+        ],
+        [
+          "gente",
+          15
+        ],
+        [
+          "nuestra",
+          9
+        ],
+        [
+          "gracias",
+          8
+        ],
+        [
+          "familia",
+          8
+        ],
+        [
+          "vamosaganar",
+          7
+        ],
+        [
+          "vamos",
+          7
+        ],
+        [
+          "cada",
+          7
+        ],
+        [
+          "médico",
+          7
+        ],
+        [
+          "nuestro",
+          6
+        ],
+        [
+          "proyecto",
+          6
+        ],
+        [
+          "alcaldía",
+          5
+        ],
+        [
+          "marca",
+          5
+        ],
+        [
+          "ciudad",
+          5
+        ],
+        [
+          "victoria",
+          5
+        ],
+        [
+          "seguimos",
+          5
+        ],
+        [
+          "equipo",
+          5
+        ],
+        [
+          "confianza",
+          4
+        ],
+        [
+          "dios",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 17,
+        "ellos": 16,
+        "ratio": 1.06
+      },
+      "negaciones": {
+        "count": 4,
+        "densidad_pct": 0.35
+      }
+    }
+  },
+  "COL-05045-004": {
+    "post_count": 44,
+    "metrics": {
+      "TTR": 0.466,
+      "legibilidad_flesch": 35.51,
+      "longitud_promedio_oracion": 50.0,
+      "palabras_frecuentes": [
+        [
+          "apartadóunidosporlavida",
+          41
+        ],
+        [
+          "rangelalcalde",
+          37
+        ],
+        [
+          "gracias",
+          32
+        ],
+        [
+          "apartadó",
+          18
+        ],
+        [
+          "vida",
+          14
+        ],
+        [
+          "dios",
+          14
+        ],
+        [
+          "cariño",
+          13
+        ],
+        [
+          "ustedes",
+          13
+        ],
+        [
+          "𝗩𝗶𝗱𝗮",
+          13
+        ],
+        [
+          "rangel",
+          12
+        ],
+        [
+          "𝗚𝗿𝗮𝗻",
+          11
+        ],
+        [
+          "𝗖𝗮𝗺𝗶𝗻𝗮𝘁𝗮",
+          11
+        ],
+        [
+          "𝗥𝗮𝗻𝗴𝗲𝗹𝗶𝘀𝘁𝗮",
+          11
+        ],
+        [
+          "muchas",
+          10
+        ],
+        [
+          "nuestro",
+          9
+        ],
+        [
+          "gente",
+          8
+        ],
+        [
+          "octubre",
+          8
+        ],
+        [
+          "quiero",
+          8
+        ],
+        [
+          "rass",
+          8
+        ],
+        [
+          "nuestra",
+          8
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 21,
+        "ellos": 18,
+        "ratio": 1.17
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.24
+      }
+    }
+  },
+  "COL-68081-006": {
+    "post_count": 12,
+    "metrics": {
+      "TTR": 0.7,
+      "legibilidad_flesch": 70.18,
+      "longitud_promedio_oracion": 20.2,
+      "palabras_frecuentes": [
+        [
+          "barrancabermeja",
+          7
+        ],
+        [
+          "empleo",
+          6
+        ],
+        [
+          "ciudad",
+          6
+        ],
+        [
+          "barranqueños",
+          6
+        ],
+        [
+          "vamos",
+          5
+        ],
+        [
+          "seguridad",
+          5
+        ],
+        [
+          "familias",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "gracias",
+          4
+        ],
+        [
+          "respaldo",
+          4
+        ],
+        [
+          "prosperidad",
+          4
+        ],
+        [
+          "brillar",
+          3
+        ],
+        [
+          "calidad",
+          3
+        ],
+        [
+          "vida",
+          3
+        ],
+        [
+          "sueños",
+          3
+        ],
+        [
+          "elegir",
+          3
+        ],
+        [
+          "generar",
+          3
+        ],
+        [
+          "apoyo",
+          3
+        ],
+        [
+          "nuestra",
+          3
+        ],
+        [
+          "gratitud",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 5,
+        "ellos": 16,
+        "ratio": 0.31
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.17
+      }
+    }
+  },
+  "COL-05266-002": {
+    "post_count": 10,
+    "metrics": {
+      "TTR": 0.583,
+      "legibilidad_flesch": 42.09,
+      "longitud_promedio_oracion": 20.7,
+      "palabras_frecuentes": [
+        [
+          "uniendotejidossociales",
+          9
+        ],
+        [
+          "envigado",
+          9
+        ],
+        [
+          "alcaldía",
+          5
+        ],
+        [
+          "jhony",
+          5
+        ],
+        [
+          "vélez",
+          5
+        ],
+        [
+          "voto",
+          4
+        ],
+        [
+          "jhonyvelezquintero",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "vota",
+          4
+        ],
+        [
+          "seguridad",
+          3
+        ],
+        [
+          "centro",
+          3
+        ],
+        [
+          "democrático",
+          3
+        ],
+        [
+          "antioquia",
+          3
+        ],
+        [
+          "candidatos",
+          3
+        ],
+        [
+          "concejo",
+          3
+        ],
+        [
+          "final",
+          2
+        ],
+        [
+          "apoyo",
+          2
+        ],
+        [
+          "confianza",
+          2
+        ],
+        [
+          "votar",
+          2
+        ],
+        [
+          "gobernación",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 1,
+        "ratio": 3.0
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-44001-006": {
+    "post_count": 13,
+    "metrics": {
+      "TTR": 0.672,
+      "legibilidad_flesch": 59.97,
+      "longitud_promedio_oracion": 23.1,
+      "palabras_frecuentes": [
+        [
+          "riohacha",
+          30
+        ],
+        [
+          "palante",
+          13
+        ],
+        [
+          "alcaldíariohacha",
+          10
+        ],
+        [
+          "josedurán",
+          9
+        ],
+        [
+          "ciudad",
+          8
+        ],
+        [
+          "distrito",
+          8
+        ],
+        [
+          "transformación",
+          7
+        ],
+        [
+          "riohacheros",
+          6
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "vamosjose",
+          6
+        ],
+        [
+          "nuestro",
+          5
+        ],
+        [
+          "familia",
+          5
+        ],
+        [
+          "dios",
+          5
+        ],
+        [
+          "somos",
+          5
+        ],
+        [
+          "pueblo",
+          5
+        ],
+        [
+          "verdadera",
+          4
+        ],
+        [
+          "seguro",
+          4
+        ],
+        [
+          "voto",
+          4
+        ],
+        [
+          "vivir",
+          4
+        ],
+        [
+          "siempre",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 11,
+        "ellos": 22,
+        "ratio": 0.5
+      },
+      "negaciones": {
+        "count": 10,
+        "densidad_pct": 0.67
+      }
+    }
+  },
+  "COL-63001-014": {
+    "post_count": 11,
+    "metrics": {
+      "TTR": 0.662,
+      "legibilidad_flesch": 51.71,
+      "longitud_promedio_oracion": 15.7,
+      "palabras_frecuentes": [
+        [
+          "esperanza",
+          7
+        ],
+        [
+          "suceda",
+          7
+        ],
+        [
+          "armenia",
+          5
+        ],
+        [
+          "hagamosquelobuenosuceda",
+          5
+        ],
+        [
+          "momento",
+          5
+        ],
+        [
+          "gracias",
+          4
+        ],
+        [
+          "llegoelmomento",
+          4
+        ],
+        [
+          "recuperar",
+          4
+        ],
+        [
+          "nuestra",
+          4
+        ],
+        [
+          "casa",
+          3
+        ],
+        [
+          "armeniaquindio",
+          3
+        ],
+        [
+          "rojas",
+          2
+        ],
+        [
+          "política",
+          2
+        ],
+        [
+          "octubre",
+          2
+        ],
+        [
+          "llegó",
+          2
+        ],
+        [
+          "joseignacioalcalde",
+          2
+        ],
+        [
+          "abrazar",
+          2
+        ],
+        [
+          "empresarios",
+          2
+        ],
+        [
+          "ahora",
+          2
+        ],
+        [
+          "claro",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 3,
+        "ratio": 1.33
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-08433-008": {
+    "post_count": 7,
+    "metrics": {
+      "TTR": 0.757,
+      "legibilidad_flesch": 71.32,
+      "longitud_promedio_oracion": 16.2,
+      "palabras_frecuentes": [
+        [
+          "soledad",
+          9
+        ],
+        [
+          "elvira",
+          5
+        ],
+        [
+          "dios",
+          4
+        ],
+        [
+          "gente",
+          4
+        ],
+        [
+          "gutiérrez",
+          4
+        ],
+        [
+          "soledeños",
+          4
+        ],
+        [
+          "manos",
+          3
+        ],
+        [
+          "octubre",
+          3
+        ],
+        [
+          "barrios",
+          3
+        ],
+        [
+          "transformación",
+          3
+        ],
+        [
+          "haremos",
+          3
+        ],
+        [
+          "historia",
+          3
+        ],
+        [
+          "gran",
+          2
+        ],
+        [
+          "nombre",
+          2
+        ],
+        [
+          "seré",
+          2
+        ],
+        [
+          "próxima",
+          2
+        ],
+        [
+          "alcaldesa",
+          2
+        ],
+        [
+          "quiero",
+          2
+        ],
+        [
+          "trabajar",
+          2
+        ],
+        [
+          "estoy",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 4,
+        "ratio": 0.75
+      },
+      "negaciones": {
+        "count": 3,
+        "densidad_pct": 0.66
+      }
+    }
+  },
+  "COL-20001-005": {
+    "post_count": 31,
+    "metrics": {
+      "TTR": 0.537,
+      "legibilidad_flesch": 33.75,
+      "longitud_promedio_oracion": 33.1,
+      "palabras_frecuentes": [
+        [
+          "christianjosealcalde",
+          23
+        ],
+        [
+          "parati",
+          14
+        ],
+        [
+          "alcalde",
+          12
+        ],
+        [
+          "valledupar",
+          10
+        ],
+        [
+          "vamos",
+          6
+        ],
+        [
+          "gente",
+          5
+        ],
+        [
+          "viral",
+          5
+        ],
+        [
+          "gobierno",
+          4
+        ],
+        [
+          "soluciones",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "posible",
+          3
+        ],
+        [
+          "ganar",
+          3
+        ],
+        [
+          "cambiar",
+          3
+        ],
+        [
+          "mejora",
+          2
+        ],
+        [
+          "seguridad",
+          2
+        ],
+        [
+          "invito",
+          2
+        ],
+        [
+          "votar",
+          2
+        ],
+        [
+          "partido",
+          2
+        ],
+        [
+          "marcha",
+          2
+        ],
+        [
+          "hagamos",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 2,
+        "ellos": 5,
+        "ratio": 0.4
+      },
+      "negaciones": {
+        "count": 4,
+        "densidad_pct": 1.01
+      }
+    }
+  },
+  "COL-66170-003": {
+    "post_count": 14,
+    "metrics": {
+      "TTR": 0.733,
+      "legibilidad_flesch": 30.09,
+      "longitud_promedio_oracion": 40.1,
+      "palabras_frecuentes": [
+        [
+          "dosquebradas",
+          13
+        ],
+        [
+          "gracias",
+          7
+        ],
+        [
+          "robertojimenezalcalde",
+          6
+        ],
+        [
+          "apoyo",
+          6
+        ],
+        [
+          "usted",
+          5
+        ],
+        [
+          "deporte",
+          4
+        ],
+        [
+          "talento",
+          4
+        ],
+        [
+          "ciudad",
+          4
+        ],
+        [
+          "juntos",
+          4
+        ],
+        [
+          "transformaremos",
+          4
+        ],
+        [
+          "transformar",
+          4
+        ],
+        [
+          "campaña",
+          4
+        ],
+        [
+          "transformación",
+          3
+        ],
+        [
+          "muchas",
+          3
+        ],
+        [
+          "yolecreoarobertojimenez",
+          3
+        ],
+        [
+          "proyecto",
+          3
+        ],
+        [
+          "alegría",
+          3
+        ],
+        [
+          "municipio",
+          3
+        ],
+        [
+          "gran",
+          3
+        ],
+        [
+          "gente",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 15,
+        "ratio": 0.2
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 0.28
+      }
+    }
+  },
+  "COL-68547-013": {
+    "post_count": 28,
+    "metrics": {
+      "TTR": 0.576,
+      "legibilidad_flesch": 66.56,
+      "longitud_promedio_oracion": 15.1,
+      "palabras_frecuentes": [
+        [
+          "piedecuesta",
+          11
+        ],
+        [
+          "apoyo",
+          10
+        ],
+        [
+          "gracias",
+          9
+        ],
+        [
+          "vamos",
+          9
+        ],
+        [
+          "amor",
+          8
+        ],
+        [
+          "ganar",
+          7
+        ],
+        [
+          "felicidad",
+          5
+        ],
+        [
+          "seguridad",
+          5
+        ],
+        [
+          "campaña",
+          4
+        ],
+        [
+          "lobuenoserepite",
+          4
+        ],
+        [
+          "julián",
+          4
+        ],
+        [
+          "respeto",
+          4
+        ],
+        [
+          "oscar",
+          3
+        ],
+        [
+          "juank",
+          3
+        ],
+        [
+          "segura",
+          3
+        ],
+        [
+          "nuestro",
+          3
+        ],
+        [
+          "santos",
+          2
+        ],
+        [
+          "invito",
+          2
+        ],
+        [
+          "terminar",
+          2
+        ],
+        [
+          "dejando",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 5,
+        "ratio": 0.8
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-13001-009": {
+    "post_count": 14,
+    "metrics": {
+      "TTR": 0.529,
+      "legibilidad_flesch": 56.77,
+      "longitud_promedio_oracion": 14.5,
+      "palabras_frecuentes": [
+        [
+          "octubre",
+          10
+        ],
+        [
+          "vota",
+          9
+        ],
+        [
+          "futuro",
+          5
+        ],
+        [
+          "domingo",
+          5
+        ],
+        [
+          "joseosorioalcalde",
+          5
+        ],
+        [
+          "cartagena",
+          4
+        ],
+        [
+          "osorioalcalde",
+          4
+        ],
+        [
+          "alcalde",
+          4
+        ],
+        [
+          "apoyo",
+          3
+        ],
+        [
+          "marca",
+          3
+        ],
+        [
+          "cartagenadeindias",
+          3
+        ],
+        [
+          "historia",
+          2
+        ],
+        [
+          "próximo",
+          2
+        ],
+        [
+          "nuestra",
+          2
+        ],
+        [
+          "elecciones",
+          2
+        ],
+        [
+          "joseosorio",
+          2
+        ],
+        [
+          "tengo",
+          1
+        ],
+        [
+          "agradecimiento",
+          1
+        ],
+        [
+          "infinito",
+          1
+        ],
+        [
+          "miles",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 2,
+        "ellos": 2,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-68001-015": {
+    "post_count": 32,
+    "metrics": {
+      "TTR": 0.651,
+      "legibilidad_flesch": 63.81,
+      "longitud_promedio_oracion": 19.5,
+      "palabras_frecuentes": [
+        [
+          "serpalagente",
+          17
+        ],
+        [
+          "bucaramanga",
+          14
+        ],
+        [
+          "gente",
+          11
+        ],
+        [
+          "vamos",
+          11
+        ],
+        [
+          "serpa",
+          8
+        ],
+        [
+          "mejor",
+          5
+        ],
+        [
+          "gracias",
+          5
+        ],
+        [
+          "gana",
+          5
+        ],
+        [
+          "conserpaganalagente",
+          5
+        ],
+        [
+          "oportunidades",
+          5
+        ],
+        [
+          "siempre",
+          4
+        ],
+        [
+          "falta",
+          4
+        ],
+        [
+          "ganamos",
+          4
+        ],
+        [
+          "bumangueses",
+          4
+        ],
+        [
+          "papá",
+          4
+        ],
+        [
+          "llega",
+          4
+        ],
+        [
+          "nunca",
+          4
+        ],
+        [
+          "gestión",
+          4
+        ],
+        [
+          "canal",
+          4
+        ],
+        [
+          "amigo",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 2,
+        "ratio": 1.5
+      },
+      "negaciones": {
+        "count": 15,
+        "densidad_pct": 1.3
+      }
+    }
+  },
+  "COL-66170-005": {
+    "post_count": 16,
+    "metrics": {
+      "TTR": 0.468,
+      "legibilidad_flesch": 55.78,
+      "longitud_promedio_oracion": 16.8,
+      "palabras_frecuentes": [
+        [
+          "gracias",
+          15
+        ],
+        [
+          "dosquebradas",
+          9
+        ],
+        [
+          "alcaldesa",
+          9
+        ],
+        [
+          "días",
+          8
+        ],
+        [
+          "amor",
+          7
+        ],
+        [
+          "campaña",
+          6
+        ],
+        [
+          "incansablemente",
+          5
+        ],
+        [
+          "historia",
+          5
+        ],
+        [
+          "apoyo",
+          5
+        ],
+        [
+          "gente",
+          4
+        ],
+        [
+          "ladelagente",
+          4
+        ],
+        [
+          "niños",
+          4
+        ],
+        [
+          "lonuevo",
+          4
+        ],
+        [
+          "fypシ",
+          4
+        ],
+        [
+          "trabajar",
+          3
+        ],
+        [
+          "oportunidad",
+          3
+        ],
+        [
+          "mujer",
+          3
+        ],
+        [
+          "paratiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+          3
+        ],
+        [
+          "soytatiana",
+          3
+        ],
+        [
+          "familia",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 8,
+        "ratio": 0.38
+      },
+      "negaciones": {
+        "count": 4,
+        "densidad_pct": 0.82
+      }
+    }
+  },
+  "COL-68001-003": {
+    "post_count": 38,
+    "metrics": {
+      "TTR": 0.339,
+      "legibilidad_flesch": -19.07,
+      "longitud_promedio_oracion": 23.6,
+      "palabras_frecuentes": [
+        [
+          "tenemosalcaldesa",
+          48
+        ],
+        [
+          "bucaramanga",
+          44
+        ],
+        [
+          "consueloordoñez",
+          30
+        ],
+        [
+          "bucaramangaelige",
+          29
+        ],
+        [
+          "ciudadbonita",
+          27
+        ],
+        [
+          "bucaramangatieneopción",
+          24
+        ],
+        [
+          "eleccionesbucaramanga",
+          23
+        ],
+        [
+          "bucaramangavota",
+          22
+        ],
+        [
+          "candidatosbucaramanga",
+          21
+        ],
+        [
+          "mujercandidatabucaramanga",
+          21
+        ],
+        [
+          "votacionesbucaramanga",
+          20
+        ],
+        [
+          "alcaldesa",
+          17
+        ],
+        [
+          "ciudad",
+          14
+        ],
+        [
+          "parati",
+          11
+        ],
+        [
+          "viral",
+          11
+        ],
+        [
+          "santander",
+          10
+        ],
+        [
+          "mujeres",
+          8
+        ],
+        [
+          "sinmaquinarias",
+          8
+        ],
+        [
+          "consuelo",
+          7
+        ],
+        [
+          "mujeresqueinspiran",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 8,
+        "ellos": 8,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 11,
+        "densidad_pct": 0.69
+      }
+    }
+  },
+  "COL-17001-010": {
+    "post_count": 31,
+    "metrics": {
+      "TTR": 0.574,
+      "legibilidad_flesch": 53.16,
+      "longitud_promedio_oracion": 19.3,
+      "palabras_frecuentes": [
+        [
+          "paulatoro",
+          27
+        ],
+        [
+          "manizales",
+          24
+        ],
+        [
+          "paulatoroalcaldesa",
+          23
+        ],
+        [
+          "cada",
+          10
+        ],
+        [
+          "ciudad",
+          10
+        ],
+        [
+          "manizaleños",
+          8
+        ],
+        [
+          "alcaldía",
+          8
+        ],
+        [
+          "momento",
+          7
+        ],
+        [
+          "nuestra",
+          6
+        ],
+        [
+          "nuestro",
+          6
+        ],
+        [
+          "gobierno",
+          6
+        ],
+        [
+          "causas",
+          5
+        ],
+        [
+          "personas",
+          5
+        ],
+        [
+          "octubre",
+          5
+        ],
+        [
+          "esperanza",
+          5
+        ],
+        [
+          "mujer",
+          5
+        ],
+        [
+          "alcaldesa",
+          5
+        ],
+        [
+          "coherente",
+          4
+        ],
+        [
+          "política",
+          4
+        ],
+        [
+          "transparente",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 16,
+        "ellos": 9,
+        "ratio": 1.78
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.43
+      }
+    }
+  },
+  "COL-05045-005": {
+    "post_count": 50,
+    "metrics": {
+      "TTR": 0.478,
+      "legibilidad_flesch": 52.78,
+      "longitud_promedio_oracion": 16.4,
+      "palabras_frecuentes": [
+        [
+          "romeroalcalde",
+          44
+        ],
+        [
+          "apartadó",
+          40
+        ],
+        [
+          "defrenteconromero",
+          39
+        ],
+        [
+          "vamoscaminoaltriunfo",
+          38
+        ],
+        [
+          "nuevaciudad",
+          35
+        ],
+        [
+          "vota",
+          23
+        ],
+        [
+          "octubre",
+          18
+        ],
+        [
+          "gracias",
+          18
+        ],
+        [
+          "nuestros",
+          16
+        ],
+        [
+          "vamos",
+          16
+        ],
+        [
+          "nuestra",
+          12
+        ],
+        [
+          "partido",
+          10
+        ],
+        [
+          "construir",
+          9
+        ],
+        [
+          "concejo",
+          9
+        ],
+        [
+          "enmarcha",
+          9
+        ],
+        [
+          "respaldo",
+          8
+        ],
+        [
+          "alcalde",
+          8
+        ],
+        [
+          "dios",
+          8
+        ],
+        [
+          "líder",
+          7
+        ],
+        [
+          "gratitud",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 42,
+        "ellos": 26,
+        "ratio": 1.62
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.23
+      }
+    }
+  },
+  "COL-44001-004": {
+    "post_count": 50,
+    "metrics": {
+      "TTR": 0.396,
+      "legibilidad_flesch": 62.07,
+      "longitud_promedio_oracion": 16.7,
+      "palabras_frecuentes": [
+        [
+          "riohacha",
+          96
+        ],
+        [
+          "betoibarraalcalde",
+          47
+        ],
+        [
+          "ungobiernodeoportunidades",
+          39
+        ],
+        [
+          "nuestro",
+          26
+        ],
+        [
+          "distrito",
+          21
+        ],
+        [
+          "gente",
+          20
+        ],
+        [
+          "tenemos",
+          17
+        ],
+        [
+          "vamos",
+          16
+        ],
+        [
+          "octubre",
+          16
+        ],
+        [
+          "oportunidades",
+          13
+        ],
+        [
+          "apoyo",
+          13
+        ],
+        [
+          "gracias",
+          13
+        ],
+        [
+          "proyecto",
+          12
+        ],
+        [
+          "próximo",
+          12
+        ],
+        [
+          "comunidades",
+          12
+        ],
+        [
+          "político",
+          11
+        ],
+        [
+          "nuestra",
+          11
+        ],
+        [
+          "tiempo",
+          10
+        ],
+        [
+          "compromiso",
+          10
+        ],
+        [
+          "voto",
+          9
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 43,
+        "ellos": 27,
+        "ratio": 1.59
+      },
+      "negaciones": {
+        "count": 28,
+        "densidad_pct": 0.95
+      }
+    }
+  },
+  "COL-66170-004": {
+    "post_count": 9,
+    "metrics": {
+      "TTR": 0.645,
+      "legibilidad_flesch": 53.23,
+      "longitud_promedio_oracion": 15.2,
+      "palabras_frecuentes": [
+        [
+          "dosquebradas",
+          7
+        ],
+        [
+          "nuestro",
+          4
+        ],
+        [
+          "votatoroalcalde",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "nuestra",
+          4
+        ],
+        [
+          "juntos",
+          4
+        ],
+        [
+          "toroalcalde2023",
+          3
+        ],
+        [
+          "gobierno",
+          3
+        ],
+        [
+          "mejoraremos",
+          3
+        ],
+        [
+          "condiciones",
+          3
+        ],
+        [
+          "laborales",
+          3
+        ],
+        [
+          "nuestros",
+          3
+        ],
+        [
+          "servidores",
+          3
+        ],
+        [
+          "públicos",
+          3
+        ],
+        [
+          "próximo",
+          3
+        ],
+        [
+          "futuro",
+          3
+        ],
+        [
+          "mejor",
+          3
+        ],
+        [
+          "caja",
+          2
+        ],
+        [
+          "vanparaafuera",
+          2
+        ],
+        [
+          "demostrado",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 13,
+        "ellos": 3,
+        "ratio": 4.33
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.39
+      }
+    }
+  },
+  "COL-73001-006": {
+    "post_count": 32,
+    "metrics": {
+      "TTR": 0.594,
+      "legibilidad_flesch": 49.33,
+      "longitud_promedio_oracion": 15.2,
+      "palabras_frecuentes": [
+        [
+          "marcoladiferencia",
+          31
+        ],
+        [
+          "ibagué",
+          15
+        ],
+        [
+          "yomarcobien",
+          12
+        ],
+        [
+          "victoria",
+          10
+        ],
+        [
+          "marcomanía",
+          9
+        ],
+        [
+          "ciudad",
+          8
+        ],
+        [
+          "gracias",
+          8
+        ],
+        [
+          "octubre",
+          7
+        ],
+        [
+          "tolima",
+          7
+        ],
+        [
+          "ciudadanía",
+          6
+        ],
+        [
+          "amor",
+          6
+        ],
+        [
+          "vamos",
+          6
+        ],
+        [
+          "corazón",
+          6
+        ],
+        [
+          "nuestra",
+          6
+        ],
+        [
+          "estamos",
+          5
+        ],
+        [
+          "elecciones2023",
+          5
+        ],
+        [
+          "juntos",
+          4
+        ],
+        [
+          "nuestro",
+          4
+        ],
+        [
+          "queremos",
+          4
+        ],
+        [
+          "mañana",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 15,
+        "ellos": 3,
+        "ratio": 5.0
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.59
+      }
+    }
+  },
+  "COL-76109-010": {
+    "post_count": 12,
+    "metrics": {
+      "TTR": 0.558,
+      "legibilidad_flesch": 59.01,
+      "longitud_promedio_oracion": 18.4,
+      "palabras_frecuentes": [
+        [
+          "buenaventura",
+          12
+        ],
+        [
+          "libiaalcaldesa",
+          8
+        ],
+        [
+          "porlavidayelempleo",
+          7
+        ],
+        [
+          "urnas",
+          6
+        ],
+        [
+          "campaña",
+          6
+        ],
+        [
+          "domingo",
+          6
+        ],
+        [
+          "cada",
+          5
+        ],
+        [
+          "enmarcha",
+          5
+        ],
+        [
+          "desarrollo",
+          4
+        ],
+        [
+          "vida",
+          4
+        ],
+        [
+          "oportunidad",
+          4
+        ],
+        [
+          "gracias",
+          3
+        ],
+        [
+          "capacidad",
+          3
+        ],
+        [
+          "libia",
+          3
+        ],
+        [
+          "mosquera",
+          3
+        ],
+        [
+          "fuerza",
+          3
+        ],
+        [
+          "familia",
+          3
+        ],
+        [
+          "alcaldesa",
+          3
+        ],
+        [
+          "merecemos",
+          3
+        ],
+        [
+          "gremios",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 1,
+        "ellos": 5,
+        "ratio": 0.2
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 0.4
+      }
+    }
+  },
+  "COL-25754-007": {
+    "post_count": 26,
+    "metrics": {
+      "TTR": 0.579,
+      "legibilidad_flesch": 63.25,
+      "longitud_promedio_oracion": 18.1,
+      "palabras_frecuentes": [
+        [
+          "soacha",
+          19
+        ],
+        [
+          "nuestra",
+          10
+        ],
+        [
+          "campaña",
+          9
+        ],
+        [
+          "gaitánalcalde",
+          9
+        ],
+        [
+          "domingo",
+          7
+        ],
+        [
+          "alcalde",
+          7
+        ],
+        [
+          "nuestro",
+          7
+        ],
+        [
+          "territorio",
+          7
+        ],
+        [
+          "cierre",
+          7
+        ],
+        [
+          "gran",
+          6
+        ],
+        [
+          "alianza",
+          6
+        ],
+        [
+          "verde",
+          6
+        ],
+        [
+          "apoyo",
+          5
+        ],
+        [
+          "favor",
+          5
+        ],
+        [
+          "gaitanalcalde",
+          5
+        ],
+        [
+          "alcaldía",
+          5
+        ],
+        [
+          "concejo",
+          5
+        ],
+        [
+          "quiero",
+          4
+        ],
+        [
+          "ciudad",
+          4
+        ],
+        [
+          "miles",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 20,
+        "ellos": 5,
+        "ratio": 4.0
+      },
+      "negaciones": {
+        "count": 4,
+        "densidad_pct": 0.4
+      }
+    }
+  },
+  "COL-20001-006": {
+    "post_count": 2,
+    "metrics": {
+      "TTR": 0.852,
+      "legibilidad_flesch": 79.0,
+      "longitud_promedio_oracion": 12.7,
+      "palabras_frecuentes": [
+        [
+          "valledupar",
+          3
+        ],
+        [
+          "pueblo",
+          3
+        ],
+        [
+          "alegría",
+          2
+        ],
+        [
+          "alcalde",
+          2
+        ],
+        [
+          "gracias",
+          2
+        ],
+        [
+          "tengo",
+          2
+        ],
+        [
+          "gran",
+          2
+        ],
+        [
+          "arte",
+          1
+        ],
+        [
+          "cultura",
+          1
+        ],
+        [
+          "pujanza",
+          1
+        ],
+        [
+          "amarillo",
+          1
+        ],
+        [
+          "cañaguate",
+          1
+        ],
+        [
+          "graciass",
+          1
+        ],
+        [
+          "siento",
+          1
+        ],
+        [
+          "orgulloso",
+          1
+        ],
+        [
+          "haber",
+          1
+        ],
+        [
+          "nacido",
+          1
+        ],
+        [
+          "tierra",
+          1
+        ],
+        [
+          "tener",
+          1
+        ],
+        [
+          "años",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 1,
+        "ratio": 0.0
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.71
+      }
+    }
+  },
+  "COL-76001-006": {
+    "post_count": 16,
+    "metrics": {
+      "TTR": 0.515,
+      "legibilidad_flesch": 15.63,
+      "longitud_promedio_oracion": 31.6,
+      "palabras_frecuentes": [
+        [
+          "cali",
+          30
+        ],
+        [
+          "caliseguraparalavida",
+          18
+        ],
+        [
+          "laalianzaesconlagente",
+          13
+        ],
+        [
+          "calisitienecura",
+          13
+        ],
+        [
+          "candidatoalcaldíadecali",
+          13
+        ],
+        [
+          "huérfano",
+          8
+        ],
+        [
+          "campaña",
+          7
+        ],
+        [
+          "edilson",
+          7
+        ],
+        [
+          "calisítienecura",
+          6
+        ],
+        [
+          "padre",
+          5
+        ],
+        [
+          "ciudad",
+          4
+        ],
+        [
+          "alcaldía",
+          4
+        ],
+        [
+          "alcalde",
+          4
+        ],
+        [
+          "apoyo",
+          3
+        ],
+        [
+          "voto",
+          3
+        ],
+        [
+          "compromiso",
+          2
+        ],
+        [
+          "caleños",
+          2
+        ],
+        [
+          "estrategia",
+          2
+        ],
+        [
+          "real",
+          2
+        ],
+        [
+          "inversión",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 6,
+        "ratio": 0.67
+      },
+      "negaciones": {
+        "count": 7,
+        "densidad_pct": 1.3
+      }
+    }
+  },
+  "COL-08001-006": {
+    "post_count": 11,
+    "metrics": {
+      "TTR": 0.641,
+      "legibilidad_flesch": 71.71,
+      "longitud_promedio_oracion": 16.6,
+      "palabras_frecuentes": [
+        [
+          "barranquilla",
+          16
+        ],
+        [
+          "alcalde",
+          12
+        ],
+        [
+          "hassan",
+          11
+        ],
+        [
+          "agua",
+          9
+        ],
+        [
+          "cuidad",
+          8
+        ],
+        [
+          "fares",
+          7
+        ],
+        [
+          "cambio",
+          7
+        ],
+        [
+          "clanes",
+          6
+        ],
+        [
+          "ustedes",
+          6
+        ],
+        [
+          "pozos",
+          5
+        ],
+        [
+          "propuestas",
+          4
+        ],
+        [
+          "candidatos",
+          4
+        ],
+        [
+          "pueblo",
+          4
+        ],
+        [
+          "tener",
+          4
+        ],
+        [
+          "plan",
+          4
+        ],
+        [
+          "fabricas",
+          4
+        ],
+        [
+          "cobarde",
+          4
+        ],
+        [
+          "localidades",
+          4
+        ],
+        [
+          "personas",
+          3
+        ],
+        [
+          "hora",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 6,
+        "ratio": 0.67
+      },
+      "negaciones": {
+        "count": 17,
+        "densidad_pct": 1.53
+      }
+    }
+  },
+  "COL-41001-001": {
+    "post_count": 8,
+    "metrics": {
+      "TTR": 0.554,
+      "legibilidad_flesch": 24.51,
+      "longitud_promedio_oracion": 21.5,
+      "palabras_frecuentes": [
+        [
+          "neiva",
+          18
+        ],
+        [
+          "ciudad",
+          8
+        ],
+        [
+          "osoriobotello",
+          8
+        ],
+        [
+          "neivahuila",
+          8
+        ],
+        [
+          "neivahuilacolombia",
+          8
+        ],
+        [
+          "soyneiva",
+          8
+        ],
+        [
+          "neivayork",
+          8
+        ],
+        [
+          "alcaldiadeneiva",
+          8
+        ],
+        [
+          "alcaldedeneiva",
+          8
+        ],
+        [
+          "hectorjavierosorio",
+          8
+        ],
+        [
+          "elalcaldedelasobras",
+          8
+        ],
+        [
+          "vuelveelprogresoaneiva",
+          8
+        ],
+        [
+          "universidadsurcolombiana",
+          8
+        ],
+        [
+          "nuevoliberalismo",
+          8
+        ],
+        [
+          "nuestra",
+          7
+        ],
+        [
+          "neivanos",
+          4
+        ],
+        [
+          "obras",
+          4
+        ],
+        [
+          "corrupción",
+          4
+        ],
+        [
+          "oportunidades",
+          3
+        ],
+        [
+          "rural",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 9,
+        "ellos": 4,
+        "ratio": 2.25
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 0.32
+      }
+    }
+  },
+  "COL-76520-009": {
+    "post_count": 41,
+    "metrics": {
+      "TTR": 0.377,
+      "legibilidad_flesch": 58.12,
+      "longitud_promedio_oracion": 19.4,
+      "palabras_frecuentes": [
+        [
+          "palmira",
+          51
+        ],
+        [
+          "alcaldesa",
+          33
+        ],
+        [
+          "futuro",
+          28
+        ],
+        [
+          "ciudad",
+          25
+        ],
+        [
+          "vota",
+          23
+        ],
+        [
+          "octubre",
+          22
+        ],
+        [
+          "mujer",
+          22
+        ],
+        [
+          "nuestra",
+          20
+        ],
+        [
+          "palmiramiorgullo",
+          18
+        ],
+        [
+          "griselda",
+          15
+        ],
+        [
+          "vamos",
+          13
+        ],
+        [
+          "janeth",
+          13
+        ],
+        [
+          "mujeres",
+          12
+        ],
+        [
+          "renovemospalmira",
+          11
+        ],
+        [
+          "cambio",
+          10
+        ],
+        [
+          "mujeresempoderadas",
+          10
+        ],
+        [
+          "votá",
+          10
+        ],
+        [
+          "palmiravalledelcauca",
+          9
+        ],
+        [
+          "juntos",
+          9
+        ],
+        [
+          "palmiranos",
+          9
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 31,
+        "ellos": 13,
+        "ratio": 2.38
+      },
+      "negaciones": {
+        "count": 12,
+        "densidad_pct": 0.66
+      }
+    }
+  },
+  "COL-73001-003": {
+    "post_count": 15,
+    "metrics": {
+      "TTR": 0.62,
+      "legibilidad_flesch": 76.1,
+      "longitud_promedio_oracion": 14.6,
+      "palabras_frecuentes": [
+        [
+          "ibagué",
+          22
+        ],
+        [
+          "vida",
+          14
+        ],
+        [
+          "territorio",
+          12
+        ],
+        [
+          "nuestra",
+          8
+        ],
+        [
+          "vamos",
+          7
+        ],
+        [
+          "gente",
+          7
+        ],
+        [
+          "renzo",
+          6
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "garcía",
+          4
+        ],
+        [
+          "alcaldía",
+          4
+        ],
+        [
+          "gobierno",
+          4
+        ],
+        [
+          "podemos",
+          4
+        ],
+        [
+          "esperanza",
+          3
+        ],
+        [
+          "acompáñame",
+          3
+        ],
+        [
+          "amor",
+          3
+        ],
+        [
+          "tierra",
+          3
+        ],
+        [
+          "esencia",
+          3
+        ],
+        [
+          "nuestros",
+          3
+        ],
+        [
+          "nuestro",
+          3
+        ],
+        [
+          "bienestar",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 16,
+        "ellos": 6,
+        "ratio": 2.67
+      },
+      "negaciones": {
+        "count": 8,
+        "densidad_pct": 1.04
+      }
+    }
+  },
+  "COL-68081-003": {
+    "post_count": 52,
+    "metrics": {
+      "TTR": 0.424,
+      "legibilidad_flesch": 26.47,
+      "longitud_promedio_oracion": 16.6,
+      "palabras_frecuentes": [
+        [
+          "barrancabermeja",
+          84
+        ],
+        [
+          "elecciones2023",
+          47
+        ],
+        [
+          "cerocorrupcion",
+          44
+        ],
+        [
+          "seguimoscreciendo",
+          39
+        ],
+        [
+          "momentohistorico",
+          38
+        ],
+        [
+          "barrancabermejasantander",
+          35
+        ],
+        [
+          "santander",
+          26
+        ],
+        [
+          "mujeres",
+          16
+        ],
+        [
+          "corrupción",
+          14
+        ],
+        [
+          "nuestra",
+          12
+        ],
+        [
+          "compromiso",
+          11
+        ],
+        [
+          "octubre",
+          11
+        ],
+        [
+          "solo",
+          11
+        ],
+        [
+          "días",
+          11
+        ],
+        [
+          "ciudad",
+          10
+        ],
+        [
+          "cambio",
+          9
+        ],
+        [
+          "ciudadanía",
+          8
+        ],
+        [
+          "fraudeelectoral",
+          8
+        ],
+        [
+          "notenemosmiedo",
+          7
+        ],
+        [
+          "nuestro",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 25,
+        "ellos": 20,
+        "ratio": 1.25
+      },
+      "negaciones": {
+        "count": 24,
+        "densidad_pct": 1.32
+      }
+    }
+  },
+  "COL-73001-009": {
+    "post_count": 18,
+    "metrics": {
+      "TTR": 0.559,
+      "legibilidad_flesch": 41.01,
+      "longitud_promedio_oracion": 14.4,
+      "palabras_frecuentes": [
+        [
+          "ibagué",
+          16
+        ],
+        [
+          "siempre",
+          11
+        ],
+        [
+          "adelante",
+          11
+        ],
+        [
+          "murillo",
+          10
+        ],
+        [
+          "ibague",
+          10
+        ],
+        [
+          "general",
+          8
+        ],
+        [
+          "fernando",
+          8
+        ],
+        [
+          "ibagueconelgeneralmurillo",
+          7
+        ],
+        [
+          "voto",
+          6
+        ],
+        [
+          "orrego",
+          6
+        ],
+        [
+          "seguridad",
+          6
+        ],
+        [
+          "independiente",
+          6
+        ],
+        [
+          "ibaguereños",
+          6
+        ],
+        [
+          "laseguridadesdetodosyparatodos",
+          6
+        ],
+        [
+          "ibaguesiempreadelante",
+          6
+        ],
+        [
+          "vote",
+          6
+        ],
+        [
+          "conciencia",
+          5
+        ],
+        [
+          "elecciones2023",
+          5
+        ],
+        [
+          "octubre",
+          3
+        ],
+        [
+          "politiquería",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 5,
+        "ratio": 0.6
+      },
+      "negaciones": {
+        "count": 9,
+        "densidad_pct": 1.74
+      }
+    }
+  },
+  "COL-05266-003": {
+    "post_count": 2,
+    "metrics": {
+      "TTR": 0.438,
+      "legibilidad_flesch": 77.66,
+      "longitud_promedio_oracion": 9.0,
+      "palabras_frecuentes": [
+        [
+          "alcalde",
+          4
+        ],
+        [
+          "envigado",
+          2
+        ],
+        [
+          "cuidaré",
+          2
+        ],
+        [
+          "habitantes",
+          2
+        ],
+        [
+          "primer",
+          2
+        ],
+        [
+          "cuidador",
+          2
+        ],
+        [
+          "gente",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 2,
+        "ratio": 0.0
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-50001-008": {
+    "post_count": 43,
+    "metrics": {
+      "TTR": 0.399,
+      "legibilidad_flesch": 57.7,
+      "longitud_promedio_oracion": 19.6,
+      "palabras_frecuentes": [
+        [
+          "equipo",
+          34
+        ],
+        [
+          "ciudad",
+          30
+        ],
+        [
+          "villavicencio",
+          25
+        ],
+        [
+          "maquinarias",
+          23
+        ],
+        [
+          "independiente",
+          16
+        ],
+        [
+          "vamos",
+          14
+        ],
+        [
+          "construir",
+          12
+        ],
+        [
+          "villavolabella",
+          12
+        ],
+        [
+          "gracias",
+          11
+        ],
+        [
+          "gente",
+          11
+        ],
+        [
+          "nuestra",
+          10
+        ],
+        [
+          "villavicenciometa",
+          10
+        ],
+        [
+          "villavo",
+          10
+        ],
+        [
+          "villavocotidiano",
+          9
+        ],
+        [
+          "vencer",
+          8
+        ],
+        [
+          "alianza",
+          8
+        ],
+        [
+          "villavocity",
+          8
+        ],
+        [
+          "construiremos",
+          7
+        ],
+        [
+          "comunidad",
+          7
+        ],
+        [
+          "villavicenciocolombia",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 16,
+        "ellos": 22,
+        "ratio": 0.73
+      },
+      "negaciones": {
+        "count": 9,
+        "densidad_pct": 0.58
+      }
+    }
+  },
+  "COL-52001-003": {
+    "post_count": 36,
+    "metrics": {
+      "TTR": 0.428,
+      "legibilidad_flesch": 59.45,
+      "longitud_promedio_oracion": 15.0,
+      "palabras_frecuentes": [
+        [
+          "alcaldesadepasto",
+          24
+        ],
+        [
+          "nilsavillotarosero",
+          18
+        ],
+        [
+          "pasto",
+          17
+        ],
+        [
+          "mujeres",
+          15
+        ],
+        [
+          "compromiso",
+          11
+        ],
+        [
+          "vota",
+          11
+        ],
+        [
+          "octubre",
+          10
+        ],
+        [
+          "honestidad",
+          9
+        ],
+        [
+          "nilsa",
+          8
+        ],
+        [
+          "villota",
+          8
+        ],
+        [
+          "rosero",
+          8
+        ],
+        [
+          "voto",
+          8
+        ],
+        [
+          "oportunidades",
+          7
+        ],
+        [
+          "polígrafo",
+          7
+        ],
+        [
+          "verdad",
+          7
+        ],
+        [
+          "momento",
+          7
+        ],
+        [
+          "municipio",
+          6
+        ],
+        [
+          "alcaldía",
+          6
+        ],
+        [
+          "carácter",
+          5
+        ],
+        [
+          "solo",
+          5
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 2,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 13,
+        "densidad_pct": 0.94
+      }
+    }
+  },
+  "COL-41001-008": {
+    "post_count": 31,
+    "metrics": {
+      "TTR": 0.445,
+      "legibilidad_flesch": 53.54,
+      "longitud_promedio_oracion": 18.1,
+      "palabras_frecuentes": [
+        [
+          "neiva",
+          40
+        ],
+        [
+          "neivanos",
+          26
+        ],
+        [
+          "seamossocios",
+          20
+        ],
+        [
+          "reactivación",
+          19
+        ],
+        [
+          "octubre",
+          19
+        ],
+        [
+          "económica",
+          17
+        ],
+        [
+          "jorge",
+          14
+        ],
+        [
+          "jorgeandresalcalde",
+          14
+        ],
+        [
+          "andrés",
+          12
+        ],
+        [
+          "vota",
+          11
+        ],
+        [
+          "elige",
+          9
+        ],
+        [
+          "socios",
+          9
+        ],
+        [
+          "alcaldía",
+          8
+        ],
+        [
+          "economía",
+          8
+        ],
+        [
+          "yovotoporjorgeandrés",
+          8
+        ],
+        [
+          "gechem",
+          7
+        ],
+        [
+          "neivana",
+          7
+        ],
+        [
+          "elecciones2023",
+          7
+        ],
+        [
+          "nuestra",
+          6
+        ],
+        [
+          "seguridad",
+          6
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 10,
+        "ellos": 15,
+        "ratio": 0.67
+      },
+      "negaciones": {
+        "count": 11,
+        "densidad_pct": 0.83
+      }
+    }
+  },
+  "COL-66001-003": {
+    "post_count": 33,
+    "metrics": {
+      "TTR": 0.636,
+      "legibilidad_flesch": 48.05,
+      "longitud_promedio_oracion": 40.5,
+      "palabras_frecuentes": [
+        [
+          "pereira",
+          34
+        ],
+        [
+          "vamos",
+          23
+        ],
+        [
+          "juntos",
+          19
+        ],
+        [
+          "lograr",
+          19
+        ],
+        [
+          "victoria",
+          19
+        ],
+        [
+          "gracias",
+          19
+        ],
+        [
+          "apoyo",
+          19
+        ],
+        [
+          "martha",
+          13
+        ],
+        [
+          "tiene",
+          12
+        ],
+        [
+          "buses",
+          11
+        ],
+        [
+          "público",
+          9
+        ],
+        [
+          "buen",
+          9
+        ],
+        [
+          "ciudad",
+          8
+        ],
+        [
+          "transporte",
+          8
+        ],
+        [
+          "servicio",
+          8
+        ],
+        [
+          "alzate",
+          8
+        ],
+        [
+          "tranvía",
+          7
+        ],
+        [
+          "mejor",
+          7
+        ],
+        [
+          "votar",
+          7
+        ],
+        [
+          "carlos",
+          7
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 33,
+        "ratio": 0.09
+      },
+      "negaciones": {
+        "count": 34,
+        "densidad_pct": 1.08
+      }
+    }
+  },
+  "COL-41001-006": {
+    "post_count": 15,
+    "metrics": {
+      "TTR": 0.559,
+      "legibilidad_flesch": 28.59,
+      "longitud_promedio_oracion": 30.0,
+      "palabras_frecuentes": [
+        [
+          "candidato",
+          19
+        ],
+        [
+          "neiva",
+          16
+        ],
+        [
+          "alcaldía",
+          10
+        ],
+        [
+          "wilkerbautista",
+          9
+        ],
+        [
+          "política",
+          9
+        ],
+        [
+          "alcalde",
+          9
+        ],
+        [
+          "gruposignificativodeciudadanos",
+          8
+        ],
+        [
+          "recoleccióndefirmas",
+          8
+        ],
+        [
+          "político",
+          8
+        ],
+        [
+          "neivaprimerolavida",
+          7
+        ],
+        [
+          "amigos",
+          7
+        ],
+        [
+          "firmas",
+          5
+        ],
+        [
+          "firmesconwilker",
+          5
+        ],
+        [
+          "nuestro",
+          5
+        ],
+        [
+          "elecciones",
+          5
+        ],
+        [
+          "nuestros",
+          4
+        ],
+        [
+          "seguimos",
+          4
+        ],
+        [
+          "wilkeralcalde",
+          4
+        ],
+        [
+          "nuestra",
+          3
+        ],
+        [
+          "apoyo",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 15,
+        "ellos": 1,
+        "ratio": 15.0
+      },
+      "negaciones": {
+        "count": 7,
+        "densidad_pct": 1.02
+      }
+    }
+  },
+  "COL-05001-011": {
+    "post_count": 42,
+    "metrics": {
+      "TTR": 0.298,
+      "legibilidad_flesch": 44.04,
+      "longitud_promedio_oracion": 24.6,
+      "palabras_frecuentes": [
+        [
+          "medellín",
+          74
+        ],
+        [
+          "paulinaaguinagaalcaldesa",
+          41
+        ],
+        [
+          "pasado",
+          23
+        ],
+        [
+          "presente",
+          23
+        ],
+        [
+          "elecciones2023",
+          22
+        ],
+        [
+          "volver",
+          21
+        ],
+        [
+          "continuar",
+          21
+        ],
+        [
+          "propuestas",
+          17
+        ],
+        [
+          "octubre",
+          14
+        ],
+        [
+          "debatealcaldíademedellín",
+          14
+        ],
+        [
+          "vamos",
+          10
+        ],
+        [
+          "campaña",
+          10
+        ],
+        [
+          "sido",
+          10
+        ],
+        [
+          "nuestra",
+          10
+        ],
+        [
+          "domingo",
+          9
+        ],
+        [
+          "vota",
+          8
+        ],
+        [
+          "ciudad",
+          8
+        ],
+        [
+          "paulina",
+          8
+        ],
+        [
+          "aguinaga",
+          8
+        ],
+        [
+          "vote",
+          8
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 22,
+        "ellos": 18,
+        "ratio": 1.22
+      },
+      "negaciones": {
+        "count": 69,
+        "densidad_pct": 3.56
+      }
+    }
+  },
+  "COL-54001-014": {
+    "post_count": 11,
+    "metrics": {
+      "TTR": 0.569,
+      "legibilidad_flesch": 60.52,
+      "longitud_promedio_oracion": 14.0,
+      "palabras_frecuentes": [
+        [
+          "cúcuta",
+          16
+        ],
+        [
+          "elecciones2023",
+          9
+        ],
+        [
+          "yolecreoalnegro",
+          8
+        ],
+        [
+          "deporte",
+          7
+        ],
+        [
+          "alcalde",
+          5
+        ],
+        [
+          "emersonalcalde",
+          5
+        ],
+        [
+          "elalcaldedelagente",
+          5
+        ],
+        [
+          "vamos",
+          4
+        ],
+        [
+          "niños",
+          4
+        ],
+        [
+          "mejor",
+          4
+        ],
+        [
+          "ciudad",
+          4
+        ],
+        [
+          "vote",
+          4
+        ],
+        [
+          "jóvenes",
+          3
+        ],
+        [
+          "deben",
+          3
+        ],
+        [
+          "consumir",
+          3
+        ],
+        [
+          "emerson",
+          3
+        ],
+        [
+          "potencia",
+          2
+        ],
+        [
+          "deportiva",
+          2
+        ],
+        [
+          "siempre",
+          2
+        ],
+        [
+          "lograrlo",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 4,
+        "ratio": 0.75
+      },
+      "negaciones": {
+        "count": 7,
+        "densidad_pct": 1.92
+      }
+    }
+  },
+  "COL-41001-004": {
+    "post_count": 15,
+    "metrics": {
+      "TTR": 0.615,
+      "legibilidad_flesch": 53.91,
+      "longitud_promedio_oracion": 11.3,
+      "palabras_frecuentes": [
+        [
+          "transformemos",
+          14
+        ],
+        [
+          "neivasinratas",
+          14
+        ],
+        [
+          "alcaldeyilber",
+          12
+        ],
+        [
+          "yilber",
+          11
+        ],
+        [
+          "alcalde",
+          6
+        ],
+        [
+          "corruptos",
+          6
+        ],
+        [
+          "neiva",
+          5
+        ],
+        [
+          "tiempo",
+          4
+        ],
+        [
+          "vota",
+          4
+        ],
+        [
+          "venceremos",
+          4
+        ],
+        [
+          "honestidad",
+          3
+        ],
+        [
+          "voto",
+          3
+        ],
+        [
+          "domingo",
+          3
+        ],
+        [
+          "juntos",
+          3
+        ],
+        [
+          "gorky",
+          3
+        ],
+        [
+          "nuestras",
+          2
+        ],
+        [
+          "universidad",
+          2
+        ],
+        [
+          "corrupción",
+          2
+        ],
+        [
+          "despertar",
+          2
+        ],
+        [
+          "votar",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 2,
+        "ellos": 2,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 6,
+        "densidad_pct": 1.56
+      }
+    }
+  },
+  "COL-70001-001": {
+    "post_count": 21,
+    "metrics": {
+      "TTR": 0.687,
+      "legibilidad_flesch": 56.55,
+      "longitud_promedio_oracion": 13.8,
+      "palabras_frecuentes": [
+        [
+          "sincelejo",
+          15
+        ],
+        [
+          "vamos",
+          7
+        ],
+        [
+          "historia",
+          6
+        ],
+        [
+          "aldemaralcalde",
+          6
+        ],
+        [
+          "sincelejanos",
+          5
+        ],
+        [
+          "nuestra",
+          5
+        ],
+        [
+          "octubre",
+          5
+        ],
+        [
+          "cambiar",
+          5
+        ],
+        [
+          "aldemar",
+          4
+        ],
+        [
+          "ganar",
+          4
+        ],
+        [
+          "esperanza",
+          4
+        ],
+        [
+          "juntossomoslaesperanza",
+          4
+        ],
+        [
+          "vota",
+          3
+        ],
+        [
+          "derrotar",
+          3
+        ],
+        [
+          "nuestro",
+          3
+        ],
+        [
+          "será",
+          3
+        ],
+        [
+          "juntos",
+          3
+        ],
+        [
+          "aldemaralfaroalcalde",
+          3
+        ],
+        [
+          "propuestas",
+          2
+        ],
+        [
+          "cambiaremos",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 8,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-54001-012": {
+    "post_count": 8,
+    "metrics": {
+      "TTR": 0.518,
+      "legibilidad_flesch": 35.3,
+      "longitud_promedio_oracion": 33.5,
+      "palabras_frecuentes": [
+        [
+          "alcalde",
+          13
+        ],
+        [
+          "cúcuta",
+          12
+        ],
+        [
+          "lamejorcúcutaposible",
+          8
+        ],
+        [
+          "sergiomaldonado",
+          8
+        ],
+        [
+          "colombia",
+          8
+        ],
+        [
+          "elecciones2023",
+          8
+        ],
+        [
+          "ciudad",
+          6
+        ],
+        [
+          "sergio",
+          5
+        ],
+        [
+          "nuestra",
+          5
+        ],
+        [
+          "posible",
+          5
+        ],
+        [
+          "vamos",
+          5
+        ],
+        [
+          "mejor",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "gracias",
+          3
+        ],
+        [
+          "política",
+          3
+        ],
+        [
+          "proyecto",
+          2
+        ],
+        [
+          "calle",
+          2
+        ],
+        [
+          "cucuteños",
+          2
+        ],
+        [
+          "seguir",
+          2
+        ],
+        [
+          "motivación",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 5,
+        "ellos": 4,
+        "ratio": 1.25
+      },
+      "negaciones": {
+        "count": 3,
+        "densidad_pct": 0.9
+      }
+    }
+  },
+  "COL-05001-014": {
+    "post_count": 19,
+    "metrics": {
+      "TTR": 0.616,
+      "legibilidad_flesch": 44.57,
+      "longitud_promedio_oracion": 18.5,
+      "palabras_frecuentes": [
+        [
+          "medellín",
+          20
+        ],
+        [
+          "gilbertoalcalde",
+          15
+        ],
+        [
+          "elecciones2023",
+          13
+        ],
+        [
+          "alcaldíademedellín",
+          10
+        ],
+        [
+          "visióndeciudad",
+          9
+        ],
+        [
+          "pipecardona8",
+          9
+        ],
+        [
+          "fuerzaciudadanamedellin",
+          9
+        ],
+        [
+          "vamos",
+          8
+        ],
+        [
+          "ciudad",
+          8
+        ],
+        [
+          "viral",
+          7
+        ],
+        [
+          "fuerzaciudadana",
+          7
+        ],
+        [
+          "antioquia",
+          6
+        ],
+        [
+          "trabajar",
+          5
+        ],
+        [
+          "fzciudadana",
+          5
+        ],
+        [
+          "debemos",
+          5
+        ],
+        [
+          "candidatura",
+          4
+        ],
+        [
+          "alcaldía",
+          4
+        ],
+        [
+          "comunas",
+          4
+        ],
+        [
+          "transformar",
+          4
+        ],
+        [
+          "identificar",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 5,
+        "ratio": 0.6
+      },
+      "negaciones": {
+        "count": 4,
+        "densidad_pct": 0.42
+      }
+    }
+  },
+  "COL-63001-003": {
+    "post_count": 13,
+    "metrics": {
+      "TTR": 0.626,
+      "legibilidad_flesch": 63.62,
+      "longitud_promedio_oracion": 12.5,
+      "palabras_frecuentes": [
+        [
+          "armeniaquindio",
+          10
+        ],
+        [
+          "ciudadanos",
+          6
+        ],
+        [
+          "octubre",
+          5
+        ],
+        [
+          "esperanza",
+          4
+        ],
+        [
+          "armenia",
+          4
+        ],
+        [
+          "alternativa",
+          4
+        ],
+        [
+          "politiqueros",
+          3
+        ],
+        [
+          "nuestra",
+          3
+        ],
+        [
+          "ciudad",
+          3
+        ],
+        [
+          "vota",
+          3
+        ],
+        [
+          "stefany",
+          3
+        ],
+        [
+          "gómez",
+          3
+        ],
+        [
+          "nosotros",
+          3
+        ],
+        [
+          "libres",
+          2
+        ],
+        [
+          "nuestros",
+          2
+        ],
+        [
+          "votemos",
+          2
+        ],
+        [
+          "juntas",
+          2
+        ],
+        [
+          "merecemos",
+          2
+        ],
+        [
+          "hagamos",
+          2
+        ],
+        [
+          "historia",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 9,
+        "ellos": 2,
+        "ratio": 4.5
+      },
+      "negaciones": {
+        "count": 6,
+        "densidad_pct": 2.18
+      }
+    }
+  },
+  "COL-15001-001": {
+    "post_count": 8,
+    "metrics": {
+      "TTR": 0.662,
+      "legibilidad_flesch": 59.02,
+      "longitud_promedio_oracion": 20.3,
+      "palabras_frecuentes": [
+        [
+          "conlagente",
+          9
+        ],
+        [
+          "proyecto",
+          6
+        ],
+        [
+          "convicentetodoesdiferente",
+          5
+        ],
+        [
+          "apoyo",
+          5
+        ],
+        [
+          "ciudad",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "nuestra",
+          4
+        ],
+        [
+          "tunja",
+          3
+        ],
+        [
+          "propuestas",
+          3
+        ],
+        [
+          "vicenteconlagente",
+          3
+        ],
+        [
+          "cada",
+          3
+        ],
+        [
+          "gente",
+          3
+        ],
+        [
+          "gracias",
+          3
+        ],
+        [
+          "candidato",
+          3
+        ],
+        [
+          "gran",
+          3
+        ],
+        [
+          "llegar",
+          2
+        ],
+        [
+          "ganarán",
+          2
+        ],
+        [
+          "realidad",
+          2
+        ],
+        [
+          "cual",
+          2
+        ],
+        [
+          "nuestro",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 7,
+        "ellos": 2,
+        "ratio": 3.5
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.33
+      }
+    }
+  },
+  "COL-05049-001": {
+    "post_count": 23,
+    "metrics": {
+      "TTR": 0.529,
+      "legibilidad_flesch": 54.06,
+      "longitud_promedio_oracion": 18.8,
+      "palabras_frecuentes": [
+        [
+          "esposible",
+          21
+        ],
+        [
+          "gracias",
+          13
+        ],
+        [
+          "bello",
+          12
+        ],
+        [
+          "feliperestrepoalcaldedebello",
+          10
+        ],
+        [
+          "feliperestrepoalcalde",
+          9
+        ],
+        [
+          "bellanitas",
+          8
+        ],
+        [
+          "nuestros",
+          8
+        ],
+        [
+          "municipio",
+          7
+        ],
+        [
+          "cambio",
+          7
+        ],
+        [
+          "vida",
+          6
+        ],
+        [
+          "nuestro",
+          6
+        ],
+        [
+          "octubre",
+          6
+        ],
+        [
+          "haremos",
+          5
+        ],
+        [
+          "dignidad",
+          5
+        ],
+        [
+          "esperanza",
+          5
+        ],
+        [
+          "apuesta",
+          5
+        ],
+        [
+          "elegir",
+          5
+        ],
+        [
+          "mujeres",
+          5
+        ],
+        [
+          "valientes",
+          4
+        ],
+        [
+          "humana",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 20,
+        "ellos": 6,
+        "ratio": 3.33
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.47
+      }
+    }
+  },
+  "COL-76001-010": {
+    "post_count": 30,
+    "metrics": {
+      "TTR": 0.447,
+      "legibilidad_flesch": 51.62,
+      "longitud_promedio_oracion": 18.6,
+      "palabras_frecuentes": [
+        [
+          "cali",
+          36
+        ],
+        [
+          "vamos",
+          20
+        ],
+        [
+          "deninsonmendoza",
+          16
+        ],
+        [
+          "vamoscali",
+          15
+        ],
+        [
+          "futuro",
+          13
+        ],
+        [
+          "vamoscontodacali",
+          13
+        ],
+        [
+          "independientes",
+          4
+        ],
+        [
+          "gracias",
+          4
+        ],
+        [
+          "ganar",
+          4
+        ],
+        [
+          "hacia",
+          3
+        ],
+        [
+          "comuna",
+          3
+        ],
+        [
+          "domingo",
+          3
+        ],
+        [
+          "necesita",
+          3
+        ],
+        [
+          "vamosaganar",
+          3
+        ],
+        [
+          "california",
+          3
+        ],
+        [
+          "hemos",
+          2
+        ],
+        [
+          "hecho",
+          2
+        ],
+        [
+          "deninson",
+          2
+        ],
+        [
+          "nuestro",
+          2
+        ],
+        [
+          "prestaron",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 1,
+        "ratio": 4.0
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.22
+      }
+    }
+  },
+  "COL-73001-005": {
+    "post_count": 50,
+    "metrics": {
+      "TTR": 0.622,
+      "legibilidad_flesch": 65.5,
+      "longitud_promedio_oracion": 17.7,
+      "palabras_frecuentes": [
+        [
+          "ibaguédeprimera",
+          24
+        ],
+        [
+          "número",
+          13
+        ],
+        [
+          "tarjetón",
+          13
+        ],
+        [
+          "ciudad",
+          12
+        ],
+        [
+          "ibagué",
+          11
+        ],
+        [
+          "líder",
+          10
+        ],
+        [
+          "apoyo",
+          9
+        ],
+        [
+          "nuestra",
+          9
+        ],
+        [
+          "comuna",
+          9
+        ],
+        [
+          "amigos",
+          8
+        ],
+        [
+          "gracias",
+          7
+        ],
+        [
+          "firmeporibagué",
+          7
+        ],
+        [
+          "nueva",
+          6
+        ],
+        [
+          "fuerza",
+          6
+        ],
+        [
+          "democrática",
+          6
+        ],
+        [
+          "amigas",
+          6
+        ],
+        [
+          "voto",
+          5
+        ],
+        [
+          "cada",
+          5
+        ],
+        [
+          "juntos",
+          4
+        ],
+        [
+          "primera",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 11,
+        "ellos": 6,
+        "ratio": 1.83
+      },
+      "negaciones": {
+        "count": 11,
+        "densidad_pct": 0.94
+      }
+    }
+  },
+  "COL-20001-002": {
+    "post_count": 16,
+    "metrics": {
+      "TTR": 0.428,
+      "legibilidad_flesch": 66.74,
+      "longitud_promedio_oracion": 12.3,
+      "palabras_frecuentes": [
+        [
+          "valledupar",
+          13
+        ],
+        [
+          "linaalcaldesa2023",
+          11
+        ],
+        [
+          "territorio",
+          9
+        ],
+        [
+          "pacto",
+          8
+        ],
+        [
+          "histórico",
+          8
+        ],
+        [
+          "cambio",
+          8
+        ],
+        [
+          "alcaldía",
+          7
+        ],
+        [
+          "seguro",
+          5
+        ],
+        [
+          "pactohistorico",
+          5
+        ],
+        [
+          "lina",
+          4
+        ],
+        [
+          "armas",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "mujeres",
+          4
+        ],
+        [
+          "vota",
+          4
+        ],
+        [
+          "próspero",
+          3
+        ],
+        [
+          "mejor",
+          3
+        ],
+        [
+          "nuestra",
+          3
+        ],
+        [
+          "ciudad",
+          3
+        ],
+        [
+          "pueblo",
+          3
+        ],
+        [
+          "linaalcaldesa",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 7,
+        "ellos": 2,
+        "ratio": 3.5
+      },
+      "negaciones": {
+        "count": 8,
+        "densidad_pct": 1.72
+      }
+    }
+  },
+  "COL-68547-002": {
+    "post_count": 20,
+    "metrics": {
+      "TTR": 0.395,
+      "legibilidad_flesch": -18.45,
+      "longitud_promedio_oracion": 83.5,
+      "palabras_frecuentes": [
+        [
+          "piedecuesta",
+          25
+        ],
+        [
+          "vota",
+          15
+        ],
+        [
+          "santander",
+          15
+        ],
+        [
+          "colombia",
+          15
+        ],
+        [
+          "elecciones",
+          13
+        ],
+        [
+          "alcalde",
+          11
+        ],
+        [
+          "wilson",
+          8
+        ],
+        [
+          "gonzalez",
+          7
+        ],
+        [
+          "voto",
+          7
+        ],
+        [
+          "nuestra",
+          4
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "personas",
+          3
+        ],
+        [
+          "elecciones2023",
+          3
+        ],
+        [
+          "alcaldiapiedecuesta",
+          3
+        ],
+        [
+          "cada",
+          2
+        ],
+        [
+          "camino",
+          2
+        ],
+        [
+          "estamos",
+          2
+        ],
+        [
+          "transformar",
+          2
+        ],
+        [
+          "lograremos",
+          2
+        ],
+        [
+          "transformación",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 2,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.3
+      }
+    }
+  },
+  "COL-68001-013": {
+    "post_count": 28,
+    "metrics": {
+      "TTR": 0.66,
+      "legibilidad_flesch": 50.29,
+      "longitud_promedio_oracion": 32.3,
+      "palabras_frecuentes": [
+        [
+          "bucaramanga",
+          9
+        ],
+        [
+          "pacto",
+          8
+        ],
+        [
+          "ciudad",
+          6
+        ],
+        [
+          "histórico",
+          6
+        ],
+        [
+          "petro",
+          6
+        ],
+        [
+          "senador",
+          4
+        ],
+        [
+          "nuestra",
+          4
+        ],
+        [
+          "senadora",
+          4
+        ],
+        [
+          "lopez",
+          4
+        ],
+        [
+          "parte",
+          4
+        ],
+        [
+          "alcaldia",
+          4
+        ],
+        [
+          "somos",
+          4
+        ],
+        [
+          "nuestro",
+          3
+        ],
+        [
+          "clara",
+          3
+        ],
+        [
+          "alexander",
+          3
+        ],
+        [
+          "hambre",
+          3
+        ],
+        [
+          "esperanza",
+          3
+        ],
+        [
+          "cuidar",
+          3
+        ],
+        [
+          "viral",
+          3
+        ],
+        [
+          "juanpis",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 10,
+        "ellos": 5,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 0.91
+      }
+    }
+  },
+  "COL-68001-012": {
+    "post_count": 14,
+    "metrics": {
+      "TTR": 0.62,
+      "legibilidad_flesch": 55.22,
+      "longitud_promedio_oracion": 21.5,
+      "palabras_frecuentes": [
+        [
+          "bucaramanga",
+          15
+        ],
+        [
+          "luis",
+          10
+        ],
+        [
+          "roberto",
+          10
+        ],
+        [
+          "alcalde",
+          10
+        ],
+        [
+          "distinto",
+          9
+        ],
+        [
+          "vamosacrecer",
+          8
+        ],
+        [
+          "luisrobertoalcalde",
+          7
+        ],
+        [
+          "ciudad",
+          6
+        ],
+        [
+          "unidos",
+          5
+        ],
+        [
+          "deportistas",
+          5
+        ],
+        [
+          "vamos",
+          4
+        ],
+        [
+          "grandes",
+          4
+        ],
+        [
+          "cómo",
+          3
+        ],
+        [
+          "parte",
+          3
+        ],
+        [
+          "crecer",
+          3
+        ],
+        [
+          "ordóñez",
+          3
+        ],
+        [
+          "nuestra",
+          3
+        ],
+        [
+          "alto",
+          3
+        ],
+        [
+          "nivel",
+          3
+        ],
+        [
+          "podemos",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 5,
+        "densidad_pct": 1.01
+      }
+    }
+  },
+  "COL-11001-007": {
+    "post_count": 14,
+    "metrics": {
+      "TTR": 0.547,
+      "legibilidad_flesch": 32.06,
+      "longitud_promedio_oracion": 31.8,
+      "palabras_frecuentes": [
+        [
+          "bogotá",
+          14
+        ],
+        [
+          "bogota",
+          11
+        ],
+        [
+          "manoslimpias",
+          10
+        ],
+        [
+          "elalcaldedelpueblo",
+          9
+        ],
+        [
+          "campaña",
+          5
+        ],
+        [
+          "rafael",
+          5
+        ],
+        [
+          "quintero",
+          5
+        ],
+        [
+          "rafaquinteroalcalde",
+          5
+        ],
+        [
+          "alcaldía",
+          5
+        ],
+        [
+          "espero",
+          4
+        ],
+        [
+          "mora",
+          4
+        ],
+        [
+          "rafaelquinteroalcalde",
+          4
+        ],
+        [
+          "maquinarias",
+          4
+        ],
+        [
+          "octubre",
+          3
+        ],
+        [
+          "alcalde",
+          3
+        ],
+        [
+          "propuestas",
+          3
+        ],
+        [
+          "rafaalcalde",
+          3
+        ],
+        [
+          "escogerá",
+          2
+        ],
+        [
+          "llenado",
+          2
+        ],
+        [
+          "experiencias",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 4,
+        "ellos": 2,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.24
+      }
+    }
+  },
+  "COL-08001-005": {
+    "post_count": 4,
+    "metrics": {
+      "TTR": 0.417,
+      "legibilidad_flesch": 64.56,
+      "longitud_promedio_oracion": 17.1,
+      "palabras_frecuentes": [
+        [
+          "barranquilla",
+          8
+        ],
+        [
+          "amor",
+          6
+        ],
+        [
+          "jornada",
+          4
+        ],
+        [
+          "cada",
+          4
+        ],
+        [
+          "cambio",
+          4
+        ],
+        [
+          "vida",
+          4
+        ],
+        [
+          "esperanza",
+          4
+        ],
+        [
+          "será",
+          2
+        ],
+        [
+          "vital",
+          2
+        ],
+        [
+          "ciudadano",
+          2
+        ],
+        [
+          "ciudadana",
+          2
+        ],
+        [
+          "cuide",
+          2
+        ],
+        [
+          "votaciones",
+          2
+        ],
+        [
+          "invitación",
+          2
+        ],
+        [
+          "responsabilizarnos",
+          2
+        ],
+        [
+          "democracia",
+          2
+        ],
+        [
+          "cuidar",
+          2
+        ],
+        [
+          "estas",
+          2
+        ],
+        [
+          "elecciones",
+          2
+        ],
+        [
+          "después",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-05001-001": {
+    "post_count": 20,
+    "metrics": {
+      "TTR": 0.492,
+      "legibilidad_flesch": 76.21,
+      "longitud_promedio_oracion": 12.0,
+      "palabras_frecuentes": [
+        [
+          "medellín",
+          30
+        ],
+        [
+          "creemos",
+          23
+        ],
+        [
+          "parati",
+          18
+        ],
+        [
+          "ficoalcalde",
+          17
+        ],
+        [
+          "viral",
+          16
+        ],
+        [
+          "politica",
+          14
+        ],
+        [
+          "gente",
+          9
+        ],
+        [
+          "fico",
+          8
+        ],
+        [
+          "jóvenes",
+          8
+        ],
+        [
+          "domingo",
+          7
+        ],
+        [
+          "alcaldía",
+          6
+        ],
+        [
+          "concejo",
+          5
+        ],
+        [
+          "esperanza",
+          5
+        ],
+        [
+          "colombia",
+          5
+        ],
+        [
+          "nuestro",
+          5
+        ],
+        [
+          "vamos",
+          4
+        ],
+        [
+          "asamblea",
+          4
+        ],
+        [
+          "equipo",
+          4
+        ],
+        [
+          "faltan",
+          4
+        ],
+        [
+          "días",
+          4
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 9,
+        "ellos": 7,
+        "ratio": 1.29
+      },
+      "negaciones": {
+        "count": 9,
+        "densidad_pct": 1.01
+      }
+    }
+  },
+  "COL-17001-001": {
+    "post_count": 11,
+    "metrics": {
+      "TTR": 0.426,
+      "legibilidad_flesch": -8.37,
+      "longitud_promedio_oracion": 42.5,
+      "palabras_frecuentes": [
+        [
+          "colombia",
+          21
+        ],
+        [
+          "manizales",
+          18
+        ],
+        [
+          "anéctodasdelavida",
+          16
+        ],
+        [
+          "ungobiernoenserio",
+          14
+        ],
+        [
+          "rojasalcalde",
+          11
+        ],
+        [
+          "alcalde2023",
+          11
+        ],
+        [
+          "tiktok",
+          11
+        ],
+        [
+          "fypp",
+          11
+        ],
+        [
+          "fypdongggggggg",
+          11
+        ],
+        [
+          "alcalde",
+          11
+        ],
+        [
+          "propuestas",
+          10
+        ],
+        [
+          "fypシviral",
+          10
+        ],
+        [
+          "elecciones2023",
+          9
+        ],
+        [
+          "comunidad",
+          8
+        ],
+        [
+          "vamos",
+          7
+        ],
+        [
+          "apoyo",
+          5
+        ],
+        [
+          "foryou",
+          5
+        ],
+        [
+          "ciudad",
+          4
+        ],
+        [
+          "trabajamosporlascimunidades",
+          4
+        ],
+        [
+          "futuro",
+          3
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 3,
+        "ellos": 8,
+        "ratio": 0.38
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.21
+      }
+    }
+  },
+  "COL-54001-013": {
+    "post_count": 5,
+    "metrics": {
+      "TTR": 0.375,
+      "legibilidad_flesch": 22.08,
+      "longitud_promedio_oracion": 10.9,
+      "palabras_frecuentes": [
+        [
+          "cúcuta",
+          5
+        ],
+        [
+          "nosotros",
+          5
+        ],
+        [
+          "ella",
+          5
+        ],
+        [
+          "soyleonardojacome",
+          5
+        ],
+        [
+          "voyconleonardojacome",
+          5
+        ],
+        [
+          "cúcutaavanza",
+          5
+        ],
+        [
+          "octubre",
+          4
+        ],
+        [
+          "avanza",
+          4
+        ],
+        [
+          "mañana",
+          1
+        ],
+        [
+          "gran",
+          1
+        ],
+        [
+          "juntos",
+          1
+        ],
+        [
+          "hagamos",
+          1
+        ],
+        [
+          "avance",
+          1
+        ],
+        [
+          "comienza",
+          1
+        ],
+        [
+          "nueva",
+          1
+        ],
+        [
+          "historia",
+          1
+        ],
+        [
+          "nuestra",
+          1
+        ],
+        [
+          "ciudad",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-05151-003": {
+    "post_count": 8,
+    "metrics": {
+      "TTR": 0.656,
+      "legibilidad_flesch": 45.04,
+      "longitud_promedio_oracion": 21.4,
+      "palabras_frecuentes": [
+        [
+          "itagüí",
+          8
+        ],
+        [
+          "itagüísomostodos",
+          7
+        ],
+        [
+          "diegotorresalcalde",
+          7
+        ],
+        [
+          "octubre",
+          3
+        ],
+        [
+          "domingo",
+          2
+        ],
+        [
+          "diego",
+          2
+        ],
+        [
+          "torres",
+          2
+        ],
+        [
+          "itagüiseños",
+          2
+        ],
+        [
+          "somos",
+          2
+        ],
+        [
+          "garantizando",
+          2
+        ],
+        [
+          "apoyo",
+          2
+        ],
+        [
+          "vamos",
+          2
+        ],
+        [
+          "continuidad",
+          2
+        ],
+        [
+          "empresarios",
+          2
+        ],
+        [
+          "mañana",
+          1
+        ],
+        [
+          "votar",
+          1
+        ],
+        [
+          "alcalde",
+          1
+        ],
+        [
+          "votando",
+          1
+        ],
+        [
+          "decidí",
+          1
+        ],
+        [
+          "candidato",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 1,
+        "ellos": 3,
+        "ratio": 0.33
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-76520-003": {
+    "post_count": 4,
+    "metrics": {
+      "TTR": 0.785,
+      "legibilidad_flesch": 72.49,
+      "longitud_promedio_oracion": 18.1,
+      "palabras_frecuentes": [
+        [
+          "vota",
+          3
+        ],
+        [
+          "sido",
+          3
+        ],
+        [
+          "palmira",
+          3
+        ],
+        [
+          "historia",
+          2
+        ],
+        [
+          "héctor",
+          2
+        ],
+        [
+          "fabio",
+          2
+        ],
+        [
+          "velasco",
+          2
+        ],
+        [
+          "octubre",
+          2
+        ],
+        [
+          "familia",
+          2
+        ],
+        [
+          "proceso",
+          2
+        ],
+        [
+          "equipo",
+          2
+        ],
+        [
+          "cada",
+          2
+        ],
+        [
+          "vamos",
+          2
+        ],
+        [
+          "único",
+          2
+        ],
+        [
+          "momento",
+          1
+        ],
+        [
+          "cambiar",
+          1
+        ],
+        [
+          "libre",
+          1
+        ],
+        [
+          "feliz",
+          1
+        ],
+        [
+          "conciencia",
+          1
+        ],
+        [
+          "alcalde",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 1,
+        "ellos": 1,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.69
+      }
+    }
+  },
+  "COL-13001-002": {
+    "post_count": 5,
+    "metrics": {
+      "TTR": 0.779,
+      "legibilidad_flesch": 50.49,
+      "longitud_promedio_oracion": 15.9,
+      "palabras_frecuentes": [
+        [
+          "williamgarciaalcalde",
+          5
+        ],
+        [
+          "lostresgolpes",
+          5
+        ],
+        [
+          "cartagenapalagente",
+          5
+        ],
+        [
+          "gobierno",
+          3
+        ],
+        [
+          "ciudad",
+          3
+        ],
+        [
+          "nuestro",
+          2
+        ],
+        [
+          "lugar",
+          2
+        ],
+        [
+          "domingo",
+          2
+        ],
+        [
+          "octubre",
+          2
+        ],
+        [
+          "gorrita",
+          2
+        ],
+        [
+          "roja",
+          2
+        ],
+        [
+          "nuestros",
+          2
+        ],
+        [
+          "posible",
+          2
+        ],
+        [
+          "cartagena",
+          2
+        ],
+        [
+          "turismo",
+          2
+        ],
+        [
+          "nuestra",
+          2
+        ],
+        [
+          "autoridad",
+          2
+        ],
+        [
+          "vota",
+          2
+        ],
+        [
+          "patrimonio",
+          1
+        ],
+        [
+          "regalo",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 6,
+        "ellos": 3,
+        "ratio": 2.0
+      },
+      "negaciones": {
+        "count": 2,
+        "densidad_pct": 0.84
+      }
+    }
+  },
+  "COL-63001-013": {
+    "post_count": 5,
+    "metrics": {
+      "TTR": 0.415,
+      "legibilidad_flesch": -50.4,
+      "longitud_promedio_oracion": 12.0,
+      "palabras_frecuentes": [
+        [
+          "jamespadillaalcalde",
+          5
+        ],
+        [
+          "armenia",
+          5
+        ],
+        [
+          "estamoslistos",
+          4
+        ],
+        [
+          "tambiendependeti",
+          4
+        ],
+        [
+          "unidosesmasfacil",
+          3
+        ],
+        [
+          "viralvideo",
+          3
+        ],
+        [
+          "pormitierra",
+          2
+        ],
+        [
+          "ciudadmilagro",
+          2
+        ],
+        [
+          "vota",
+          2
+        ],
+        [
+          "james",
+          2
+        ],
+        [
+          "padilla",
+          2
+        ],
+        [
+          "octubre",
+          2
+        ],
+        [
+          "voya",
+          1
+        ],
+        [
+          "cuyabros",
+          1
+        ],
+        [
+          "armeniaquindío",
+          1
+        ],
+        [
+          "tambiendependedeti",
+          1
+        ],
+        [
+          "votamos",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  },
+  "COL-05151-005": {
+    "post_count": 7,
+    "metrics": {
+      "TTR": 0.422,
+      "legibilidad_flesch": 29.61,
+      "longitud_promedio_oracion": 10.6,
+      "palabras_frecuentes": [
+        [
+          "leónmarioalcalde",
+          7
+        ],
+        [
+          "itagüíparalagente",
+          7
+        ],
+        [
+          "itagüiseños",
+          7
+        ],
+        [
+          "votarescuidar",
+          6
+        ],
+        [
+          "tuvotocuenta",
+          6
+        ],
+        [
+          "itagüí",
+          4
+        ],
+        [
+          "león",
+          3
+        ],
+        [
+          "mario",
+          3
+        ],
+        [
+          "voto",
+          2
+        ],
+        [
+          "gente",
+          2
+        ],
+        [
+          "tipo",
+          1
+        ],
+        [
+          "votante",
+          1
+        ],
+        [
+          "eres",
+          1
+        ],
+        [
+          "merece",
+          1
+        ],
+        [
+          "nuevo",
+          1
+        ],
+        [
+          "comienzo",
+          1
+        ],
+        [
+          "octubre",
+          1
+        ],
+        [
+          "bedoya",
+          1
+        ],
+        [
+          "pase",
+          1
+        ],
+        [
+          "vuelva",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.94
+      }
+    }
+  },
+  "COL-15001-009": {
+    "post_count": 10,
+    "metrics": {
+      "TTR": 0.5,
+      "legibilidad_flesch": 21.5,
+      "longitud_promedio_oracion": 19.4,
+      "palabras_frecuentes": [
+        [
+          "tunja",
+          10
+        ],
+        [
+          "profemikhailalcalde",
+          8
+        ],
+        [
+          "proferusoalcalde",
+          8
+        ],
+        [
+          "tiktok",
+          8
+        ],
+        [
+          "tiktokviral",
+          8
+        ],
+        [
+          "viraltiktok",
+          8
+        ],
+        [
+          "tunjaboyaca",
+          8
+        ],
+        [
+          "politica",
+          8
+        ],
+        [
+          "politicaboyacá",
+          8
+        ],
+        [
+          "viralvideo",
+          8
+        ],
+        [
+          "politicacolombia",
+          8
+        ],
+        [
+          "juntos",
+          5
+        ],
+        [
+          "ganamos",
+          5
+        ],
+        [
+          "corruptos",
+          5
+        ],
+        [
+          "rusoalcalde",
+          5
+        ],
+        [
+          "parte",
+          3
+        ],
+        [
+          "gracias",
+          3
+        ],
+        [
+          "elrusoalcalde",
+          3
+        ],
+        [
+          "domingo",
+          2
+        ],
+        [
+          "respuesta",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 2,
+        "ellos": 2,
+        "ratio": 1.0
+      },
+      "negaciones": {
+        "count": 3,
+        "densidad_pct": 0.86
+      }
+    }
+  },
+  "COL-54001-007": {
+    "post_count": 15,
+    "metrics": {
+      "TTR": 0.335,
+      "legibilidad_flesch": -7.46,
+      "longitud_promedio_oracion": 90.0,
+      "palabras_frecuentes": [
+        [
+          "alcalde",
+          15
+        ],
+        [
+          "cúcuta",
+          15
+        ],
+        [
+          "colombia",
+          13
+        ],
+        [
+          "viral",
+          11
+        ],
+        [
+          "construir",
+          9
+        ],
+        [
+          "mejor",
+          9
+        ],
+        [
+          "ciudad",
+          9
+        ],
+        [
+          "comprar",
+          8
+        ],
+        [
+          "votos",
+          8
+        ],
+        [
+          "ofrecer",
+          8
+        ],
+        [
+          "propuestas",
+          8
+        ],
+        [
+          "compra",
+          8
+        ],
+        [
+          "llegar",
+          8
+        ],
+        [
+          "llega",
+          8
+        ],
+        [
+          "robar",
+          8
+        ],
+        [
+          "mucha",
+          5
+        ],
+        [
+          "atención",
+          5
+        ],
+        [
+          "ustedes",
+          5
+        ],
+        [
+          "mario",
+          3
+        ],
+        [
+          "figueroa",
+          2
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 1,
+        "ellos": 2,
+        "ratio": 0.5
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 0.28
+      }
+    }
+  },
+  "COL-11001-004": {
+    "post_count": 4,
+    "metrics": {
+      "TTR": 0.946,
+      "legibilidad_flesch": 31.71,
+      "longitud_promedio_oracion": 14.5,
+      "palabras_frecuentes": [
+        [
+          "nicolasramos",
+          3
+        ],
+        [
+          "seguridad",
+          1
+        ],
+        [
+          "celulares",
+          1
+        ],
+        [
+          "tecnologia",
+          1
+        ],
+        [
+          "propuesta",
+          1
+        ],
+        [
+          "innovadora",
+          1
+        ],
+        [
+          "queremos",
+          1
+        ],
+        [
+          "desincentivar",
+          1
+        ],
+        [
+          "hurto",
+          1
+        ],
+        [
+          "celular",
+          1
+        ],
+        [
+          "ciudad",
+          1
+        ],
+        [
+          "exclusión",
+          1
+        ],
+        [
+          "noscallan",
+          1
+        ],
+        [
+          "democracia",
+          1
+        ],
+        [
+          "debates",
+          1
+        ],
+        [
+          "debe",
+          1
+        ],
+        [
+          "candidatos",
+          1
+        ],
+        [
+          "decisión",
+          1
+        ],
+        [
+          "exclusiva",
+          1
+        ],
+        [
+          "juan",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 1,
+        "densidad_pct": 1.72
+      }
+    }
+  },
+  "COL-68276-007": {
+    "post_count": 1,
+    "metrics": {
+      "TTR": 1.0,
+      "legibilidad_flesch": 69.74,
+      "longitud_promedio_oracion": 5.0,
+      "palabras_frecuentes": [
+        [
+          "jajaj",
+          1
+        ],
+        [
+          "vota",
+          1
+        ],
+        [
+          "floridablanca",
+          1
+        ]
+      ],
+      "nosotros_ellos": {
+        "nosotros": 0,
+        "ellos": 0,
+        "ratio": null
+      },
+      "negaciones": {
+        "count": 0,
+        "densidad_pct": 0.0
+      }
+    }
+  }
+}
