@@ -93,9 +93,13 @@ async function iniciarCamara() {
 
 async function iniciarMediaPipe() {
   try {
-    // Carga MediaPipe Holistic desde CDN
-    const { Holistic } = await import('https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/holistic.js');
-    const holistic = new Holistic({
+    // Carga MediaPipe Holistic desde CDN (UMD bundle, se inyecta en el objeto global window)
+    await import('https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/holistic.js');
+    const HolisticClass = window.Holistic;
+    if (!HolisticClass) {
+      throw new Error('No se pudo encontrar Holistic en el objeto window global.');
+    }
+    const holistic = new HolisticClass({
       locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`
     });
     holistic.setOptions({
