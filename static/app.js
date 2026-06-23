@@ -118,7 +118,7 @@ async function corregirConIA() {
       
       const liveTextEl = document.getElementById('transcripcion-live-texto');
       if (liveTextEl) {
-        liveTextEl.textContent = data.texto_limpio;
+        liveTextEl.value = data.texto_limpio;
       }
       
       const fileTextEl = document.getElementById('transcripcion-texto');
@@ -203,8 +203,12 @@ async function iniciarMediaPipe() {
 }
 
 function procesarResultadosMediaPipe(results) {
-  // Presencia y alineación en tiempo real (siempre disponible si la cámara está activa)
   const face = results.faceLandmarks;
+  const canvas = document.getElementById('mediapipe-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Presencia y alineación en tiempo real (siempre disponible si la cámara está activa)
   let presenciaText = 'No detectado';
   if (face && face[468] && face[473]) {
     const irisIzq = face[468];
@@ -223,29 +227,97 @@ function procesarResultadosMediaPipe(results) {
     elPresencia.textContent = `Presencia: ${presenciaText}`;
   }
 
-  if (!state.grabando) return;
-
-  // Contacto visual: detectar si iris mira hacia la cámara (calculado en relación al contorno del ojo para independencia del desplazamiento)
+  // Contacto visual: calcular relación del iris en el zócalo del ojo y la orientación del rostro
   let mirandoCamara = false;
-  if (face && face[468] && face[473] && face[33] && face[133] && face[362] && face[263]) {
+  if (face && face[468] && face[473] && face[33] && face[133] && face[362] && face[263] && face[4]) {
     const leftEyeMinX = Math.min(face[33].x, face[133].x);
     const leftEyeMaxX = Math.max(face[33].x, face[133].x);
     const rightEyeMinX = Math.min(face[362].x, face[263].x);
     const rightEyeMaxX = Math.max(face[362].x, face[263].x);
     
+    let eyeRatioCentrado = false;
     if (leftEyeMaxX > leftEyeMinX && rightEyeMaxX > rightEyeMinX) {
       const relLeftX = (face[468].x - leftEyeMinX) / (leftEyeMaxX - leftEyeMinX);
       const relRightX = (face[473].x - rightEyeMinX) / (rightEyeMaxX - rightEyeMinX);
-      // Cuando el usuario mira hacia la pantalla/cámara, el iris está centrado en el zócalo
-      mirandoCamara = relLeftX >= 0.35 && relLeftX <= 0.65 && relRightX >= 0.35 && relRightX <= 0.65;
+      // Rango más amplio y tolerante a ruido de subpíxel
+      eyeRatioCentrado = relLeftX >= 0.22 && relLeftX <= 0.78 && relRightX >= 0.22 && relRightX <= 0.78;
     } else {
       const promedioX = (face[468].x + face[473].x) / 2;
-      mirandoCamara = promedioX > 0.35 && promedioX < 0.65;
+      eyeRatioCentrado = promedioX > 0.35 && promedioX < 0.65;
     }
+    
+    // Rotación de cabeza (el tabique nasal debe estar centrado entre las esquinas de los ojos)
+    const distIzq = Math.abs(face[4].x - face[33].x);
+    const distDer = Math.abs(face[4].x - face[263].x);
+    const headYawRatio = distIzq / (distIzq + distDer);
+    const headFacingForward = headYawRatio >= 0.35 && headYawRatio <= 0.65;
+    
+    mirandoCamara = headFacingForward && eyeRatioCentrado;
   } else if (face && face[468] && face[473]) {
     const promedioX = (face[468].x + face[473].x) / 2;
     mirandoCamara = promedioX > 0.35 && promedioX < 0.65;
   }
+
+  // ─── DIBUJO EN CANVAS (FEEDBACK VISUAL EN TIEMPO REAL) ───────────────────
+  if (face) {
+    ctx.lineWidth = 2;
+    
+    // Ojos: verde si mira a la cámara, rojo si no
+    ctx.strokeStyle = mirandoCamara ? '#16a34a' : '#d51437';
+    ctx.fillStyle = mirandoCamara ? 'rgba(22, 163, 74, 0.4)' : 'rgba(213, 20, 55, 0.4)';
+    
+    const leftEye = [face[33], face[133]];
+    const rightEye = [face[362], face[263]];
+    
+    leftEye.forEach(pt => {
+      ctx.beginPath();
+      ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 4, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+    });
+    
+    rightEye.forEach(pt => {
+      ctx.beginPath();
+      ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 4, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+    });
+    
+    // Iris (amarillo/naranja)
+    if (face[468] && face[473]) {
+      ctx.fillStyle = '#f8a719';
+      [face[468], face[473]].forEach(pt => {
+        ctx.beginPath();
+        ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 3, 0, 2 * Math.PI);
+        ctx.fill();
+      });
+    }
+
+    // Tarjeta de estado de alineación y contacto visual
+    ctx.fillStyle = 'rgba(0, 19, 91, 0.85)';
+    ctx.fillRect(10, 10, 190, 60);
+    ctx.strokeStyle = '#ffffff';
+    ctx.strokeRect(10, 10, 190, 60);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.fillText(`Presencia: ${presenciaText}`, 20, 28);
+    
+    ctx.fillStyle = mirandoCamara ? '#4ade80' : '#f87171';
+    ctx.fillText(`Contacto visual: ${mirandoCamara ? 'CONECTADO' : 'NO DETECTADO'}`, 20, 48);
+  } else {
+    // Si no se detecta rostro
+    ctx.fillStyle = 'rgba(213, 20, 55, 0.8)';
+    ctx.fillRect(10, 10, 190, 40);
+    ctx.strokeStyle = '#ffffff';
+    ctx.strokeRect(10, 10, 190, 40);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 12px sans-serif';
+    ctx.fillText("Rostro no detectado", 25, 34);
+  }
+
+  if (!state.grabando) return;
+
   state.contactoFrames.push(mirandoCamara ? 1 : 0);
 
   // Postura: hombro izq y hombro der de pose
@@ -313,7 +385,11 @@ function iniciarWebSpeech() {
     state.palabrasLive = textoCompleto.toLowerCase().split(/\s+/).filter(Boolean);
     
     const displayTexto = (textoCompleto + ' ' + parcialDeEstaSesion).trim();
-    document.getElementById('transcripcion-live-texto').textContent = displayTexto;
+    const liveTextEl = document.getElementById('transcripcion-live-texto');
+    if (liveTextEl) {
+      liveTextEl.value = displayTexto;
+      liveTextEl.scrollTop = liveTextEl.scrollHeight;
+    }
     document.getElementById('transcripcion-live').style.display = 'block';
     
     state.textoLiveActual = displayTexto;
@@ -326,16 +402,20 @@ function iniciarWebSpeech() {
       if (state.textoLiveActual && state.textoLiveActual.trim()) {
         state.transcripcionesPrevias = [state.textoLiveActual.trim()];
       }
-      try {
-        recognition.start();
-      } catch (err) {
-        console.warn('Speech restart error:', err);
-      }
+      setTimeout(() => {
+        if (state.grabando) {
+          iniciarWebSpeech();
+        }
+      }, 200);
     }
   };
   
-  recognition.start();
-  state.recognition = recognition;
+  try {
+    recognition.start();
+    state.recognition = recognition;
+  } catch (err) {
+    console.warn('Speech start error:', err);
+  }
 }
 
 function finalizarMetricasNoVerbal() {
@@ -363,6 +443,11 @@ function finalizarMetricasNoVerbal() {
     fillers_pct: Math.round(fillersPct * 10) / 10,
     tiene_video: true
   };
+  
+  const liveTextEl = document.getElementById('transcripcion-live-texto');
+  if (liveTextEl) {
+    state.textoLiveActual = liveTextEl.value;
+  }
   state.textoAnalizar = (state.textoLiveActual || '').trim();
 }
 
@@ -379,6 +464,13 @@ document.getElementById('btn-grabar').addEventListener('click', () => {
   state.textoLiveActual = '';
   state.transcripcionesPrevias = [];
   state.palabrasLive = [];
+  
+  const liveTextEl = document.getElementById('transcripcion-live-texto');
+  if (liveTextEl) {
+    liveTextEl.readOnly = true;
+    liveTextEl.value = '';
+  }
+  
   document.getElementById('camera-stats').style.display = 'flex';
   document.getElementById('btn-grabar').disabled = true;
   document.getElementById('btn-detener').disabled = false;
@@ -389,11 +481,17 @@ document.getElementById('btn-grabar').addEventListener('click', () => {
 document.getElementById('btn-detener').addEventListener('click', () => {
   state.grabando = false;
   if (state.recognition) state.recognition.stop();
+  
+  const liveTextEl = document.getElementById('transcripcion-live-texto');
+  if (liveTextEl) {
+    liveTextEl.readOnly = false;
+  }
+  
   finalizarMetricasNoVerbal();
   document.getElementById('btn-detener').disabled = true;
   document.getElementById('btn-evaluar').disabled = false;
   document.getElementById('btn-evaluar').textContent = 'Evaluar pitch';
-  showToast('Grabación finalizada. Listo para evaluar.', 'success');
+  showToast('Grabación finalizada. Listo para evaluar o editar el texto.', 'success');
 });
 
 // ─── MÓDULO: SUBIR ARCHIVO ───────────────────────────────────────────────────
@@ -448,6 +546,14 @@ document.getElementById('texto-directo').addEventListener('input', (e) => {
   state.metricasNoVerbal = { tiene_video: false };
   actualizarBotonEvaluar();
 });
+
+// Sincronizar edición manual de la transcripción en vivo
+document.getElementById('transcripcion-live-texto').addEventListener('input', (e) => {
+  state.textoLiveActual = e.target.value;
+  state.textoAnalizar = e.target.value;
+  actualizarBotonEvaluar();
+});
+
 
 function actualizarBotonEvaluar() {
   document.getElementById('btn-evaluar').disabled = !state.textoAnalizar.trim();
