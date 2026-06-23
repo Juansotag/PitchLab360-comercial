@@ -60,20 +60,43 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 document.getElementById('audiencia-select').addEventListener('change', e => {
   state.audiencia = e.target.value;
 });
-document.getElementById('producto-select').addEventListener('change', e => {
-  state.productoId = e.target.value;
+document.getElementById('producto-nombre').addEventListener('input', e => {
+  state.productoId = e.target.value.trim() || 'demo';
 });
 
-// ─── CLICKS EN MÓDULOS DEL SIDEBAR ───────────────────────────────────────────
-document.querySelectorAll('#sidebar-modules-view .module-card').forEach(card => {
-  card.addEventListener('click', () => {
-    const targetId = card.getAttribute('data-target');
-    const targetEl = document.getElementById(targetId);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
+// ─── RESET / NUEVO PITCH ─────────────────────────────────────────────────────
+document.getElementById('btn-reset').addEventListener('click', () => {
+  // Resetear texto
+  state.textoAnalizar = '';
+  state.textoLiveActual = '';
+  state.transcripcionLive = '';
+  state.transcripcionesPrevias = [];
+  state.palabrasLive = [];
+  state.tieneVideo = false;
+  state.metricasNoVerbal = { contacto_visual_pct: 0, postura: 'mixta', gestos: 'ninguno', velocidad_ppm: 0, fillers_pct: 0, tiene_video: false };
+  
+  // Resetear UI
+  const liveTextEl = document.getElementById('transcripcion-live-texto');
+  if (liveTextEl) { liveTextEl.value = ''; liveTextEl.readOnly = true; }
+  document.getElementById('transcripcion-live').style.display = 'none';
+  const prevEl = document.getElementById('transcripcion-preview');
+  if (prevEl) prevEl.style.display = 'none';
+  document.getElementById('texto-directo').value = '';
+  document.getElementById('upload-label-text').textContent = 'Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)';
+  document.getElementById('pitch-file').value = '';
+  document.getElementById('sec-resultados').style.display = 'none';
+  document.getElementById('resultados-container').innerHTML = '';
+  document.getElementById('btn-evaluar').disabled = true;
+  document.getElementById('btn-reset').style.display = 'none';
+  document.getElementById('btn-grabar').disabled = true;
+  document.getElementById('btn-detener').disabled = true;
+  document.getElementById('btn-grabar').disabled = !!state.mediaStream === false;
+  
+  // Scroll arriba
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  showToast('Pitch restablecido. Listo para un nuevo intento.', 'info');
 });
+
 // ─── CLICKS EN BOTONES DE CORRECCIÓN CON IA ─────────────────────────────────
 async function corregirConIA() {
   if (!state.textoAnalizar || !state.textoAnalizar.trim()) {
@@ -488,10 +511,12 @@ document.getElementById('btn-detener').addEventListener('click', () => {
   }
   
   finalizarMetricasNoVerbal();
+  state.tieneVideo = true; // Mantener D3 disponible para re-evaluaciones
+  
   document.getElementById('btn-detener').disabled = true;
   document.getElementById('btn-evaluar').disabled = false;
-  document.getElementById('btn-evaluar').textContent = 'Evaluar pitch';
-  showToast('Grabación finalizada. Listo para evaluar o editar el texto.', 'success');
+  document.getElementById('btn-evaluar').innerHTML = '<i class="fa-solid fa-microscope"></i> Analizar pitch';
+  showToast('Grabación finalizada. Puedes editar el texto y analizarlo.', 'success');
 });
 
 // ─── MÓDULO: SUBIR ARCHIVO ───────────────────────────────────────────────────
@@ -563,14 +588,21 @@ function actualizarBotonEvaluar() {
 document.getElementById('btn-evaluar').addEventListener('click', async () => {
   const btn = document.getElementById('btn-evaluar');
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Evaluando...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Analizando...';
+
+  // Leer contexto personalizado del formulario
+  const fichaCustomEl = document.getElementById('ficha-custom');
+  const productoNombreEl = document.getElementById('producto-nombre');
+  const fichaCustom = fichaCustomEl ? fichaCustomEl.value.trim() : '';
+  const nombreProducto = productoNombreEl ? productoNombreEl.value.trim() : '';
 
   const payload = {
     texto: state.textoAnalizar,
     escenario: {
-      medicamento_id: state.productoId,
+      medicamento_id: nombreProducto || state.productoId || 'demo',
       interlocutor_id: state.audiencia,
-      reto: state.tieneVideo ? JSON.stringify(state.metricasNoVerbal) : 'Presentar el producto de forma efectiva'
+      reto: state.tieneVideo ? JSON.stringify(state.metricasNoVerbal) : 'Presentar el producto de forma efectiva',
+      ficha_custom: fichaCustom || null
     }
   };
 
@@ -584,12 +616,13 @@ document.getElementById('btn-evaluar').addEventListener('click', async () => {
     renderResultados(data);
     document.getElementById('sec-resultados').style.display = 'block';
     document.getElementById('sec-resultados').scrollIntoView({ behavior: 'smooth' });
-    showToast('Evaluación completada con éxito.', 'success');
+    document.getElementById('btn-reset').style.display = 'inline-flex';
+    showToast('Analisis completado.', 'success');
   } catch (err) {
-    showToast('Error al evaluar: ' + err.message, 'error');
+    showToast('Error al analizar: ' + err.message, 'error');
   } finally {
     btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-microscope"></i> Evaluar pitch';
+    btn.innerHTML = '<i class="fa-solid fa-microscope"></i> Analizar pitch';
   }
 });
 
@@ -668,28 +701,6 @@ function renderResultados(data) {
 
   html += `</div>`;
   container.innerHTML = html;
-
-  // Update status badges in the sidebar
-  document.querySelectorAll('#sidebar-modules-view .module-card').forEach(card => {
-    const target = card.getAttribute('data-target');
-    const badge = card.querySelector('.status-badge');
-    if (badge) {
-      if (target === 'res-scorecard') {
-        badge.textContent = sc.puntaje_total + '/100';
-        badge.className = 'status-badge completed';
-      } else {
-        const dimId = target.replace('res-', '').toUpperCase(); // 'res-d1' -> 'D1'
-        const score = sc.scores_por_dimension[dimId];
-        if (score !== null && score !== undefined) {
-          badge.textContent = score + '/5';
-          badge.className = 'status-badge completed';
-        } else {
-          badge.textContent = 'N/A';
-          badge.className = 'status-badge pending';
-        }
-      }
-    }
-  });
 }
 
 // ─── DEMO DATA LOAD ──────────────────────────────────────────────────────────
@@ -701,8 +712,15 @@ if (btnLoadDemo) {
       const demoData = await res.json();
       const { escenario = {}, ...data } = demoData;
 
-      if (escenario.medicamento_id) document.getElementById('producto-select').value = escenario.medicamento_id;
-      if (escenario.interlocutor_id) document.getElementById('audiencia-select').value = escenario.interlocutor_id;
+      if (escenario.interlocutor_id) {
+        document.getElementById('audiencia-select').value = escenario.interlocutor_id;
+        state.audiencia = escenario.interlocutor_id;
+      }
+      if (escenario.medicamento_id) {
+        const nombreEl = document.getElementById('producto-nombre');
+        if (nombreEl) nombreEl.value = escenario.medicamento_id;
+        state.productoId = escenario.medicamento_id;
+      }
 
       state.textoAnalizar = data.texto || "Buenos días. Quisiera presentarles Ejemplo XR...";
       state.tieneVideo = data.scorecard?.d3_disponible || false;
@@ -719,6 +737,7 @@ if (btnLoadDemo) {
 
       renderResultados(demoData);
       document.getElementById('sec-resultados').style.display = 'block';
+      document.getElementById('btn-reset').style.display = 'inline-flex';
       document.getElementById('sec-resultados').scrollIntoView({ behavior: 'smooth' });
       showToast('Datos de prueba cargados correctamente.', 'success');
     } catch (err) {

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PitchMed360 - GovLab | Universidad de La Sabana</title>
+    <meta name="description" content="Plataforma de entrenamiento en argumentación clínica para médicos. Analiza y evalúa tu pitch frente a pacientes e instituciones de salud.">
     <link rel="icon" href="data:,">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,292 +16,152 @@
 </head>
 
 <body>
-    <div class="app-container">
+    <div class="app-fullpage">
 
-        <!-- ===================== SIDEBAR ===================== -->
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-content">
+        <!-- ===================== TOP BAR ===================== -->
+        <header class="top-bar">
+            <a href="https://www.unisabana.edu.co/proyeccion-social/laboratorio-de-gobierno" target="_blank" rel="noopener noreferrer" class="top-bar-logo">
+                <img src="/assets/PitchLab360.jpg" alt="PitchLab360 Logo" class="logo-topbar">
+            </a>
+            <div class="top-bar-actions">
+                <button class="btn btn-outline btn-sm" id="btn-load-demo">
+                    <i class="fa-solid fa-database"></i> Cargar demo
+                </button>
+                <button class="btn btn-reset" id="btn-reset" style="display:none">
+                    <i class="fa-solid fa-rotate-left"></i> Nuevo pitch
+                </button>
+            </div>
+        </header>
 
-                <div class="main-logo-container">
-                    <a href="https://www.unisabana.edu.co/proyeccion-social/laboratorio-de-gobierno" target="_blank" rel="noopener noreferrer">
-                        <img src="/assets/PitchLab360.jpg" alt="PitchLab360 Logo" class="logo logo-pitchlab-main"
-                            title="PitchLab360">
-                    </a>
-                </div>
+        <!-- ===================== MAIN CONTENT ===================== -->
+        <main class="page-main">
 
-                <!-- ── MÓDULOS VIEW (default) ── -->
-                <div id="sidebar-modules-view">
-                    <h2 class="sidebar-title">Secciones del Informe</h2>
-                    <div class="modules-container">
-                        <div class="module-card metrics-card" data-target="res-scorecard">
-                            <div class="module-header">
-                                <div class="module-title-wrapper">
-                                    <i class="fa-solid fa-chart-pie metric-icon"></i>
-                                    <span>SCORECARD</span>
-                                </div>
-                                <span class="status-badge pending">Pendiente</span>
-                            </div>
-                        </div>
-                        <div class="module-card llm-card" data-target="res-d1">
-                            <div class="module-header">
-                                <div class="module-title-wrapper">
-                                    <i class="fa-solid fa-shield-halved llm-icon"></i>
-                                    <span>Precisión Científica (D1)</span>
-                                </div>
-                                <span class="status-badge pending">Pendiente</span>
-                            </div>
-                        </div>
-                        <div class="module-card llm-card" data-target="res-d2">
-                            <div class="module-header">
-                                <div class="module-title-wrapper">
-                                    <i class="fa-solid fa-language llm-icon"></i>
-                                    <span>Claridad y Lenguaje (D2)</span>
-                                </div>
-                                <span class="status-badge pending">Pendiente</span>
-                            </div>
-                        </div>
-                        <div class="module-card llm-card" data-target="res-d3">
-                            <div class="module-header">
-                                <div class="module-title-wrapper">
-                                    <i class="fa-solid fa-volume-high fa-fw llm-icon"></i>
-                                    <span>Comunicación No Verbal (D3)</span>
-                                </div>
-                                <span class="status-badge pending">Pendiente</span>
-                            </div>
-                        </div>
-                        <div class="module-card llm-card" data-target="res-d4">
-                            <div class="module-header">
-                                <div class="module-title-wrapper">
-                                    <i class="fa-solid fa-gavel llm-icon"></i>
-                                    <span>Cumplimiento Regulatorio (D4)</span>
-                                </div>
-                                <span class="status-badge pending">Pendiente</span>
-                            </div>
-                        </div>
-                        <div class="module-card llm-card" data-target="res-d5">
-                            <div class="module-header">
-                                <div class="module-title-wrapper">
-                                    <i class="fa-solid fa-list-check llm-icon"></i>
-                                    <span>Estructura Narrativa (D5)</span>
-                                </div>
-                                <span class="status-badge pending">Pendiente</span>
-                            </div>
-                        </div>
+            <!-- SECCIÓN 1: CONTEXTO DEL ESCENARIO -->
+            <section class="pm-section" id="sec-config">
+                <h2 class="pm-section-title">Contexto del escenario</h2>
+                <div class="context-grid">
+                    <div class="pm-field">
+                        <label for="audiencia-select">Tipo de audiencia</label>
+                        <select id="audiencia-select">
+                            <option value="paciente">Paciente</option>
+                            <option value="institucion">Institución (IPS / EPS)</option>
+                        </select>
+                    </div>
+                    <div class="pm-field">
+                        <label for="producto-nombre">Nombre del producto o medicamento</label>
+                        <input type="text" id="producto-nombre" placeholder="Ej: Atorvastatina 40mg, Humalog Kwikpen..." />
                     </div>
                 </div>
+                <div class="pm-field" style="margin-top: 1rem;">
+                    <label for="ficha-custom">
+                        Información del producto / contexto del escenario
+                        <span class="label-hint">Pega aquí la ficha técnica, indicaciones, contraindicaciones, datos clínicos o cualquier contexto relevante para la evaluación.</span>
+                    </label>
+                    <textarea id="ficha-custom" rows="6" placeholder="Pega aquí la ficha técnica del producto, indicaciones aprobadas, estudios clínicos, contraindicaciones, etc. Si lo dejas vacío, se usará el escenario de ejemplo (Ejemplo XR)."></textarea>
+                </div>
+            </section>
 
-                <!-- ── RESULTS VIEW (shown after analysis) ── -->
-                <div id="sidebar-results-view" style="display:none">
-                    <div class="results-view-header">
-                        <h2 class="sidebar-title" style="margin:0">Resultados</h2>
-                    </div>
+            <!-- SECCIÓN 2: CAPTURA DEL PITCH -->
+            <section class="pm-section" id="sec-captura">
+                <h2 class="pm-section-title">Tu pitch</h2>
 
-                    <!-- SECCIÓN 0: Scorecard -->
-                    <section class="res-section-sb" id="res-scorecard">
-                        <div class="res-section-hdr metrics-header">
-                            <i class="fa-solid fa-chart-pie"></i>
-                            <span>SCORECARD</span>
-                            <i class="fa-solid fa-chevron-down res-toggle"></i>
-                        </div>
-                        <div class="res-section-body-sb" id="body-scorecard"></div>
-                    </section>
-
-                    <!-- SECCIÓN 1: D1 -->
-                    <section class="res-section-sb" id="res-d1">
-                        <div class="res-section-hdr llm-header">
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <span>Precisión Científica (D1)</span>
-                            <i class="fa-solid fa-chevron-down res-toggle"></i>
-                        </div>
-                        <div class="res-section-body-sb" id="body-d1"></div>
-                    </section>
-
-                    <!-- SECCIÓN 2: D2 -->
-                    <section class="res-section-sb" id="res-d2">
-                        <div class="res-section-hdr llm-header">
-                            <i class="fa-solid fa-language"></i>
-                            <span>Claridad y Lenguaje (D2)</span>
-                            <i class="fa-solid fa-chevron-down res-toggle"></i>
-                        </div>
-                        <div class="res-section-body-sb" id="body-d2"></div>
-                    </section>
-
-                    <!-- SECCIÓN 3: D3 -->
-                    <section class="res-section-sb" id="res-d3">
-                        <div class="res-section-hdr llm-header">
-                            <i class="fa-solid fa-volume-high fa-fw"></i>
-                            <span>Comunicación No Verbal (D3)</span>
-                            <i class="fa-solid fa-chevron-down res-toggle"></i>
-                        </div>
-                        <div class="res-section-body-sb" id="body-d3"></div>
-                    </section>
-
-                    <!-- SECCIÓN 4: D4 -->
-                    <section class="res-section-sb" id="res-d4">
-                        <div class="res-section-hdr llm-header">
-                            <i class="fa-solid fa-gavel"></i>
-                            <span>Cumplimiento Regulatorio (D4)</span>
-                            <i class="fa-solid fa-chevron-down res-toggle"></i>
-                        </div>
-                        <div class="res-section-body-sb" id="body-d4"></div>
-                    </section>
-
-                    <!-- SECCIÓN 5: D5 -->
-                    <section class="res-section-sb" id="res-d5">
-                        <div class="res-section-hdr llm-header">
-                            <i class="fa-solid fa-list-check"></i>
-                            <span>Estructura Narrativa (D5)</span>
-                            <i class="fa-solid fa-chevron-down res-toggle"></i>
-                        </div>
-                        <div class="res-section-body-sb" id="body-d5"></div>
-                    </section>
+                <div class="capture-tabs">
+                    <button class="tab-btn active" data-tab="camara">
+                        <i class="fa-solid fa-video"></i> Cámara en vivo
+                    </button>
+                    <button class="tab-btn" data-tab="archivo">
+                        <i class="fa-solid fa-file-audio"></i> Subir archivo
+                    </button>
+                    <button class="tab-btn" data-tab="texto">
+                        <i class="fa-solid fa-keyboard"></i> Texto directo
+                    </button>
                 </div>
 
-                <div class="sidebar-footer">
-                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-                        <button class="btn btn-export btn-export-html-style" id="btn-export-html" style="display:none;flex:1">
-                            <i class="fa-solid fa-file-code"></i> Descargar HTML
+                <!-- TAB: CÁMARA EN VIVO -->
+                <div class="tab-content active" id="tab-camara">
+                    <div class="camera-container">
+                        <video id="video-preview" autoplay muted playsinline></video>
+                        <canvas id="mediapipe-canvas"></canvas>
+                        <div class="camera-overlay" id="camera-overlay">
+                            <span>Cámara inactiva</span>
+                        </div>
+                    </div>
+
+                    <div class="camera-stats" id="camera-stats" style="display:none">
+                        <div class="stat-pill" id="stat-cv">Contacto visual: --</div>
+                        <div class="stat-pill" id="stat-postura">Postura: --</div>
+                        <div class="stat-pill" id="stat-presencia">Presencia: --</div>
+                        <div class="stat-pill" id="stat-ppm">-- ppm</div>
+                        <div class="stat-pill" id="stat-fillers">Fillers: --%</div>
+                    </div>
+
+                    <div class="camera-controls">
+                        <button class="btn-secondary" id="btn-iniciar-camara">
+                            <i class="fa-solid fa-video"></i> Activar cámara
+                        </button>
+                        <button class="btn-primary" id="btn-grabar" disabled>
+                            <i class="fa-solid fa-circle-dot"></i> Comenzar pitch
+                        </button>
+                        <button class="btn-danger" id="btn-detener" disabled>
+                            <i class="fa-solid fa-stop"></i> Finalizar grabación
                         </button>
                     </div>
-                    <div class="methodology-note-box">
-                        <p><strong>Alcance metodológico:</strong> Herramienta de entrenamiento en defensa clínica. Analiza la justificación contra una objeción, contrastando con la ficha técnica.</p>
+
+                    <div id="transcripcion-live" class="transcripcion-preview" style="display:none">
+                        <strong>Transcripción en vivo:</strong>
+                        <textarea id="transcripcion-live-texto" class="transcripcion-textarea-live" readonly placeholder="Aquí aparecerá tu transcripción en vivo..."></textarea>
+                        <button class="btn-secondary" id="btn-corregir-ia-live" style="margin-top: 0.5rem;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
+                        </button>
                     </div>
                 </div>
-            </div>
 
-            <div class="drag-handle" id="drag-handle">
-                <div class="handle-line"></div>
-                <div class="handle-line"></div>
-            </div>
-        </aside>
-
-        <!-- ===================== MAIN PANEL ===================== -->
-        <main class="main-content" style="flex: 1; overflow-y: auto;">
-
-          <!-- PASO 1: CONFIGURACIÓN -->
-          <section class="pm-section" id="sec-config">
-            <h2 class="pm-section-title">Configuración del pitch</h2>
-            <div class="pm-row">
-              <div class="pm-field">
-                <label>Producto</label>
-                <select id="producto-select">
-                  <option value="demo">Ejemplo XR (demo)</option>
-                </select>
-              </div>
-              <div class="pm-field">
-                <label>Audiencia</label>
-                <select id="audiencia-select">
-                  <option value="paciente">Paciente</option>
-                  <option value="institucion">Institución (IPS / EPS)</option>
-                </select>
-              </div>
-              <div class="pm-field" style="display: flex; align-items: flex-end; justify-content: flex-end;">
-                <button class="btn btn-outline" id="btn-load-demo" style="height: 38px; width: 100%;">
-                    <i class="fa-solid fa-database"></i> Cargar Resultados Prueba
-                </button>
-              </div>
-            </div>
-          </section>
-
-          <!-- PASO 2: CAPTURA -->
-          <section class="pm-section" id="sec-captura">
-            <h2 class="pm-section-title">Captura del pitch</h2>
-
-            <div class="capture-tabs">
-              <button class="tab-btn active" data-tab="camara">
-                <i class="fa-solid fa-video"></i> Cámara en vivo
-              </button>
-              <button class="tab-btn" data-tab="archivo">
-                <i class="fa-solid fa-file-audio"></i> Subir archivo
-              </button>
-              <button class="tab-btn" data-tab="texto">
-                <i class="fa-solid fa-keyboard"></i> Texto directo
-              </button>
-            </div>
-
-            <!-- TAB: CÁMARA EN VIVO (principal) -->
-            <div class="tab-content active" id="tab-camara">
-              <div class="camera-container">
-                <video id="video-preview" autoplay muted playsinline></video>
-                <canvas id="mediapipe-canvas"></canvas>
-                <div class="camera-overlay" id="camera-overlay">
-                  <span>Cámara inactiva</span>
+                <!-- TAB: SUBIR ARCHIVO -->
+                <div class="tab-content" id="tab-archivo">
+                    <label class="upload-label" for="pitch-file">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span id="upload-label-text">Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)</span>
+                    </label>
+                    <input type="file" id="pitch-file" accept=".mp3,.mp4,.wav,.webm,.m4a,.ogg" style="display:none">
+                    <div id="transcripcion-preview" class="transcripcion-preview" style="display:none">
+                        <strong>Transcripción:</strong>
+                        <p id="transcripcion-texto"></p>
+                        <small id="transcripcion-meta"></small>
+                        <button class="btn-secondary" id="btn-corregir-ia-file" style="margin-top: 0.5rem; display: block;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
+                        </button>
+                    </div>
+                    <p class="pm-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Al subir archivo, la dimensión D3 (comunicación no verbal) no estará disponible.
+                    </p>
                 </div>
-              </div>
 
-              <div class="camera-stats" id="camera-stats" style="display:none">
-                <div class="stat-pill" id="stat-cv">Contacto visual: --</div>
-                <div class="stat-pill" id="stat-postura">Postura: --</div>
-                <div class="stat-pill" id="stat-presencia">Presencia: --</div>
-                <div class="stat-pill" id="stat-ppm">-- ppm</div>
-                <div class="stat-pill" id="stat-fillers">Fillers: --%</div>
-              </div>
+                <!-- TAB: TEXTO DIRECTO -->
+                <div class="tab-content" id="tab-texto">
+                    <textarea id="texto-directo" rows="10" placeholder="Pega o escribe aquí el texto del pitch..."></textarea>
+                    <button class="btn-secondary" id="btn-corregir-ia-text" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
+                    </button>
+                    <p class="pm-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Con texto directo, D3 no está disponible.
+                    </p>
+                </div>
+            </section>
 
-              <div class="camera-controls">
-                <button class="btn-secondary" id="btn-iniciar-camara">
-                  <i class="fa-solid fa-video"></i> Iniciar cámara
+            <!-- BARRA DE ACCIÓN -->
+            <div class="action-bar">
+                <button class="btn-evaluar" id="btn-evaluar" disabled>
+                    <i class="fa-solid fa-microscope"></i> Analizar pitch
                 </button>
-                <button class="btn-primary" id="btn-grabar" disabled>
-                  <i class="fa-solid fa-circle-dot"></i> Iniciar grabación
-                </button>
-                <button class="btn-danger" id="btn-detener" disabled>
-                  <i class="fa-solid fa-stop"></i> Detener y evaluar
-                </button>
-              </div>
-
-              <div id="transcripcion-live" class="transcripcion-preview" style="display:none">
-                <strong>Transcripción en vivo:</strong>
-                <textarea id="transcripcion-live-texto" class="transcripcion-textarea-live" readonly placeholder="Aquí aparecerá tu transcripción en vivo..."></textarea>
-                <button class="btn-secondary" id="btn-corregir-ia-live" style="margin-top: 0.5rem;">
-                  <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
-                </button>
-              </div>
             </div>
 
-            <!-- TAB: SUBIR ARCHIVO -->
-            <div class="tab-content" id="tab-archivo">
-              <label class="upload-label" for="pitch-file">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-                <span id="upload-label-text">Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)</span>
-              </label>
-              <input type="file" id="pitch-file" accept=".mp3,.mp4,.wav,.webm,.m4a,.ogg" style="display:none">
-              <div id="transcripcion-preview" class="transcripcion-preview" style="display:none">
-                <strong>Transcripción:</strong>
-                <p id="transcripcion-texto"></p>
-                <small id="transcripcion-meta"></small>
-                <button class="btn-secondary" id="btn-corregir-ia-file" style="margin-top: 0.5rem; display: block;">
-                  <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
-                </button>
-              </div>
-              <p class="pm-note">
-                <i class="fa-solid fa-circle-info"></i>
-                Al subir archivo, D3 (comunicación no verbal) no estará disponible. Se redistribuirán los pesos entre las demás dimensiones.
-              </p>
-            </div>
-
-            <!-- TAB: TEXTO DIRECTO -->
-            <div class="tab-content" id="tab-texto">
-              <textarea id="texto-directo" rows="10" placeholder="Pega o escribe aquí el texto del pitch..."></textarea>
-              <button class="btn-secondary" id="btn-corregir-ia-text" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
-              </button>
-              <p class="pm-note">
-                <i class="fa-solid fa-circle-info"></i>
-                Con texto directo, D3 no está disponible.
-              </p>
-            </div>
-          </section>
-
-          <!-- BOTÓN EVALUAR -->
-          <button class="btn-evaluar" id="btn-evaluar" disabled>
-            <i class="fa-solid fa-microscope"></i> Evaluar pitch
-          </button>
-
-          <!-- RESULTADOS -->
-          <section class="pm-section" id="sec-resultados" style="display:none">
-            <h2 class="pm-section-title">Resultados</h2>
-            <div id="resultados-container"></div>
-          </section>
+            <!-- RESULTADOS -->
+            <section class="pm-section" id="sec-resultados" style="display:none">
+                <h2 class="pm-section-title">Resultados del análisis</h2>
+                <div id="resultados-container"></div>
+            </section>
 
         </main>
     </div>
@@ -308,7 +169,7 @@
     <!-- Toast container -->
     <div id="toast-container" class="toast-container"></div>
 
-    <script src="/static/app.js?v=5.0"></script>
+    <script src="/static/app.js?v=5.1"></script>
 </body>
 
 </html>

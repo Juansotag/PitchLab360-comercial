@@ -52,6 +52,7 @@ class EscenarioModel(BaseModel):
     interlocutor_id: str = "auditor_eps"
     reto: Optional[str] = "Negar la autorización por costo"
     tiempo_min: Optional[int] = 5
+    ficha_custom: Optional[str] = None  # Texto libre de contexto del producto/escenario
 
 class AnalizarRequest(BaseModel):
     texto: str
@@ -284,6 +285,15 @@ def ejecutar_modulo_med(modulo: str, texto: str, metadatos: dict, metricas: dict
     client = anthropic.Anthropic(api_key=key, http_client=http_client)
 
     ficha = cargar_ficha(metadatos.get("medicamento_id", "demo"))
+    # Si el usuario proporcionó un contexto personalizado, usarlo como ficha técnica
+    ficha_custom = metadatos.get("ficha_custom")
+    if ficha_custom and ficha_custom.strip():
+        ficha = {"nombre_comercial": metadatos.get("medicamento_id", "Producto"), "descripcion": ficha_custom}
+        ficha_tecnica_str = ficha_custom
+        contexto_cobertura_str = "{}"
+    else:
+        ficha_tecnica_str = json.dumps(ficha, ensure_ascii=False, indent=2)
+        contexto_cobertura_str = json.dumps(ficha.get("contexto_cobertura", {}), ensure_ascii=False, indent=2)
     inter_id = metadatos.get("interlocutor_id", "paciente")
     if inter_id in ["paciente", "paciente_dudoso"]:
         inter_id = "paciente_dudoso"
@@ -296,8 +306,8 @@ def ejecutar_modulo_med(modulo: str, texto: str, metadatos: dict, metricas: dict
         medicamento=ficha.get("nombre_comercial", "No especificado"),
         interlocutor=interlocutor.get("nombre", audiencia),
         reto=metadatos.get("reto", "Presentar el producto de forma efectiva y con cumplimiento regulatorio"),
-        ficha_tecnica=json.dumps(ficha, ensure_ascii=False, indent=2),
-        contexto_cobertura=json.dumps(ficha.get("contexto_cobertura", {}), ensure_ascii=False, indent=2),
+        ficha_tecnica=ficha_tecnica_str,
+        contexto_cobertura=contexto_cobertura_str,
         metricas=json.dumps(metricas, ensure_ascii=False, indent=2),
         texto=texto
     )
