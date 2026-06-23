@@ -209,19 +209,16 @@ async function iniciarMediaPipe() {
     holistic.onResults(procesarResultadosMediaPipe);
     state.holisticModel = holistic;
 
-    const video = document.getElementById('video-preview');
+    const video  = document.getElementById('video-preview');
     const canvas = document.getElementById('mediapipe-canvas');
-    let frameCount = 0;
 
+    // Sólo actualizamos las dimensiones del canvas cuando cambian —
+    // asignar canvas.width/height siempre borra el contenido (causa parpadeo).
     async function loop() {
       if (state.mediaStream && video.videoWidth > 0) {
-        canvas.width  = video.videoWidth;
-        canvas.height = video.videoHeight;
-        // Procesar 1 de cada 2 frames para reducir latencia/carga CPU
-        if (frameCount % 2 === 0) {
-          await holistic.send({ image: video });
-        }
-        frameCount++;
+        if (canvas.width  !== video.videoWidth)  canvas.width  = video.videoWidth;
+        if (canvas.height !== video.videoHeight) canvas.height = video.videoHeight;
+        await holistic.send({ image: video });
       }
       requestAnimationFrame(loop);
     }
