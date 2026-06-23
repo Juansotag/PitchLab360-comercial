@@ -74,6 +74,74 @@ document.querySelectorAll('#sidebar-modules-view .module-card').forEach(card => 
     }
   });
 });
+// ─── CLICKS EN BOTONES DE CORRECCIÓN CON IA ─────────────────────────────────
+async function corregirConIA() {
+  if (!state.textoAnalizar || !state.textoAnalizar.trim()) {
+    showToast('No hay texto para corregir.', 'warning');
+    return;
+  }
+  
+  const btnLive = document.getElementById('btn-corregir-ia-live');
+  const btnFile = document.getElementById('btn-corregir-ia-file');
+  const btnText = document.getElementById('btn-corregir-ia-text');
+  
+  const setHtmlLoading = (btn) => {
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Corrigiendo...';
+    }
+  };
+  
+  const restoreHtml = (btn) => {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA';
+    }
+  };
+  
+  setHtmlLoading(btnLive);
+  setHtmlLoading(btnFile);
+  setHtmlLoading(btnText);
+  
+  try {
+    const res = await fetch('/limpiar-texto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ texto: state.textoAnalizar })
+    });
+    const data = await res.json();
+    if (data.texto_limpio) {
+      state.textoAnalizar = data.texto_limpio;
+      
+      // Actualizar los campos visuales
+      document.getElementById('texto-directo').value = data.texto_limpio;
+      
+      const liveTextEl = document.getElementById('transcripcion-live-texto');
+      if (liveTextEl) {
+        liveTextEl.textContent = data.texto_limpio;
+      }
+      
+      const fileTextEl = document.getElementById('transcripcion-texto');
+      if (fileTextEl) {
+        fileTextEl.textContent = data.texto_limpio.substring(0, 400) + (data.texto_limpio.length > 400 ? '…' : '');
+      }
+      
+      showToast('Texto corregido con IA con éxito.', 'success');
+    } else {
+      showToast('Error de IA: ' + (data.error || 'Fallo al procesar'), 'error');
+    }
+  } catch (err) {
+    showToast('Error de conexión: ' + err.message, 'error');
+  } finally {
+    restoreHtml(btnLive);
+    restoreHtml(btnFile);
+    restoreHtml(btnText);
+  }
+}
+
+document.getElementById('btn-corregir-ia-live').addEventListener('click', corregirConIA);
+document.getElementById('btn-corregir-ia-file').addEventListener('click', corregirConIA);
+document.getElementById('btn-corregir-ia-text').addEventListener('click', corregirConIA);
 
 // ─── MÓDULO: CÁMARA + MEDIAPIPE + WEB SPEECH ─────────────────────────────────
 
@@ -108,7 +176,8 @@ async function iniciarMediaPipe() {
       modelComplexity: 1,
       smoothLandmarks: true,
       minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5
+      minTrackingConfidence: 0.5,
+      refineFaceLandmarks: true
     });
     holistic.onResults(procesarResultadosMediaPipe);
     state.holisticModel = holistic;
@@ -156,12 +225,25 @@ function procesarResultadosMediaPipe(results) {
 
   if (!state.grabando) return;
 
-  // Contacto visual: detectar si iris mira hacia la cámara
+  // Contacto visual: detectar si iris mira hacia la cámara (calculado en relación al contorno del ojo para independencia del desplazamiento)
   let mirandoCamara = false;
-  if (face && face[468] && face[473]) {
-    const irisIzq = face[468];
-    const irisDer = face[473];
-    const promedioX = (irisIzq.x + irisDer.x) / 2;
+  if (face && face[468] && face[473] && face[33] && face[133] && face[362] && face[263]) {
+    const leftEyeMinX = Math.min(face[33].x, face[133].x);
+    const leftEyeMaxX = Math.max(face[33].x, face[133].x);
+    const rightEyeMinX = Math.min(face[362].x, face[263].x);
+    const rightEyeMaxX = Math.max(face[362].x, face[263].x);
+    
+    if (leftEyeMaxX > leftEyeMinX && rightEyeMaxX > rightEyeMinX) {
+      const relLeftX = (face[468].x - leftEyeMinX) / (leftEyeMaxX - leftEyeMinX);
+      const relRightX = (face[473].x - rightEyeMinX) / (rightEyeMaxX - rightEyeMinX);
+      // Cuando el usuario mira hacia la pantalla/cámara, el iris está centrado en el zócalo
+      mirandoCamara = relLeftX >= 0.35 && relLeftX <= 0.65 && relRightX >= 0.35 && relRightX <= 0.65;
+    } else {
+      const promedioX = (face[468].x + face[473].x) / 2;
+      mirandoCamara = promedioX > 0.35 && promedioX < 0.65;
+    }
+  } else if (face && face[468] && face[473]) {
+    const promedioX = (face[468].x + face[473].x) / 2;
     mirandoCamara = promedioX > 0.35 && promedioX < 0.65;
   }
   state.contactoFrames.push(mirandoCamara ? 1 : 0);
@@ -231,8 +313,7 @@ function iniciarWebSpeech() {
     state.palabrasLive = textoCompleto.toLowerCase().split(/\s+/).filter(Boolean);
     
     const displayTexto = (textoCompleto + ' ' + parcialDeEstaSesion).trim();
-    const displaySliced = displayTexto.length > 500 ? '...' + displayTexto.slice(-500) : displayTexto;
-    document.getElementById('transcripcion-live-texto').textContent = displaySliced;
+    document.getElementById('transcripcion-live-texto').textContent = displayTexto;
     document.getElementById('transcripcion-live').style.display = 'block';
     
     state.textoLiveActual = displayTexto;
@@ -440,6 +521,11 @@ function renderResultados(data) {
       <div class="scorecard-banda" style="color: ${colorBanda[sc.banda] || '#888'}">${sc.banda}</div>
       <div class="scorecard-audiencia">Audiencia: ${sc.audiencia === 'paciente' ? 'Paciente' : 'Institución'}</div>
       ${!sc.d3_disponible ? '<div class="scorecard-nota">Atención: D3 no evaluado — grabación sin cámara</div>' : ''}
+    </div>
+
+    <div class="scorecard-transcription" style="margin-top: -0.5rem; margin-bottom: 1.5rem; padding: 1.25rem 1.5rem; background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; font-size: 0.9rem;">
+      <h3 style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--c-blue-dark); margin-bottom: 0.5rem; font-family: var(--font-display); font-weight: normal; font-style: italic;">Texto del Pitch Evaluado</h3>
+      <p style="color: #374151; font-style: italic; line-height: 1.6; max-height: 150px; overflow-y: auto; padding-right: 0.5rem;">"${state.textoAnalizar}"</p>
     </div>
 
     <div class="dims-grid">

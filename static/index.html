@@ -251,6 +251,9 @@
               <div id="transcripcion-live" class="transcripcion-preview" style="display:none">
                 <strong>Transcripción en vivo:</strong>
                 <p id="transcripcion-live-texto"></p>
+                <button class="btn-secondary" id="btn-corregir-ia-live" style="margin-top: 0.5rem;">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
+                </button>
               </div>
             </div>
 
@@ -265,6 +268,9 @@
                 <strong>Transcripción:</strong>
                 <p id="transcripcion-texto"></p>
                 <small id="transcripcion-meta"></small>
+                <button class="btn-secondary" id="btn-corregir-ia-file" style="margin-top: 0.5rem; display: block;">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
+                </button>
               </div>
               <p class="pm-note">
                 <i class="fa-solid fa-circle-info"></i>
@@ -275,6 +281,9 @@
             <!-- TAB: TEXTO DIRECTO -->
             <div class="tab-content" id="tab-texto">
               <textarea id="texto-directo" rows="10" placeholder="Pega o escribe aquí el texto del pitch..."></textarea>
+              <button class="btn-secondary" id="btn-corregir-ia-text" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Corregir con IA
+              </button>
               <p class="pm-note">
                 <i class="fa-solid fa-circle-info"></i>
                 Con texto directo, D3 no está disponible.
@@ -299,7 +308,7 @@
     <!-- Toast container -->
     <div id="toast-container" class="toast-container"></div>
 
-    <script src="/static/app.js?v=4.4"></script>
+    <script src="/static/app.js?v=4.6"></script>
 </body>
 
 </html>
