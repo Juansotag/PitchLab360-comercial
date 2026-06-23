@@ -23,64 +23,75 @@
       ["control", 6]
     ]
   },
-  "exactitud_evidencia": {
-    "ok": true,
-    "data": {
-      "veredicto_global": "advertencia",
-      "afirmaciones": [
-        {
-          "afirmacion": "Reduce la presión arterial de forma sostenida durante 24 horas",
-          "estado": "respaldado",
-          "evidencia_ficha": "50 mg una vez al día; reducción de PAS a 12 semanas",
-          "gravedad": "baja"
-        },
-        {
-          "afirmacion": "Es el único del mercado que no causa mareo",
-          "estado": "exagerado",
-          "evidencia_ficha": "efectos adversos frecuentes: cefalea, mareo",
-          "gravedad": "media"
-        }
-      ]
-    }
-  },
-  "fuerza_justificacion": {
-    "ok": true,
-    "data": {
-      "anclo_en_evidencia": true,
-      "anclo_en_caso_particular": false,
-      "justifico_vs_alternativa": true,
-      "puntaje": 85,
-      "observaciones": [
-        "Buena apertura reconociendo el tiempo del auditor.",
-        "El mensaje central es claro pero podría apoyar con más datos clínicos."
-      ]
-    }
-  },
-  "manejo_objeciones": {
-    "ok": true,
-    "data": {
-      "objecion_central": "Costo de la terapia vs alternativas",
-      "fue_abordada": true,
-      "calidad": "con_evidencia",
-      "puntaje": 80
-    }
-  },
-  "argumentacion_cobertura": {
-    "ok": true,
-    "data": {
-      "argumentos_usados": ["Fracaso con enalapril", "Hipertensión resistente"],
-      "argumentos_faltantes": ["Costo-efectividad"],
-      "puntaje": 75
-    }
-  },
   "scorecard": {
-    "global": 72,
-    "dimensiones": {
-      "exactitud_evidencia": 60,
-      "fuerza_justificacion": 85,
-      "manejo_objeciones": 80,
-      "argumentacion_cobertura": 75
+    "puntaje_total": 78,
+    "banda": "Competente",
+    "scores_por_dimension": {
+      "D1": 4,
+      "D2": 4,
+      "D3": 3,
+      "D4": 4,
+      "D5": 4
     },
-    "veredicto_evidencia": "advertencia"
+    "audiencia": "paciente"
+  },
+  "D1_evidencia_cientifica": {
+    "ok": true,
+    "data": {
+      "score": 4,
+      "fortaleza": "Excelente mención del estudio pivotal REVERT-BP y la reducción del 22% en eventos cardiovasculares.",
+      "mejora": "Podría detallar más el perfil de pacientes del estudio.",
+      "evidencia_encontrada": [
+        "Estudio REVERT-BP",
+        "Reducción del 22% en eventos"
+      ],
+      "afirmaciones_sin_respaldo": []
+    }
+  },
+  "D2_claridad_lenguaje": {
+    "ok": true,
+    "data": {
+      "score": 4,
+      "nivel_tecnico_apropiado": true,
+      "fortaleza": "Lenguaje claro y adaptado adecuadamente al auditor médico.",
+      "mejora": "Evitar el uso de abreviaturas sin aclarar.",
+      "ejemplos_bien_calibrados": [
+        "MIPRES",
+        "UPC"
+      ],
+      "deslices_de_registro": []
+    }
+  },
+  "D3_no_verbal": {
+    "score": 3,
+    "tiene_video": false,
+    "nota": "Estimación automática de voz basada en texto.",
+    "observaciones": [
+      "Ritmo promedio estimado de 130 palabras por minuto."
+    ]
+  },
+  "D4_cumplimiento_regulatorio": {
+    "ok": true,
+    "data": {
+      "score": 4,
+      "indicaciones_correctas": true,
+      "menciona_efectos_adversos": true,
+      "fortaleza": "Mención explícita de seguridad y advertencias del INVIMA.",
+      "mejora": "Debe citar siempre la ficha técnica de seguridad.",
+      "afirmaciones_absolutas": [],
+      "comparaciones_sin_respaldo": []
+    }
+  },
+  "D5_estructura_narrativa": {
+    "ok": true,
+    "data": {
+      "score": 4,
+      "abre_con_problema": true,
+      "presenta_evidencia_en_contexto": true,
+      "cierre_con_llamado_accion": true,
+      "maneja_objeciones_anticipadas": true,
+      "fortaleza": "Estructura narrativa sólida de principio a fin.",
+      "mejora": "Hacer el llamado a la acción más directo."
+    }
   }
 }

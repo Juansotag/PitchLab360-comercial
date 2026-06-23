@@ -216,79 +216,53 @@
                     </div>
                 </div>
 
-                <!-- Chat Panel -->
-                <div class="editor-section" style="display: flex; flex-direction: column; flex: 1;">
-                    <div class="section-header">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <h3>Conversación de Defensa</h3>
-                            <button class="btn btn-outline" id="btn-toggle-tts" style="padding: 0.3rem 0.6rem; font-size: 0.85rem;" title="Activar/Desactivar lectura en voz alta">
-                                <i class="fa-solid fa-volume-xmark" id="tts-icon"></i> Voz IA: Inactiva
+                <!-- PANEL DE CAPTURA PITCHMED360 -->
+                <div class="metadata-section capture-panel" id="capture-panel">
+                  <h3><i class="fa-solid fa-microphone-lines"></i> Cargar y Evaluar Pitch</h3>
+                  
+                  <div class="capture-tabs">
+                    <button class="tab-btn active" data-tab="file">Subir archivo</button>
+                    <button class="tab-btn" data-tab="text">Texto directo</button>
+                  </div>
+
+                  <div class="tab-content" id="tab-file" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <label class="upload-label" for="pitch-file" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 150px;">
+                      <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                      <span id="upload-label-text">Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)</span>
+                    </label>
+                    <input type="file" id="pitch-file" accept=".mp3,.mp4,.wav,.webm,.m4a,.ogg" style="display:none">
+                    <div id="transcripcion-preview" class="transcripcion-preview" style="display:none; margin-top: 1rem;">
+                      <strong>Transcripción:</strong>
+                      <p id="transcripcion-texto" style="margin-top: 0.25rem; font-style: italic;"></p>
+                      <small id="transcripcion-meta" style="color: var(--text-muted); display: block; margin-top: 0.5rem;"></small>
+                    </div>
+                  </div>
+
+                  <div class="tab-content" id="tab-text" style="display:none; flex: 1;">
+                    <div style="display: flex; flex-direction: column; height: 100%; gap: 0.5rem;">
+                        <textarea class="discourse-textarea" placeholder="Escribe o pega tu pitch aquí para evaluarlo..."
+                            id="discourse-text" style="min-height: 150px; flex: 1; padding: 0.8rem;"></textarea>
+                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                            <button class="btn btn-outline" id="btn-mic" style="padding: 0.6rem 1.2rem; font-size: 1.1rem;" title="Dictar por voz">
+                                <i class="fa-solid fa-microphone"></i> Dictar por voz
                             </button>
                         </div>
-                        <span class="word-count" id="turn-count">0 turnos</span>
                     </div>
-                    <div class="chat-history" id="chat-history" style="flex: 1; overflow-y: auto; background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-                        <div class="chat-message system" style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
-                            La conversación comenzará cuando envíes tu argumento de defensa inicial.
-                        </div>
-                    </div>
-                    
-                    <!-- PANEL DE CAPTURA PITCHMED360 -->
-                    <div class="capture-panel" id="capture-panel">
-                      <h3 class="panel-title">📹 Cargar pitch</h3>
-                      
-                      <div class="capture-tabs">
-                        <button class="tab-btn active" data-tab="file">Subir archivo</button>
-                        <button class="tab-btn" data-tab="text">Texto directo</button>
-                      </div>
+                  </div>
 
-                      <div class="tab-content" id="tab-file">
-                        <label class="upload-label" for="pitch-file">
-                          <i class="fa-solid fa-cloud-arrow-up"></i>
-                          <span id="upload-label-text">Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)</span>
-                        </label>
-                        <input type="file" id="pitch-file" accept=".mp3,.mp4,.wav,.webm,.m4a,.ogg" style="display:none">
-                        <div id="transcripcion-preview" class="transcripcion-preview" style="display:none">
-                          <strong>Transcripción:</strong>
-                          <p id="transcripcion-texto"></p>
-                          <small id="transcripcion-meta"></small>
-                        </div>
-                      </div>
+                  <div class="audiencia-selector" style="margin-top: 1.5rem;">
+                    <label style="font-weight: 600; color: var(--text-secondary);">Audiencia del pitch:</label>
+                    <select id="audiencia-select">
+                      <option value="paciente">Paciente</option>
+                      <option value="institución">Institución (IPS / EPS / Comité)</option>
+                    </select>
+                  </div>
 
-                      <div class="tab-content" id="tab-text" style="display:none">
-                        <div class="chat-input-area" style="display: flex; gap: 0.5rem;">
-                            <textarea class="discourse-textarea" placeholder="Escribe tu argumento o respuesta aquí (o usa el micrófono)..."
-                                id="discourse-text" style="min-height: 80px; flex: 1; padding: 0.8rem;"></textarea>
-                            <button class="btn btn-outline" id="btn-mic" style="height: auto; align-self: stretch; padding: 0 1.2rem; font-size: 1.2rem; transition: background-color 0.3s, color 0.3s;" title="Dictar por voz">
-                                <i class="fa-solid fa-microphone"></i>
-                            </button>
-                            <button class="btn btn-primary" id="btn-send-chat" style="height: auto; align-self: stretch;">
-                                <i class="fa-solid fa-paper-plane"></i> Enviar
-                            </button>
-                        </div>
-                      </div>
-
-                      <div class="audiencia-selector">
-                        <label>Audiencia del pitch:</label>
-                        <select id="audiencia-select">
-                          <option value="paciente">Paciente</option>
-                          <option value="institución">Institución (IPS / EPS / Comité)</option>
-                        </select>
-                      </div>
-
-                      <button class="btn-evaluar" id="btn-evaluar" disabled>
-                        <i class="fa-solid fa-microscope"></i> Evaluar pitch
-                      </button>
-                    </div>
+                  <button class="btn-evaluar" id="btn-evaluar" disabled style="margin-top: 1.5rem;">
+                    <i class="fa-solid fa-microscope"></i> Evaluar pitch
+                  </button>
                 </div>
 
-            </div>
-
-            <!-- Floating Execute Button -->
-            <div class="execution-bar">
-                <button class="btn btn-giant-primary" id="btn-analyze">
-                    TERMINAR CONVERSACIÓN Y ANALIZAR
-                </button>
             </div>
         </main>
     </div>
@@ -296,7 +270,7 @@
     <!-- Toast container -->
     <div id="toast-container" class="toast-container"></div>
 
-    <script src="/static/app.js?v=3.0"></script>
+    <script src="/static/app.js?v=3.2"></script>
 </body>
 
 </html>

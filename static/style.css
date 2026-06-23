@@ -113,7 +113,7 @@ li,
 
 /* Sidebar */
 .sidebar {
-    width: 50vw;
+    width: 33.33vw;
     min-width: 320px;
     max-width: 80vw;
     background-color: var(--bg-sidebar);
@@ -2353,18 +2353,10 @@ li,
 
 /* ─── PITCHMED360 CAPTURE PANEL ─── */
 .capture-panel {
-  background: var(--surface, #fff);
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.panel-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #1B3A6B;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 350px;
 }
 
 .capture-tabs {

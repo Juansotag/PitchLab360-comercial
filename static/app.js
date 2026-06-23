@@ -1,17 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* --- GLOBALS --- */
-    let chatHistorial = [];
-    const chatHistoryEl = document.getElementById('chat-history');
     const discourseText = document.getElementById('discourse-text');
-    const btnSendChat = document.getElementById('btn-send-chat');
-    const turnCountDisplay = document.getElementById('turn-count');
-    const btnAnalyze = document.getElementById('btn-analyze');
 
-    /* --- AUDIO: STT & TTS GLOBALS --- */
+    /* --- AUDIO: STT GLOBALS --- */
     const btnMic = document.getElementById('btn-mic');
-    const btnToggleTts = document.getElementById('btn-toggle-tts');
-    let ttsEnabled = false;
     let isRecording = false;
     let recognition = null;
 
@@ -36,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 transcript += event.results[i][0].transcript;
             }
             discourseText.value = transcript;
+            discourseText.dispatchEvent(new Event('input'));
         };
 
         recognition.onend = () => {
@@ -72,40 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 recognition.start();
             }
         });
-    }
-
-    if (btnToggleTts) {
-        btnToggleTts.addEventListener('click', () => {
-            ttsEnabled = !ttsEnabled;
-            if (ttsEnabled) {
-                btnToggleTts.innerHTML = '<i class="fa-solid fa-volume-high" id="tts-icon"></i> Voz IA: Activa';
-                btnToggleTts.classList.replace('btn-outline', 'btn-primary');
-                showToast('Lectura en voz alta activada.', 'info');
-            } else {
-                btnToggleTts.innerHTML = '<i class="fa-solid fa-volume-xmark" id="tts-icon"></i> Voz IA: Inactiva';
-                btnToggleTts.classList.replace('btn-primary', 'btn-outline');
-                window.speechSynthesis.cancel();
-                showToast('Lectura en voz alta desactivada.', 'info');
-            }
-        });
-    }
-
-    function speakText(text) {
-        if (!ttsEnabled || !window.speechSynthesis) return;
-        window.speechSynthesis.cancel();
-        
-        // Remove markdown or special characters before speaking
-        let cleanText = text.replace(/[*_#]/g, '');
-        
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = 'es-ES';
-        
-        // Use a good voice if available
-        const voices = window.speechSynthesis.getVoices();
-        const esVoice = voices.find(v => v.lang.startsWith('es') && v.name.includes('Google')) || voices.find(v => v.lang.startsWith('es'));
-        if (esVoice) utterance.voice = esVoice;
-        
-        window.speechSynthesis.speak(utterance);
     }
 
     /* --- TOAST HELPER --- */
@@ -187,151 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    /* --- CHAT LOGIC --- */
-    function addMessageToChat(role, text) {
-        // Eliminar mensaje del sistema si es el primer turno
-        const sysMsg = chatHistoryEl.querySelector('.chat-message.system');
-        if (sysMsg) sysMsg.remove();
-
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `chat-message ${role === 'user' ? 'medico' : 'interlocutor'}`;
-        msgDiv.innerHTML = `<strong>${role === 'user' ? 'Médico' : 'Auditor (IA)'}:</strong><br/>${text.replace(/\n/g, '<br/>')}`;
-        chatHistoryEl.appendChild(msgDiv);
-        chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
-
-        chatHistorial.push({ role: role === 'user' ? 'user' : 'assistant', content: text });
-        turnCountDisplay.textContent = `${chatHistorial.length} turnos`;
+    function errBlock(msg) { 
+        return `<div class="error-block"><i class="fa-solid fa-circle-exclamation"></i> ${msg}</div>`; 
     }
 
-    btnSendChat.addEventListener('click', async () => {
-        const text = discourseText.value.trim();
-        if (!text) return;
-
-        discourseText.value = '';
-        addMessageToChat('user', text);
-
-        const medId = document.getElementById('meta-medicamento').value.trim() || 'demo';
-        const interId = document.getElementById('meta-interlocutor').value.trim() || 'auditor_eps';
-
-        // Add loading indicator
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'chat-message interlocutor';
-        loadingDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Escribiendo...';
-        chatHistoryEl.appendChild(loadingDiv);
-        chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
-
-        try {
-            const res = await fetch('/conversar', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    historial: chatHistorial,
-                    interlocutor_id: interId,
-                    medicamento_id: medId
-                })
-            });
-
-            loadingDiv.remove();
-
-            if (!res.ok) throw new Error('Error en la comunicación con la IA');
-            const data = await res.json();
-            addMessageToChat('assistant', data.respuesta);
-            
-            // Leer en voz alta si está activo
-            speakText(data.respuesta);
-
-        } catch (e) {
-            loadingDiv.remove();
-            showToast('Error al procesar el turno de la IA', 'error');
-            console.error(e);
-        }
-    });
-
-    // Enviar con Enter
-    discourseText.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            btnSendChat.click();
-        }
-    });
-
-    /* --- EXECUTE BUTTON: MÓDULOS DE ANÁLISIS --- */
-    btnAnalyze.addEventListener('click', async () => {
-        if (chatHistorial.length === 0) {
-            showToast('Debe haber al menos un turno en la conversación.', 'warning');
-            return;
-        }
-
-        const medicamento = document.getElementById('meta-medicamento').value.trim() || 'demo';
-        const interlocutor = document.getElementById('meta-interlocutor').value.trim() || 'auditor_eps';
-        const reto = document.getElementById('meta-reto').value.trim() || '';
-        const tiempo = document.getElementById('meta-tiempo').value.trim() || '5';
-
-        const transcripcionCompleta = chatHistorial.map(t => `${t.role === 'user' ? 'Médico' : 'Interlocutor'}: ${t.content}`).join('\n\n');
-
-        const originalText = btnAnalyze.innerHTML;
-        btnAnalyze.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> PROCESANDO...';
-        btnAnalyze.style.backgroundColor = 'var(--c-blue-dark)';
-        btnAnalyze.disabled = true;
-
-        const badges = document.querySelectorAll('.status-badge');
-        badges.forEach(b => {
-            b.textContent = 'Procesando...';
-            b.style.backgroundColor = '#fef08a';
-            b.style.color = '#854d0e';
-        });
-
-        const escenarioObj = {
-            medicamento_id: medicamento,
-            interlocutor_id: interlocutor,
-            reto: reto,
-            tiempo_min: parseInt(tiempo) || 5
-        };
-
-        try {
-            const response = await fetch('/analizar/todo', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ texto: transcripcionCompleta, escenario: escenarioObj })
-            });
-
-            if (!response.ok) {
-                const errData = await response.json().catch(() => ({}));
-                throw new Error(errData.detail || 'Server Error');
-            }
-
-            const data = await response.json();
-
-            btnAnalyze.innerHTML = originalText;
-            btnAnalyze.style.backgroundColor = 'var(--c-red)';
-            badges.forEach(b => {
-                b.textContent = 'Completado';
-                b.className = 'status-badge completed';
-                b.style.backgroundColor = '#e8edf7';
-                b.style.color = '#00205B';
-            });
-
-            renderResults(data, escenarioObj);
-
-        } catch (err) {
-            console.error(err);
-            showToast('Error al procesar el análisis.', 'error', 6000);
-            btnAnalyze.innerHTML = originalText;
-            btnAnalyze.style.backgroundColor = '';
-            badges.forEach(b => {
-                b.textContent = 'Pendiente';
-                b.style.backgroundColor = '#f3f4f6';
-                b.style.color = '#374151';
-            });
-        } finally {
-            btnAnalyze.disabled = false;
-        }
-    });
-
-    /* ============================================================
-       RESULTS RENDERING ENGINE
-     ============================================================ */
-    function errBlock(msg) { return `<div class="error-block"><i class="fa-solid fa-circle-exclamation"></i> ${msg}</div>`; }
     function gaugeCircle(score, max = 100) {
         const pct = Math.round((score / max) * 100);
         return `<div class="gauge-circle" style="--pct:${pct}%"><span class="gauge-val">${score}</span></div>`;
@@ -364,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div style="display:flex; justify-content:space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 4px;">
                             <strong>Dimensión ${k}:</strong>
                             <div style="display: flex; gap: 0.25rem;">
-                                ${'★'.repeat(v)}${'☆'.repeat(5-v)}
+                                ${'<i class="fa-solid fa-star" style="color: var(--c-yellow);"></i>'.repeat(v)}${'<i class="fa-regular fa-star" style="color: var(--text-muted);"></i>'.repeat(5-v)}
                                 <span style="margin-left: 0.5rem; font-weight: bold;">(${v}/5)</span>
                             </div>
                         </div>
@@ -519,40 +338,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ============================================================
        DEMO DATA LOAD
      ============================================================ */
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key.toLowerCase() === 'm') {
-            e.preventDefault();
-            document.getElementById('meta-medicamento').value = 'demo';
-            document.getElementById('meta-interlocutor').value = 'auditor_eps';
-            document.getElementById('meta-reto').value = 'Justificar el uso de Ejemplo XR frente a alternativas PBS por costo y eficacia';
-            document.getElementById('meta-tiempo').value = '10';
-            
-            chatHistoryEl.innerHTML = `
-                <div class="chat-message medico"><strong>Médico:</strong><br/>Doctora Restrepo, le presento Ejemplo XR. Es una nueva opción para pacientes con hipertensión resistente, con una reducción sostenida durante 24 horas y sin los efectos adversos clásicos.</div>
-                <div class="chat-message interlocutor"><strong>Auditor (IA):</strong><br/>Doctor, entiendo. Pero no está financiado con la UPC y tenemos muchas alternativas costo-efectivas en el PBS como el Enalapril o Losartán. ¿Por qué deberíamos autorizar este por MIPRES?</div>
-                <div class="chat-message medico"><strong>Médico:</strong><br/>Porque este paciente en particular ya falló con Enalapril y presentó tos severa. Además, con Losartán no ha logrado llegar a las metas tensionales, manteniéndose por encima de 150/90.</div>
-                <div class="chat-message interlocutor"><strong>Auditor (IA):</strong><br/>El costo de Ejemplo XR es casi 5 veces mayor. Necesitaríamos una justificación médica muy fuerte basada en evidencia para justificar ese impacto financiero para la EPS.</div>
-                <div class="chat-message medico"><strong>Médico:</strong><br/>La justificación se basa en el ensayo clínico REVERT-BP, donde Ejemplo XR demostró una reducción del 22% en eventos cardiovasculares mayores en pacientes refractarios, lo que a largo plazo le ahorra costos de hospitalización al sistema.</div>
-                <div class="chat-message interlocutor"><strong>Auditor (IA):</strong><br/>Es un punto válido. Sin embargo, ¿cómo es el perfil de seguridad respecto al edema periférico, que es común en estos bloqueadores?</div>
-                <div class="chat-message medico"><strong>Médico:</strong><br/>Precisamente, su mecanismo dual hace que la tasa de edema periférico sea menor al 2%, mucho más baja que con el amlodipino. Por eso es ideal para este paciente.</div>
-            `;
-
-            chatHistorial = [
-                {role: "user", content: "Doctora Restrepo, le presento Ejemplo XR. Es una nueva opción para pacientes con hipertensión resistente, con una reducción sostenida durante 24 horas y sin los efectos adversos clásicos."},
-                {role: "assistant", content: "Doctor, entiendo. Pero no está financiado con la UPC y tenemos muchas alternativas costo-efectivas en el PBS como el Enalapril o Losartán. ¿Por qué deberíamos autorizar este por MIPRES?"},
-                {role: "user", content: "Porque este paciente en particular ya falló con Enalapril y presentó tos severa. Además, con Losartán no ha logrado llegar a las metas tensionales, manteniéndose por encima de 150/90."},
-                {role: "assistant", content: "El costo de Ejemplo XR es casi 5 veces mayor. Necesitaríamos una justificación médica muy fuerte basada en evidencia para justificar ese impacto financiero para la EPS."},
-                {role: "user", content: "La justificación se basa en el ensayo clínico REVERT-BP, donde Ejemplo XR demostró una reducción del 22% en eventos cardiovasculares mayores en pacientes refractarios, lo que a largo plazo le ahorra costos de hospitalización al sistema."},
-                {role: "assistant", content: "Es un punto válido. Sin embargo, ¿cómo es el perfil de seguridad respecto al edema periférico, que es común en estos bloqueadores?"},
-                {role: "user", content: "Precisamente, su mecanismo dual hace que la tasa de edema periférico sea menor al 2%, mucho más baja que con el amlodipino. Por eso es ideal para este paciente."}
-            ];
-            turnCountDisplay.textContent = "7 turnos";
-            document.getElementById('discourse-text').value = '';
-            
-            showToast('Conversación avanzada de 7 turnos cargada (Ctrl+M).', 'info');
-        }
-    });
-
     const btnLoadDemo = document.getElementById('btn-load-demo');
     if (btnLoadDemo) {
         btnLoadDemo.addEventListener('click', async () => {
@@ -563,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const badges = document.querySelectorAll('.status-badge');
                 badges.forEach(b => {
-                    b.textContent = 'Demo';
+                    b.textContent = 'Completado';
                     b.className = 'status-badge completed';
                     b.style.backgroundColor = 'var(--c-blue-tint)';
                     b.style.color = 'var(--c-blue-dark)';
@@ -573,19 +358,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (escenario.interlocutor_id) document.getElementById('meta-interlocutor').value = escenario.interlocutor_id;
                 if (escenario.reto) document.getElementById('meta-reto').value = escenario.reto;
                 if (escenario.tiempo_min) document.getElementById('meta-tiempo').value = escenario.tiempo_min;
-
-                chatHistoryEl.innerHTML = `
-                    <div class="chat-message medico"><strong>Médico:</strong><br/>Doctora Restrepo, sé que tiene poco tiempo, le presento Ejemplo XR. Es el único del mercado que no causa mareo y reduce la presión arterial de forma sostenida durante 24 horas. ¿Le gustaría probar algunas muestras con sus próximos pacientes?</div>
-                    <div class="chat-message interlocutor"><strong>Auditor (IA):</strong><br/>No está financiado con la UPC y hay alternativas en el PBS. ¿Por qué no enalapril?</div>
-                    <div class="chat-message medico"><strong>Médico:</strong><br/>Porque controla mejor la presión y este paciente tiene hipertensión resistente.</div>
-                `;
-
-                chatHistorial = [
-                    {role: "user", content: "Doctora Restrepo, sé que tiene poco tiempo, le presento Ejemplo XR. Es el único del mercado que no causa mareo y reduce la presión arterial de forma sostenida durante 24 horas. ¿Le gustaría probar algunas muestras con sus próximos pacientes?"},
-                    {role: "assistant", content: "No está financiado con la UPC y hay alternativas en el PBS. ¿Por qué no enalapril?"},
-                    {role: "user", content: "Porque controla mejor la presión y este paciente tiene hipertensión resistente."}
-                ];
-                turnCountDisplay.textContent = "3 turnos";
 
                 renderResults(data, escenario);
                 showToast('Datos de prueba cargados correctamente.', 'success');
@@ -646,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const file = e.target.files[0];
       if (!file) return;
 
-      uploadLabel.textContent = `Transcribiendo "${file.name}"…`;
+      uploadLabel.textContent = `Transcribiendo "${file.name}"...`;
       transcripcionPreview.style.display = 'none';
       btnEvaluar.disabled = true;
 
@@ -664,10 +436,10 @@ document.addEventListener('DOMContentLoaded', () => {
           duracionSeg = data.transcripcion.duracion_seg || 0;
           palabrasTotal = textoParaAnalizar.split(/\s+/).length;
 
-          transcripcionTexto.textContent = textoParaAnalizar.substring(0, 400) + (textoParaAnalizar.length > 400 ? '…' : '');
+          transcripcionTexto.textContent = textoParaAnalizar.substring(0, 400) + (textoParaAnalizar.length > 400 ? '...' : '');
           transcripcionMeta.textContent = `Duración: ${duracionSeg}s · Palabras: ${palabrasTotal} · Idioma: ${data.transcripcion.idioma}`;
           transcripcionPreview.style.display = 'block';
-          uploadLabel.textContent = `✓ ${file.name} transcrito`;
+          uploadLabel.textContent = `Listo: ${file.name} transcrito`;
           btnEvaluar.disabled = false;
         } else {
           uploadLabel.textContent = `Error: ${data.detail || 'Fallo en la transcripción'}`;
