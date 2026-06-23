@@ -175,102 +175,130 @@
         </aside>
 
         <!-- ===================== MAIN PANEL ===================== -->
-        <main class="main-panel">
-            <header class="top-nav">
-                <span style="font-size:0.95rem;font-weight:600;color:var(--text-muted)"></span>
-                <button class="btn btn-outline" id="btn-load-demo">
+        <main class="main-content" style="flex: 1; overflow-y: auto;">
+
+          <!-- PASO 1: CONFIGURACIÓN -->
+          <section class="pm-section" id="sec-config">
+            <h2 class="pm-section-title">Configuración del pitch</h2>
+            <div class="pm-row">
+              <div class="pm-field">
+                <label>Producto</label>
+                <select id="producto-select">
+                  <option value="demo">Ejemplo XR (demo)</option>
+                </select>
+              </div>
+              <div class="pm-field">
+                <label>Audiencia</label>
+                <select id="audiencia-select">
+                  <option value="paciente">Paciente</option>
+                  <option value="institucion">Institución (IPS / EPS)</option>
+                </select>
+              </div>
+              <div class="pm-field" style="display: flex; align-items: flex-end; justify-content: flex-end;">
+                <button class="btn btn-outline" id="btn-load-demo" style="height: 38px; width: 100%;">
                     <i class="fa-solid fa-database"></i> Cargar Resultados Prueba
                 </button>
-            </header>
-
-            <div class="work-area" id="work-area-input">
-
-                <!-- Metadata Form -->
-                <div class="metadata-section">
-                    <h3><i class="fa-solid fa-user-doctor"></i> Contexto del Escenario</h3>
-                    <div class="metadata-grid">
-                        <div class="input-group">
-                            <label>ID Medicamento</label>
-                            <input type="text" id="meta-medicamento"
-                                value="demo"
-                                placeholder="Ej: demo">
-                        </div>
-                        <div class="input-group">
-                            <label>ID Interlocutor</label>
-                            <input type="text" id="meta-interlocutor"
-                                value="auditor_eps"
-                                placeholder="Ej: auditor_eps">
-                        </div>
-                        <div class="input-group">
-                            <label>Reto Principal</label>
-                            <input type="text" id="meta-reto"
-                                value="Negar la autorización por costo"
-                                placeholder="Ej: Objeción de costo">
-                        </div>
-                        <div class="input-group">
-                            <label>Tiempo Disponible (min)</label>
-                            <input type="number" id="meta-tiempo"
-                                value="5"
-                                placeholder="Ej: 5">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PANEL DE CAPTURA PITCHMED360 -->
-                <div class="metadata-section capture-panel" id="capture-panel">
-                  <h3><i class="fa-solid fa-microphone-lines"></i> Cargar y Evaluar Pitch</h3>
-                  
-                  <div class="capture-tabs">
-                    <button class="tab-btn active" data-tab="file">Subir archivo</button>
-                    <button class="tab-btn" data-tab="text">Texto directo</button>
-                  </div>
-
-                  <div class="tab-content" id="tab-file" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                    <label class="upload-label" for="pitch-file" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 150px;">
-                      <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
-                      <span id="upload-label-text">Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)</span>
-                    </label>
-                    <input type="file" id="pitch-file" accept=".mp3,.mp4,.wav,.webm,.m4a,.ogg" style="display:none">
-                    <div id="transcripcion-preview" class="transcripcion-preview" style="display:none; margin-top: 1rem;">
-                      <strong>Transcripción:</strong>
-                      <p id="transcripcion-texto" style="margin-top: 0.25rem; font-style: italic;"></p>
-                      <small id="transcripcion-meta" style="color: var(--text-muted); display: block; margin-top: 0.5rem;"></small>
-                    </div>
-                  </div>
-
-                  <div class="tab-content" id="tab-text" style="display:none; flex: 1;">
-                    <div style="display: flex; flex-direction: column; height: 100%; gap: 0.5rem;">
-                        <textarea class="discourse-textarea" placeholder="Escribe o pega tu pitch aquí para evaluarlo..."
-                            id="discourse-text" style="min-height: 150px; flex: 1; padding: 0.8rem;"></textarea>
-                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
-                            <button class="btn btn-outline" id="btn-mic" style="padding: 0.6rem 1.2rem; font-size: 1.1rem;" title="Dictar por voz">
-                                <i class="fa-solid fa-microphone"></i> Dictar por voz
-                            </button>
-                        </div>
-                    </div>
-                  </div>
-
-                  <div class="audiencia-selector" style="margin-top: 1.5rem;">
-                    <label style="font-weight: 600; color: var(--text-secondary);">Audiencia del pitch:</label>
-                    <select id="audiencia-select">
-                      <option value="paciente">Paciente</option>
-                      <option value="institución">Institución (IPS / EPS / Comité)</option>
-                    </select>
-                  </div>
-
-                  <button class="btn-evaluar" id="btn-evaluar" disabled style="margin-top: 1.5rem;">
-                    <i class="fa-solid fa-microscope"></i> Evaluar pitch
-                  </button>
-                </div>
-
+              </div>
             </div>
+          </section>
+
+          <!-- PASO 2: CAPTURA -->
+          <section class="pm-section" id="sec-captura">
+            <h2 class="pm-section-title">Captura del pitch</h2>
+
+            <div class="capture-tabs">
+              <button class="tab-btn active" data-tab="camara">
+                <i class="fa-solid fa-video"></i> Cámara en vivo
+              </button>
+              <button class="tab-btn" data-tab="archivo">
+                <i class="fa-solid fa-file-audio"></i> Subir archivo
+              </button>
+              <button class="tab-btn" data-tab="texto">
+                <i class="fa-solid fa-keyboard"></i> Texto directo
+              </button>
+            </div>
+
+            <!-- TAB: CÁMARA EN VIVO (principal) -->
+            <div class="tab-content active" id="tab-camara">
+              <div class="camera-container">
+                <video id="video-preview" autoplay muted playsinline></video>
+                <canvas id="mediapipe-canvas"></canvas>
+                <div class="camera-overlay" id="camera-overlay">
+                  <span>Cámara inactiva</span>
+                </div>
+              </div>
+
+              <div class="camera-stats" id="camera-stats" style="display:none">
+                <div class="stat-pill" id="stat-cv">👁 Contacto visual: --</div>
+                <div class="stat-pill" id="stat-postura">🧍 Postura: --</div>
+                <div class="stat-pill" id="stat-ppm">💬 -- ppm</div>
+                <div class="stat-pill" id="stat-fillers">Fillers: --%</div>
+              </div>
+
+              <div class="camera-controls">
+                <button class="btn-secondary" id="btn-iniciar-camara">
+                  <i class="fa-solid fa-video"></i> Iniciar cámara
+                </button>
+                <button class="btn-primary" id="btn-grabar" disabled>
+                  <i class="fa-solid fa-circle-dot"></i> Iniciar grabación
+                </button>
+                <button class="btn-danger" id="btn-detener" disabled>
+                  <i class="fa-solid fa-stop"></i> Detener y evaluar
+                </button>
+              </div>
+
+              <div id="transcripcion-live" class="transcripcion-preview" style="display:none">
+                <strong>Transcripción en vivo:</strong>
+                <p id="transcripcion-live-texto"></p>
+              </div>
+            </div>
+
+            <!-- TAB: SUBIR ARCHIVO -->
+            <div class="tab-content" id="tab-archivo">
+              <label class="upload-label" for="pitch-file">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span id="upload-label-text">Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)</span>
+              </label>
+              <input type="file" id="pitch-file" accept=".mp3,.mp4,.wav,.webm,.m4a,.ogg" style="display:none">
+              <div id="transcripcion-preview" class="transcripcion-preview" style="display:none">
+                <strong>Transcripción:</strong>
+                <p id="transcripcion-texto"></p>
+                <small id="transcripcion-meta"></small>
+              </div>
+              <p class="pm-note">
+                <i class="fa-solid fa-circle-info"></i>
+                Al subir archivo, D3 (comunicación no verbal) no estará disponible. Se redistribuirán los pesos entre las demás dimensiones.
+              </p>
+            </div>
+
+            <!-- TAB: TEXTO DIRECTO -->
+            <div class="tab-content" id="tab-texto">
+              <textarea id="texto-directo" rows="10" placeholder="Pega o escribe aquí el texto del pitch..."></textarea>
+              <p class="pm-note">
+                <i class="fa-solid fa-circle-info"></i>
+                Con texto directo, D3 no está disponible.
+              </p>
+            </div>
+          </section>
+
+          <!-- BOTÓN EVALUAR -->
+          <button class="btn-evaluar" id="btn-evaluar" disabled>
+            <i class="fa-solid fa-microscope"></i> Evaluar pitch
+          </button>
+
+          <!-- RESULTADOS -->
+          <section class="pm-section" id="sec-resultados" style="display:none">
+            <h2 class="pm-section-title">Resultados</h2>
+            <div id="resultados-container"></div>
+          </section>
+
         </main>
     </div>
 
     <!-- Toast container -->
     <div id="toast-container" class="toast-container"></div>
 
-    <script src="/static/app.js?v=3.2"></script>
+    <script src="/static/app.js?v=4.1"></script>
 </body>
 
 </html>

@@ -4,7 +4,8 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import os
 import tempfile
-from transcriber import transcribir
+from transcriber import transcribir as transcribir_audio
+
 
 # Fix Anaconda Fortran MKL crash on Windows when pressing Ctrl+C
 os.environ["FOR_DISABLE_CONSOLE_CTRL_HANDLER"] = "1"
@@ -214,6 +215,7 @@ PROMPTS_PITCHMED = {
   "D1_evidencia_cientifica": """
 {base}
 Evalúa la precisión científica del pitch. Contrasta cada afirmación clínica contra la ficha técnica del producto.
+No uses conocimiento externo: si no está en la ficha, es sin_respaldo.
 Estructura requerida (JSON puro, sin markdown):
 {{
   "score": <int 0-5>,
@@ -227,9 +229,10 @@ REGLA: score <= 1 si hay afirmaciones off-label sin justificación.
 
   "D2_claridad_lenguaje": """
 {base}
-Evalúa si el lenguaje está calibrado para la audiencia declarada ({audiencia_tipo}).
-Para paciente: ¿evitó jerga? ¿usó analogías? Para institución: ¿usó terminología técnica precisa?
-Estructura requerida (JSON puro):
+Evalúa si el lenguaje está calibrado para la audiencia declarada: {audiencia_tipo}.
+Para paciente: ¿evitó jerga sin explicar? ¿usó analogías cotidianas? ¿verificó comprensión?
+Para institución: ¿usó terminología técnica precisa? ¿habló de costo-efectividad?
+Estructura requerida (JSON puro, sin markdown):
 {{
   "score": <int 0-5>,
   "nivel_tecnico_apropiado": <bool>,
@@ -243,7 +246,7 @@ Estructura requerida (JSON puro):
   "D4_cumplimiento_regulatorio": """
 {base}
 Evalúa el cumplimiento con el marco regulatorio colombiano (INVIMA, Fedesalud).
-Estructura requerida (JSON puro):
+Estructura requerida (JSON puro, sin markdown):
 {{
   "score": <int 0-5>,
   "indicaciones_correctas": <bool>,
@@ -259,7 +262,7 @@ REGLA DURA: Si hay promesas de resultado garantizado o afirmaciones off-label gr
   "D5_estructura_narrativa": """
 {base}
 Evalúa si el pitch sigue una estructura narrativa efectiva: problema → evidencia → solución → llamado a la acción.
-Estructura requerida (JSON puro):
+Estructura requerida (JSON puro, sin markdown):
 {{
   "score": <int 0-5>,
   "abre_con_problema": <bool>,
@@ -272,237 +275,36 @@ Estructura requerida (JSON puro):
 """
 }
 
-def ejecutar_modulo(modulo: str, texto: str, metadatos: dict, metricas: dict, api_key: str = None) -> dict:
-    key = api_key or os.environ.get("ANTHROPIC_API_KEY")
-    if not key:
-        return {"ok": False, "error": "API Key de Anthropic no configurada."}
-        
-    http_client = httpx.Client(verify=_SSL_VERIFY, timeout=60.0)
-    client = anthropic.Anthropic(api_key=key, http_client=http_client)
-
-    ficha = cargar_ficha(metadatos.get("medicamento_id", ""))
-    interlocutor = cargar_interlocutor(metadatos.get("interlocutor_id", ""))
-
-    base = BASE_CONTEXTO.format(
-        interlocutor_tipo=interlocutor.get("tipo", "interlocutor"),
-        medicamento=ficha.get("nombre_comercial", metadatos.get("medicamento_id", "No especificado")),
-        interlocutor=interlocutor.get("nombre", metadatos.get("interlocutor_id", "No especificado")),
-        reto=metadatos.get("reto", "No especificado"),
-        ficha_tecnica=json.dumps(ficha, ensure_ascii=False, indent=2),
-        contexto_cobertura=json.dumps(ficha.get("contexto_cobertura", {}), ensure_ascii=False, indent=2),
-        metricas=json.dumps(metricas, ensure_ascii=False, indent=2),
-        texto=texto
-    )
-    prompt = PROMPTS[modulo].format(base=base)
-    try:
-        response = client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=8192,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        raw = response.content[0].text.strip()
-        try:
-            return {"ok": True, "data": json.loads(raw)}
-        except json.JSONDecodeError:
-            clean = raw.replace("```json", "").replace("```", "").strip()
-            return {"ok": True, "data": json.loads(clean)}
-    except Exception as e:
-        return {"ok": False, "error": str(e)}
-
-@app.post("/analizar/metrico")
-def analizar_metrico(req: AnalizarRequest):
-    return {"metricas": calcular_metricas(req.texto)}
-
-PESOS = {
-  "auditor_eps": {"exactitud_evidencia": 0.30, "fuerza_justificacion": 0.25,
-                  "manejo_objeciones": 0.20, "argumentacion_cobertura": 0.25},
-  "paciente_dudoso": {"exactitud_evidencia": 0.30, "fuerza_justificacion": 0.20,
-                      "manejo_objeciones": 0.20, "comunicacion_empatia": 0.30},
-}
-
-def construir_scorecard_med(resultados: dict, audiencia: str) -> dict:
-    rubrica = _cargar_json("rubrica.json")
-    dims_config = {d["id"]: d for d in rubrica["dimensiones"]}
-    
-    peso_key = "peso_paciente" if audiencia == "paciente" else "peso_institucion"
-    
-    scores = {}
-    for dim_id in ["D1", "D2", "D4", "D5"]:
-        modulo_key = [k for k in resultados if k.startswith(dim_id)][0] if any(k.startswith(dim_id) for k in resultados) else None
-        if modulo_key:
-            scores[dim_id] = resultados[modulo_key].get("data", {}).get("score", 0)
-        else:
-            scores[dim_id] = 0
-    
-    # D3 viene del análisis de video (determinista)
-    scores["D3"] = resultados.get("D3_no_verbal", {}).get("score", 0)
-    
-    puntaje = 0
-    for dim_id, cfg in dims_config.items():
-        puntaje += scores.get(dim_id, 0) * 20 * cfg.get(peso_key, 0.2)
-    puntaje = round(puntaje)
-    
-    # Límite duro: D4 regulatorio
-    if scores.get("D4", 5) <= 1:
-        puntaje = min(puntaje, 35)
-    
-    # Banda
-    banda = "Insuficiente"
-    for b in rubrica["bandas"]:
-        if b["min"] <= puntaje <= b["max"]:
-            banda = b["label"]
-            break
-    
-    return {
-        "puntaje_total": puntaje,
-        "banda": banda,
-        "scores_por_dimension": scores,
-        "audiencia": audiencia
-    }
-
-@app.post("/analizar/todo")
-def analizar_todo(req: AnalizarRequest):
-    return analizar_pitchmed(req)
-
-@app.post("/analizar/{modulo}")
-def analizar_modulo(modulo: str, req: AnalizarRequest):
-    if modulo not in PROMPTS_PITCHMED:
-        return {"error": f"Módulo '{modulo}' no existe"}
-    metricas = calcular_metricas(req.texto)
-    audiencia = req.escenario.interlocutor_id
-    return ejecutar_modulo_med(modulo, req.texto, req.escenario.model_dump(), metricas, audiencia, api_key=req.api_key)
-
-def calcular_d3_no_verbal(duracion_seg: float, palabras_total: int, tiene_video: bool = False) -> dict:
-    """
-    Calificación determinista de D3 basada en métricas de voz.
-    Con video: el frontend puede enviar señales adicionales (contacto_visual_pct, postura).
-    Sin video: evalúa solo ritmo y fluidez vocal.
-    """
-    score = 3  # baseline
-    observaciones = []
-    
-    # Velocidad de habla (palabras por minuto)
-    if duracion_seg > 0:
-        wpm = (palabras_total / duracion_seg) * 60
-        if 120 <= wpm <= 160:
-            score += 1
-            observaciones.append(f"Velocidad apropiada: {round(wpm)} ppm")
-        elif wpm > 200:
-            score -= 1
-            observaciones.append(f"Habla demasiado rápido: {round(wpm)} ppm")
-        elif wpm < 90:
-            score -= 1
-            observaciones.append(f"Ritmo muy lento: {round(wpm)} ppm")
-    
-    score = max(0, min(5, score))
-    
-    return {
-        "score": score,
-        "tiene_video": tiene_video,
-        "observaciones": observaciones,
-        "nota": "Evaluación completa de video disponible en versión con cámara activa"
-    }
-
-@app.post("/analizar/no-verbal")
-def analizar_no_verbal(
-    duracion_seg: float = Form(0),
-    palabras_total: int = Form(0),
-    tiene_video: bool = Form(False)
-):
-    return calcular_d3_no_verbal(duracion_seg, palabras_total, tiene_video)
-
-@app.post("/transcribir")
-async def transcribir_audio(
-    file: UploadFile = File(...),
-    audiencia: str = Form("paciente"),
-    producto_id: str = Form("demo")
-):
-    """
-    Recibe archivo de audio o video, devuelve transcripción y dispara análisis completo.
-    Formatos soportados: .mp3, .mp4, .wav, .webm, .m4a
-    """
-    extension = os.path.splitext(file.filename)[-1].lower()
-    if extension not in [".mp3", ".mp4", ".wav", ".webm", ".m4a", ".ogg"]:
-        raise HTTPException(status_code=400, detail=f"Formato no soportado: {extension}")
-    
-    file_bytes = await file.read()
-    
-    try:
-        resultado_transcripcion = transcribir(file_bytes, extension)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error en transcripción: {str(e)}")
-    
-    return {
-        "transcripcion": resultado_transcripcion,
-        "audiencia": audiencia,
-        "producto_id": producto_id,
-        "siguiente_paso": "POST /analizar/pitchmed con el texto transcrito"
-    }
-
-@app.post("/analizar/pitchmed")
-def analizar_pitchmed(req: AnalizarRequest):
-    """
-    Endpoint principal de PitchMed360.
-    Recibe texto (transcripto o directo), audiencia y producto.
-    Corre D1, D2, D4, D5 en paralelo. D3 se evalúa por separado si hay video.
-    """
-    metricas = calcular_metricas(req.texto)
-    audiencia = req.escenario.interlocutor_id  # "paciente" | "institucion"
-    
-    modulos_activos = ["D1_evidencia_cientifica", "D2_claridad_lenguaje", 
-                       "D4_cumplimiento_regulatorio", "D5_estructura_narrativa"]
-    
-    resultados = {"metricas": metricas}
-    metadatos_dict = req.escenario.model_dump()
-    
-    # Evaluar D3 no verbal basado en la duración estimada del pitch
-    palabras_total = len(req.texto.split())
-    # Si no nos pasan la duración, la estimamos a un ritmo normal de 130 palabras por minuto
-    duracion_est = (palabras_total / 130.0) * 60.0
-    resultados["D3_no_verbal"] = calcular_d3_no_verbal(duracion_est, palabras_total, tiene_video=False)
-    
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
-        f2m = {
-            executor.submit(ejecutar_modulo_med, modulo, req.texto, metadatos_dict, metricas, audiencia, req.api_key): modulo
-            for modulo in modulos_activos
-        }
-        for future in concurrent.futures.as_completed(f2m):
-            modulo = f2m[future]
-            resultados[modulo] = future.result()
-    
-    resultados["scorecard"] = construir_scorecard_med(resultados, audiencia)
-    return resultados
-
 def ejecutar_modulo_med(modulo: str, texto: str, metadatos: dict, metricas: dict, audiencia: str, api_key: str = None) -> dict:
     key = api_key or os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         return {"ok": False, "error": "API Key no configurada"}
-    
+
     http_client = httpx.Client(verify=_SSL_VERIFY, timeout=90.0)
     client = anthropic.Anthropic(api_key=key, http_client=http_client)
-    
+
     ficha = cargar_ficha(metadatos.get("medicamento_id", "demo"))
     inter_id = metadatos.get("interlocutor_id", "paciente")
     if inter_id in ["paciente", "paciente_dudoso"]:
         inter_id = "paciente_dudoso"
     elif inter_id in ["institucion", "institución"]:
-        inter_id = "institución"
+        inter_id = "institucion"
     interlocutor = cargar_interlocutor(inter_id)
-    
+
     base = BASE_CONTEXTO.format(
         interlocutor_tipo=interlocutor.get("tipo", audiencia),
         medicamento=ficha.get("nombre_comercial", "No especificado"),
         interlocutor=interlocutor.get("nombre", audiencia),
-        reto=metadatos.get("reto", "Presentar el producto de forma efectiva y compliant"),
+        reto=metadatos.get("reto", "Presentar el producto de forma efectiva y con cumplimiento regulatorio"),
         ficha_tecnica=json.dumps(ficha, ensure_ascii=False, indent=2),
         contexto_cobertura=json.dumps(ficha.get("contexto_cobertura", {}), ensure_ascii=False, indent=2),
         metricas=json.dumps(metricas, ensure_ascii=False, indent=2),
         texto=texto
     )
-    
+
     prompt_template = PROMPTS_PITCHMED.get(modulo, "")
     prompt = prompt_template.format(base=base, audiencia_tipo=audiencia)
-    
+
     try:
         response = client.messages.create(
             model="claude-haiku-4-5-20251001",
@@ -514,49 +316,189 @@ def ejecutar_modulo_med(modulo: str, texto: str, metadatos: dict, metricas: dict
     except Exception as e:
         return {"ok": False, "error": str(e)}
 
-SYSTEM_INTERLOCUTOR = """
-{persona_prompt}
-Conoces a fondo esta evidencia y este contexto de cobertura, y SOLO aceptas
-justificaciones ancladas en ellos:
-FICHA: {ficha}
-COBERTURA: {cobertura}
-Mantente en personaje. Busca el punto débil de la defensa. Turnos breves.
-"""
+def calcular_d3_no_verbal(metricas_no_verbal: dict) -> dict:
+    """
+    Calcula D3 a partir de métricas enviadas por el frontend (MediaPipe + Web Speech).
+    """
+    if not metricas_no_verbal.get("tiene_video", False):
+        return {
+            "score": None,
+            "disponible": False,
+            "nota": "D3 requiere cámara activa. Activar el modo de grabación en vivo para evaluar comunicación no verbal."
+        }
 
-@app.post("/conversar")
-def conversar(req: TurnoRequest):
-    inter = cargar_interlocutor(req.interlocutor_id)
-    ficha = cargar_ficha(req.medicamento_id)
-    system = SYSTEM_INTERLOCUTOR.format(
-        persona_prompt=inter.get("system_prompt", ""),
-        ficha=json.dumps(ficha, ensure_ascii=False),
-        cobertura=json.dumps(ficha.get("contexto_cobertura", {}), ensure_ascii=False)
+    score = 3
+    observaciones = []
+
+    # Contacto visual (peso: 35%)
+    cv = metricas_no_verbal.get("contacto_visual_pct", 0)
+    if cv >= 70:
+        score += 1
+        observaciones.append(f"Contacto visual alto: {round(cv)}% del tiempo mirando a cámara")
+    elif cv < 40:
+        score -= 1
+        observaciones.append(f"Contacto visual bajo: {round(cv)}% del tiempo mirando a cámara")
+
+    # Postura (peso: 25%)
+    postura = metricas_no_verbal.get("postura", "mixta")
+    if postura == "abierta":
+        score += 0.5
+        observaciones.append("Postura abierta y receptiva")
+    elif postura == "cerrada":
+        score -= 0.5
+        observaciones.append("Postura cerrada — brazos cruzados o cuerpo retraído")
+
+    # Gestos (peso: 20%)
+    gestos = metricas_no_verbal.get("gestos", "ninguno")
+    if gestos == "ilustrativos":
+        score += 0.5
+        observaciones.append("Gestos ilustrativos que refuerzan el mensaje")
+    elif gestos == "reguladores":
+        observaciones.append("Gestos reguladores frecuentes — pueden distraer")
+
+    # Velocidad de habla (peso: 15%)
+    ppm = metricas_no_verbal.get("velocidad_ppm", 0)
+    if 120 <= ppm <= 160:
+        score += 0.5
+        observaciones.append(f"Velocidad apropiada: {round(ppm)} palabras/minuto")
+    elif ppm > 200:
+        score -= 0.5
+        observaciones.append(f"Habla demasiado rápido: {round(ppm)} palabras/minuto")
+    elif 0 < ppm < 90:
+        score -= 0.5
+        observaciones.append(f"Ritmo muy lento: {round(ppm)} palabras/minuto")
+
+    # Fillers (peso: 5%)
+    fillers = metricas_no_verbal.get("fillers_pct", 0)
+    if fillers > 5:
+        score -= 0.5
+        observaciones.append(f"Uso excesivo de muletillas: {round(fillers, 1)}% de las palabras")
+
+    score = round(max(0, min(5, score)))
+
+    return {
+        "score": score,
+        "disponible": True,
+        "observaciones": observaciones,
+        "metricas_raw": metricas_no_verbal
+    }
+
+def construir_scorecard_med(resultados: dict, audiencia: str, tiene_video: bool) -> dict:
+    rubrica = _cargar_json("rubrica.json")
+    dims_config = {d["id"]: d for d in rubrica["dimensiones"]}
+
+    peso_key = "peso_paciente" if audiencia == "paciente" else "peso_institucion"
+
+    scores = {}
+    for dim_id in ["D1", "D2", "D4", "D5"]:
+        modulo_key = next((k for k in resultados if k.startswith(dim_id)), None)
+        scores[dim_id] = resultados[modulo_key].get("data", {}).get("score", 0) if modulo_key else 0
+
+    d3 = resultados.get("D3_no_verbal", {})
+    scores["D3"] = d3.get("score") if d3.get("disponible") else None
+
+    # Redistribuir pesos si D3 no está disponible
+    if scores["D3"] is None:
+        peso_d3 = dims_config["D3"].get(peso_key, 0)
+        dims_activas = ["D1", "D2", "D4", "D5"]
+        total_peso_activo = sum(dims_config[d].get(peso_key, 0) for d in dims_activas)
+        pesos_efectivos = {
+            d: dims_config[d].get(peso_key, 0) + (dims_config[d].get(peso_key, 0) / total_peso_activo) * peso_d3
+            for d in dims_activas
+        }
+    else:
+        pesos_efectivos = {d: dims_config[d].get(peso_key, 0) for d in dims_config}
+
+    puntaje = 0
+    for dim_id, peso in pesos_efectivos.items():
+        s = scores.get(dim_id)
+        if s is not None:
+            puntaje += s * 20 * peso
+    puntaje = round(puntaje)
+
+    # Límite duro D4
+    if scores.get("D4", 5) <= 1:
+        puntaje = min(puntaje, 35)
+
+    banda = next(
+        (b["label"] for b in rubrica["bandas"] if b["min"] <= puntaje <= b["max"]),
+        "Insuficiente"
     )
-    
-    key = req.api_key or os.environ.get("ANTHROPIC_API_KEY")
-    if not key:
-        raise HTTPException(status_code=400, detail="API Key de Anthropic no configurada.")
-        
-    client = anthropic.Anthropic(
-        api_key=key,
-        http_client=httpx.Client(verify=_SSL_VERIFY, timeout=60.0)
-    )
-    
+
+    return {
+        "puntaje_total": puntaje,
+        "banda": banda,
+        "scores_por_dimension": scores,
+        "audiencia": audiencia,
+        "d3_disponible": tiene_video
+    }
+
+# ─── ENDPOINTS PITCHMED360 ───────────────────────────────────────────────────
+
+@app.post("/transcribir")
+async def endpoint_transcribir(
+    file: UploadFile = File(...),
+    audiencia: str = Form("paciente"),
+    producto_id: str = Form("demo")
+):
+    """Recibe archivo de audio/video, devuelve transcripción."""
+    extension = os.path.splitext(file.filename)[-1].lower()
+    formatos = [".mp3", ".mp4", ".wav", ".webm", ".m4a", ".ogg"]
+    if extension not in formatos:
+        raise HTTPException(status_code=400, detail=f"Formato no soportado: {extension}")
+
+    file_bytes = await file.read()
     try:
-        res = client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=1024,
-            system=system,
-            messages=req.historial
-        )
-        return {"respuesta": res.content[0].text}
+        resultado = transcribir_audio(file_bytes, extension)
     except Exception as e:
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error en transcripción: {str(e)}")
+
+    return {
+        "transcripcion": resultado,
+        "audiencia": audiencia,
+        "producto_id": producto_id
+    }
+
+@app.post("/analizar/pitchmed")
+def endpoint_analizar_pitchmed(req: AnalizarRequest):
+    """
+    Endpoint principal. Recibe texto + métricas no verbales opcionales.
+    """
+    metricas_texto = calcular_metricas(req.texto)
+    audiencia = req.escenario.interlocutor_id
+    metadatos = req.escenario.model_dump()
+
+    # D3: métricas no verbales vienen en el campo `reto` como JSON si tiene_video=True
+    metricas_no_verbal = {}
+    tiene_video = False
+    try:
+        candidato = json.loads(metadatos.get("reto", "{}"))
+        if "tiene_video" in candidato:
+            metricas_no_verbal = candidato
+            tiene_video = candidato.get("tiene_video", False)
+            metadatos["reto"] = "Presentar el producto de forma efectiva y con cumplimiento regulatorio"
+    except (json.JSONDecodeError, TypeError):
+        pass
+
+    resultados = {"metricas": metricas_texto}
+    modulos = ["D1_evidencia_cientifica", "D2_claridad_lenguaje",
+               "D4_cumplimiento_regulatorio", "D5_estructura_narrativa"]
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {
+            executor.submit(ejecutar_modulo_med, m, req.texto, metadatos, metricas_texto, audiencia, req.api_key): m
+            for m in modulos
+        }
+        for future in concurrent.futures.as_completed(futures):
+            resultados[futures[future]] = future.result()
+
+    resultados["D3_no_verbal"] = calcular_d3_no_verbal(
+        {**metricas_no_verbal, "tiene_video": tiene_video}
+    )
+    resultados["scorecard"] = construir_scorecard_med(resultados, audiencia, tiene_video)
+    return resultados
 
 if __name__ == "__main__":
     import uvicorn
-    # En Railway se usa la variable de entorno PORT
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run("main:app", host="0.0.0.0", port=port)
