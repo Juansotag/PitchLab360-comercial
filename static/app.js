@@ -18,6 +18,8 @@ const state = {
   mediaStream: null,
   recognition: null,
   transcripcionLive: '',
+  textoLiveActual: '',
+  transcripcionesPrevias: [],
   palabrasLive: [],
   fillers: ['eh', 'eeh', 'uhm', 'mm', 'mmm', 'este', 'osea', 'o sea', 'pues', 'bueno'],
   inicioGrabacion: null,
@@ -213,24 +215,44 @@ function iniciarWebSpeech() {
   recognition.interimResults = true;
 
   recognition.onresult = (event) => {
-    let transcripcionParcial = '';
-    for (let i = event.resultIndex; i < event.results.length; i++) {
+    let finalDeEstaSesion = '';
+    let parcialDeEstaSesion = '';
+    
+    for (let i = 0; i < event.results.length; i++) {
       const texto = event.results[i][0].transcript;
       if (event.results[i].isFinal) {
-        state.transcripcionLive += texto + ' ';
-        const palabras = texto.toLowerCase().split(/\s+/).filter(Boolean);
-        state.palabrasLive.push(...palabras);
+        finalDeEstaSesion += texto + ' ';
       } else {
-        transcripcionParcial = texto;
+        parcialDeEstaSesion += texto;
       }
     }
-    const display = (state.transcripcionLive + transcripcionParcial).slice(-300);
-    document.getElementById('transcripcion-live-texto').textContent = '...' + display;
+    
+    const textoCompleto = (state.transcripcionesPrevias.join(' ') + ' ' + finalDeEstaSesion).trim();
+    state.palabrasLive = textoCompleto.toLowerCase().split(/\s+/).filter(Boolean);
+    
+    const displayTexto = (textoCompleto + ' ' + parcialDeEstaSesion).trim();
+    const displaySliced = displayTexto.length > 500 ? '...' + displayTexto.slice(-500) : displayTexto;
+    document.getElementById('transcripcion-live-texto').textContent = displaySliced;
     document.getElementById('transcripcion-live').style.display = 'block';
+    
+    state.textoLiveActual = displayTexto;
   };
 
   recognition.onerror = (e) => console.warn('Speech error:', e.error);
-  recognition.onend = () => { if (state.grabando) recognition.start(); };
+  
+  recognition.onend = () => {
+    if (state.grabando) {
+      if (state.textoLiveActual && state.textoLiveActual.trim()) {
+        state.transcripcionesPrevias = [state.textoLiveActual.trim()];
+      }
+      try {
+        recognition.start();
+      } catch (err) {
+        console.warn('Speech restart error:', err);
+      }
+    }
+  };
+  
   recognition.start();
   state.recognition = recognition;
 }
@@ -260,7 +282,7 @@ function finalizarMetricasNoVerbal() {
     fillers_pct: Math.round(fillersPct * 10) / 10,
     tiene_video: true
   };
-  state.textoAnalizar = state.transcripcionLive.trim();
+  state.textoAnalizar = (state.textoLiveActual || '').trim();
 }
 
 // ─── CONTROLES DE GRABACIÓN ──────────────────────────────────────────────────
@@ -273,6 +295,8 @@ document.getElementById('btn-grabar').addEventListener('click', () => {
   state.posturaFrames = [];
   state.gestosFrames = [];
   state.transcripcionLive = '';
+  state.textoLiveActual = '';
+  state.transcripcionesPrevias = [];
   state.palabrasLive = [];
   document.getElementById('camera-stats').style.display = 'flex';
   document.getElementById('btn-grabar').disabled = true;
