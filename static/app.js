@@ -84,6 +84,10 @@ document.getElementById('btn-reset').addEventListener('click', () => {
   document.getElementById('texto-directo').value = '';
   document.getElementById('upload-label-text').textContent = 'Arrastra o selecciona audio/video (.mp3, .mp4, .wav, .webm)';
   document.getElementById('pitch-file').value = '';
+  const fichaEl = document.getElementById('ficha-custom');
+  if (fichaEl) fichaEl.value = '';
+  const nombreEl = document.getElementById('producto-nombre');
+  if (nombreEl) nombreEl.value = '';
   document.getElementById('sec-resultados').style.display = 'none';
   document.getElementById('resultados-container').innerHTML = '';
   document.getElementById('btn-evaluar').disabled = true;
@@ -186,33 +190,38 @@ async function iniciarCamara() {
 
 async function iniciarMediaPipe() {
   try {
-    // Carga MediaPipe Holistic desde CDN (UMD bundle, se inyecta en el objeto global window)
     await import('https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/holistic.js');
     const HolisticClass = window.Holistic;
-    if (!HolisticClass) {
-      throw new Error('No se pudo encontrar Holistic en el objeto window global.');
-    }
+    if (!HolisticClass) throw new Error('No se pudo encontrar Holistic en el objeto window global.');
+
     const holistic = new HolisticClass({
       locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1635989137/${file}`
     });
     holistic.setOptions({
       modelComplexity: 1,
       smoothLandmarks: true,
+      enableSegmentation: false,
+      smoothSegmentation: false,
+      refineFaceLandmarks: true,
       minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5,
-      refineFaceLandmarks: true
+      minTrackingConfidence: 0.5
     });
     holistic.onResults(procesarResultadosMediaPipe);
     state.holisticModel = holistic;
 
     const video = document.getElementById('video-preview');
     const canvas = document.getElementById('mediapipe-canvas');
+    let frameCount = 0;
 
     async function loop() {
-      if (state.mediaStream) {
-        canvas.width = video.videoWidth;
+      if (state.mediaStream && video.videoWidth > 0) {
+        canvas.width  = video.videoWidth;
         canvas.height = video.videoHeight;
-        await holistic.send({ image: video });
+        // Procesar 1 de cada 2 frames para reducir latencia/carga CPU
+        if (frameCount % 2 === 0) {
+          await holistic.send({ image: video });
+        }
+        frameCount++;
       }
       requestAnimationFrame(loop);
     }
@@ -225,70 +234,78 @@ async function iniciarMediaPipe() {
   }
 }
 
-// ─── CONEXIONES DEL ESQUELETO (MediaPipe Pose BlazePose indices) ───────────────
+// ─── CONEXIONES DEL ESQUELETO (BlazePose — sin dedos-fantasma) ────────────────
+// Nota: se omiten los "dedos" 17-22 (pinky/index/thumb landmarks) que
+// provocan el efecto de "tres dedos" saliendo de la muñeca.
 const POSE_CONNECTIONS = [
-  // Torso
+  // Cara — solo la línea de boca y orejas a hombros (limpio)
+  [9, 10],            // boca izq → boca der
+  [11, 9], [12, 10],  // hombro → oreja
+  // Columna / torso
   [11, 12], [11, 23], [12, 24], [23, 24],
-  // Brazo izquierdo
-  [11, 13], [13, 15], [15, 17], [15, 19], [15, 21], [17, 19],
-  // Brazo derecho
-  [12, 14], [14, 16], [16, 18], [16, 20], [16, 22], [18, 20],
-  // Pierna izquierda
+  // Brazo izquierdo: hombro → codo → muñeca
+  [11, 13], [13, 15],
+  // Brazo derecho:  hombro → codo → muñeca
+  [12, 14], [14, 16],
+  // Pierna izquierda: cadera → rodilla → tobillo → talón → pie
   [23, 25], [25, 27], [27, 29], [27, 31], [29, 31],
   // Pierna derecha
-  [24, 26], [26, 28], [28, 30], [28, 32], [30, 32],
-  // Cara - nariz a ojos
-  [0, 1], [1, 2], [2, 3], [3, 7], [0, 4], [4, 5], [5, 6], [6, 8],
-  // Hombros a orejas
-  [9, 10], [11, 9], [12, 10]
+  [24, 26], [26, 28], [28, 30], [28, 32], [30, 32]
 ];
 
-// Landmarks relevantes para colorear por grupo
-const POSE_GROUPS = {
-  torso:    [11, 12, 23, 24],
-  brazos:   [13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
-  piernas:  [25, 26, 27, 28, 29, 30, 31, 32],
-  cara:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-};
+// Landmarks a dibujar como puntos (sin los dedos 17-22)
+const POSE_LANDMARK_GROUPS = [
+  // Articulaciones principales (más grandes)
+  { indices: [11, 12, 23, 24], radio: 7, fill: '#ffffff', stroke: '#1B3A6B', strokeW: 2 },
+  // Codos, muñecas, rodillas, tobillos
+  { indices: [13, 14, 15, 16, 25, 26, 27, 28], radio: 5, fill: '#e2e8f0', stroke: '#1B3A6B', strokeW: 1.5 },
+  // Talones y puntas de pie
+  { indices: [29, 30, 31, 32], radio: 4, fill: '#94a3b8', stroke: '#1B3A6B', strokeW: 1 },
+  // Orejas y boca
+  { indices: [9, 10], radio: 4, fill: '#cbd5e1', stroke: '#1B3A6B', strokeW: 1 }
+];
 
 function dibujarEsqueleto(ctx, pose, canvas) {
   if (!pose || pose.length === 0) return;
 
-  // Dibujar conexiones
+  // 1. Conexiones — degradado de blanco semitransparente sobre el video
+  ctx.save();
   POSE_CONNECTIONS.forEach(([a, b]) => {
     const ptA = pose[a], ptB = pose[b];
     if (!ptA || !ptB) return;
-    // Ocultar landmarks con baja visibilidad
-    if ((ptA.visibility !== undefined && ptA.visibility < 0.3) ||
-        (ptB.visibility !== undefined && ptB.visibility < 0.3)) return;
+    if ((ptA.visibility ?? 1) < 0.35 || (ptB.visibility ?? 1) < 0.35) return;
+
+    // Gradiente azul-blanco a lo largo de cada hueso
+    const grd = ctx.createLinearGradient(
+      ptA.x * canvas.width, ptA.y * canvas.height,
+      ptB.x * canvas.width, ptB.y * canvas.height
+    );
+    grd.addColorStop(0,   'rgba(255,255,255,0.75)');
+    grd.addColorStop(0.5, 'rgba(180,210,255,0.65)');
+    grd.addColorStop(1,   'rgba(255,255,255,0.75)');
 
     ctx.beginPath();
     ctx.moveTo(ptA.x * canvas.width, ptA.y * canvas.height);
     ctx.lineTo(ptB.x * canvas.width, ptB.y * canvas.height);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = grd;
+    ctx.lineWidth   = 2.5;
+    ctx.lineCap     = 'round';
     ctx.stroke();
   });
+  ctx.restore();
 
-  // Dibujar landmarks por grupo con colores
-  const colores = {
-    torso:   '#38bdf8',  // azul claro
-    brazos:  '#f59e0b',  // naranja
-    piernas: '#a78bfa',  // violeta
-    cara:    '#86efac'   // verde claro
-  };
-
-  Object.entries(POSE_GROUPS).forEach(([grupo, indices]) => {
-    ctx.fillStyle = colores[grupo];
+  // 2. Articulaciones por grupo
+  POSE_LANDMARK_GROUPS.forEach(({ indices, radio, fill, stroke, strokeW }) => {
     indices.forEach(i => {
       const pt = pose[i];
       if (!pt) return;
-      if (pt.visibility !== undefined && pt.visibility < 0.3) return;
+      if ((pt.visibility ?? 1) < 0.35) return;
       ctx.beginPath();
-      ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 5, 0, 2 * Math.PI);
+      ctx.arc(pt.x * canvas.width, pt.y * canvas.height, radio, 0, 2 * Math.PI);
+      ctx.fillStyle   = fill;
       ctx.fill();
-      ctx.strokeStyle = 'rgba(0,0,0,0.4)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth   = strokeW;
       ctx.stroke();
     });
   });
@@ -842,8 +859,9 @@ if (btnLoadDemo) {
     try {
       const res = await fetch('/static/config/demo_data.json?v=' + Date.now());
       const demoData = await res.json();
-      const { escenario = {}, ...data } = demoData;
+      const { escenario = {}, texto = '', D3_no_verbal = null, ...rest } = demoData;
 
+      // Poblar campos de configuración
       if (escenario.interlocutor_id) {
         document.getElementById('audiencia-select').value = escenario.interlocutor_id;
         state.audiencia = escenario.interlocutor_id;
@@ -854,24 +872,43 @@ if (btnLoadDemo) {
         state.productoId = escenario.medicamento_id;
       }
 
-      state.textoAnalizar = data.texto || "Buenos días. Quisiera presentarles Ejemplo XR...";
-      state.tieneVideo = data.scorecard?.d3_disponible || false;
-      if (state.tieneVideo) {
-        state.metricasNoVerbal = data.D3_no_verbal?.metricas_raw || {
-          contacto_visual_pct: 72,
-          postura: "abierta",
-          gestos: "ilustrativos",
-          velocidad_ppm: 138,
-          fillers_pct: 1.2,
-          tiene_video: true
-        };
+      // Poblar el textarea de contexto del producto con la ficha demo
+      const fichaEl = document.getElementById('ficha-custom');
+      if (fichaEl) {
+        fichaEl.value = [
+          'Producto: ' + (escenario.medicamento_id || ''),
+          'Indicación aprobada INVIMA: Dislipidemia mixta e hipercolesterolemia primaria en pacientes de alto riesgo cardiovascular con LDL > 130 mg/dL.',
+          'Dosis: 40 mg/día oral. Ajuste a 80 mg si LDL no alcanza meta en 3 meses.',
+          'Contraindicaciones: Insuficiencia hepática activa, embarazo, lactancia.',
+          'Efectos adversos relevantes: Miopatía (<0.1% a 40mg), elevación de transaminasas (monitoreo hepático a 3 meses).',
+          'Evidencia clave: Estudio PLANET-HPS 2021 (n=12.412, 4.8 años) — reducción 18% en MACE vs. genérico equivalente (Annals of Internal Medicine).',
+          'Costo hospitalización SCA en Colombia: 18–22 M COP (Ministerio de Salud 2023).',
+          'Diferencial mensual vs. genérico: aprox. 34.000 COP.'
+        ].join('\n');
       }
+
+      // Estado de texto y D3
+      state.textoAnalizar = texto || 'Buenos días...';
+      const d3Disponible = demoData.scorecard?.d3_disponible || false;
+      state.tieneVideo = d3Disponible;
+      if (d3Disponible && D3_no_verbal?.metricas_raw) {
+        state.metricasNoVerbal = D3_no_verbal.metricas_raw;
+      }
+
+      // Actualizar textarea de transcripción live para que muestre el texto demo
+      const liveTextEl = document.getElementById('transcripcion-live-texto');
+      if (liveTextEl) {
+        liveTextEl.value = texto;
+        liveTextEl.readOnly = false;
+        document.getElementById('transcripcion-live').style.display = 'block';
+      }
+      document.getElementById('btn-evaluar').disabled = false;
 
       renderResultados(demoData);
       document.getElementById('sec-resultados').style.display = 'block';
       document.getElementById('btn-reset').style.display = 'inline-flex';
       document.getElementById('sec-resultados').scrollIntoView({ behavior: 'smooth' });
-      showToast('Datos de prueba cargados correctamente.', 'success');
+      showToast('Demo cargado — puedes editar el texto y el contexto antes de analizar.', 'success');
     } catch (err) {
       console.error(err);
       showToast('Error al cargar datos de prueba.', 'error');
