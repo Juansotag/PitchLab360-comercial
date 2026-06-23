@@ -1,49 +1,75 @@
 {
   "escenario": {
-    "medicamento_id": "demo",
+    "medicamento_id": "Atorvastatina 40mg (Demo PitchMed360)",
     "interlocutor_id": "auditor_eps",
-    "reto": "Negar la autorización por costo",
+    "reto": "Negar la autorización por costo frente a opciones genéricas más baratas",
     "tiempo_min": 5
   },
+  "texto": "Buenos días, doctora Cifuentes. Agradezco el espacio. Sé que en la EPS tienen presión permanente sobre el gasto en medicamentos, así que voy a ir directo al punto y con evidencia.\n\nEl dilema que me trajo aquí es este: un paciente de 58 años, diabético tipo 2 con dislipidemia mixta, llevaba 18 meses en estatina genérica a dosis estándar y su LDL seguía en 142 mg/dL. El INVIMA tiene aprobada la Atorvastatina innovadora en la presentación de 40 y 80 mg para pacientes de alto riesgo cardiovascular con LDL persistente por encima de 130, y eso es exactamente el perfil clínico que estoy describiendo.\n\nSobre el costo: el análisis publicado en el JAMA Internal Medicine del 2022 mostró que el costo real de no controlar el LDL es una hospitalización por síndrome coronario agudo, que en Colombia ronda los 18 a 22 millones de pesos según datos del Ministerio de Salud de 2023. Frente a eso, el diferencial de precio mensual entre la estatina genérica y la innovadora es de aproximadamente 34.000 pesos. Si el paciente tiene un evento cardiovascular en los próximos tres años, la EPS enfrenta un gasto 400 veces superior al del diferencial acumulado del medicamento.\n\nEl estudio PLANET-HPS de 2021, con seguimiento de 4.8 años en más de 12.000 pacientes de riesgo cardiovascular moderado-alto, demostró una reducción adicional del 18% en eventos cardiovasculares mayores con Atorvastatina innovadora frente al genérico equivalente, diferencia que se explica en parte por la bioequivalencia mejorada de la formulación de liberación controlada. Esto no es marketing, está en el Annals of Internal Medicine.\n\nEn cuanto a efectos adversos, el perfil es conocido: miopatía en menos del 0.1% de pacientes a dosis de 40 mg según la ficha técnica INVIMA vigente, con monitoreo hepático recomendado a los 3 meses del inicio. No hay contraindicaciones adicionales en la formulación innovadora frente al genérico para el perfil de paciente que describo.\n\nLo que propongo concretamente: autorización de Atorvastatina 40 mg innovadora por 6 meses, con control de LDL al tercer mes. Si no logramos bajar el LDL a menos de 100 mg/dL, revisamos la estrategia juntos. Si lo logramos, que es lo más probable con la evidencia en mano, la EPS habrá invertido menos de 210.000 pesos adicionales en 6 meses y evitado una hospitalización que cuesta 20 veces eso.\n\nLe dejo impreso el resumen del estudio PLANET-HPS y la ficha técnica INVIMA. Quedo a su disposición para cualquier pregunta clínica o de costos. Muchas gracias.",
   "metricas": {
-    "TTR": 0.52,
-    "legibilidad_flesch": 45.2,
-    "longitud_promedio_oracion": 18.5,
+    "TTR": 0.61,
+    "legibilidad_flesch": 38.4,
+    "longitud_promedio_oracion": 24.7,
     "negaciones": {
-      "count": 4,
-      "densidad_pct": 1.5
+      "count": 3,
+      "densidad_pct": 0.9
     },
-    "conteo_cifras": 8,
-    "densidad_jerga": 12,
+    "conteo_cifras": 14,
+    "densidad_jerga": 18,
     "palabras_frecuentes": [
-      ["paciente", 12],
-      ["presión", 9],
-      ["ejemplo", 8],
-      ["xr", 8],
-      ["control", 6]
+      ["paciente", 9],
+      ["ldl", 7],
+      ["cardiovascular", 6],
+      ["atorvastatina", 6],
+      ["eps", 5],
+      ["costo", 5],
+      ["invima", 4]
+    ]
+  },
+  "D3_no_verbal": {
+    "score": 4,
+    "tiene_video": true,
+    "metricas_raw": {
+      "contacto_visual_pct": 74,
+      "postura": "abierta",
+      "gestos": "ilustrativos",
+      "velocidad_ppm": 142,
+      "fillers_pct": 1.8,
+      "tiene_video": true
+    },
+    "observaciones": [
+      "Contacto visual mantenido el 74% del tiempo — por encima del umbral de confianza percibida.",
+      "Postura abierta y erguida durante casi toda la presentación.",
+      "Gestos ilustrativos y coherentes con el discurso argumentativo.",
+      "Velocidad de 142 ppm — dentro del rango óptimo de persuasión (130–160 ppm).",
+      "Fillers (eeh, este, pues) al 1.8% del total de palabras — nivel bajo y no perturbador."
     ]
   },
   "scorecard": {
-    "puntaje_total": 78,
-    "banda": "Competente",
+    "puntaje_total": 85,
+    "banda": "Destacado",
     "scores_por_dimension": {
-      "D1": 4,
+      "D1": 5,
       "D2": 4,
-      "D3": 3,
+      "D3": 4,
       "D4": 4,
       "D5": 4
     },
-    "audiencia": "paciente"
+    "d3_disponible": true,
+    "audiencia": "auditor_eps"
   },
   "D1_evidencia_cientifica": {
     "ok": true,
     "data": {
-      "score": 4,
-      "fortaleza": "Excelente mención del estudio pivotal REVERT-BP y la reducción del 22% en eventos cardiovasculares.",
-      "mejora": "Podría detallar más el perfil de pacientes del estudio.",
+      "score": 5,
+      "fortaleza": "Cita precisa del estudio PLANET-HPS (2021, n=12.000+, 4.8 años, Annals of Internal Medicine), reducción del 18% en MACE y datos del JAMA Internal Medicine 2022 sobre costos hospitalización. Cifras verificables y contextualizadas.",
+      "mejora": "El perfil de bioequivalencia mejorada podría reforzarse con una referencia adicional del FDA o del INVIMA para mayor solidez regulatoria.",
       "evidencia_encontrada": [
-        "Estudio REVERT-BP",
-        "Reducción del 22% en eventos"
+        "Estudio PLANET-HPS 2021 (n=12.412, seguimiento 4.8 años)",
+        "Reducción 18% en eventos cardiovasculares mayores (MACE)",
+        "JAMA Internal Medicine 2022 — costos de hospitalización por SCA en Colombia",
+        "Datos Ministerio de Salud 2023 — costo hospitalización 18-22 M COP",
+        "Ficha técnica INVIMA Atorvastatina 40mg — miopatía <0.1% a dosis 40mg"
       ],
       "afirmaciones_sin_respaldo": []
     }
@@ -53,22 +79,18 @@
     "data": {
       "score": 4,
       "nivel_tecnico_apropiado": true,
-      "fortaleza": "Lenguaje claro y adaptado adecuadamente al auditor médico.",
-      "mejora": "Evitar el uso de abreviaturas sin aclarar.",
+      "fortaleza": "Lenguaje técnico-clínico adecuado para un auditor médico de EPS. Uso correcto de terminología (MACE, LDL, bioequivalencia, ficha técnica INVIMA). La metáfora de costo-beneficio es clara y directa.",
+      "mejora": "El término 'formulación de liberación controlada' puede generar confusión para Atorvastatina, que no tiene esta característica diferencial documentada en la ficha INVIMA estándar. Verificar y corregir si aplica.",
       "ejemplos_bien_calibrados": [
         "MIPRES",
-        "UPC"
+        "UPC",
+        "LDL persistente sobre 130 mg/dL",
+        "síndrome coronario agudo"
       ],
-      "deslices_de_registro": []
+      "deslices_de_registro": [
+        "Formulación de liberación controlada (requiere verificación técnica)"
+      ]
     }
-  },
-  "D3_no_verbal": {
-    "score": 3,
-    "tiene_video": false,
-    "nota": "Estimación automática de voz basada en texto.",
-    "observaciones": [
-      "Ritmo promedio estimado de 130 palabras por minuto."
-    ]
   },
   "D4_cumplimiento_regulatorio": {
     "ok": true,
@@ -76,8 +98,8 @@
       "score": 4,
       "indicaciones_correctas": true,
       "menciona_efectos_adversos": true,
-      "fortaleza": "Mención explícita de seguridad y advertencias del INVIMA.",
-      "mejora": "Debe citar siempre la ficha técnica de seguridad.",
+      "fortaleza": "Cita la indicación aprobada por INVIMA correctamente. Menciona efectos adversos con porcentaje y monitoreo hepático. Maneja el riesgo de miopatía con datos cuantitativos.",
+      "mejora": "No menciona explícitamente las contraindicaciones absolutas (insuficiencia hepática, embarazo). En visita a auditor de EPS conviene incluirlas para blindar la autorización.",
       "afirmaciones_absolutas": [],
       "comparaciones_sin_respaldo": []
     }
@@ -90,8 +112,8 @@
       "presenta_evidencia_en_contexto": true,
       "cierre_con_llamado_accion": true,
       "maneja_objeciones_anticipadas": true,
-      "fortaleza": "Estructura narrativa sólida de principio a fin.",
-      "mejora": "Hacer el llamado a la acción más directo."
+      "fortaleza": "Estructura narrativa sólida: apertura con caso clínico anclado, argumento de costo-efectividad con cifras reales, cierre con propuesta concreta y condicional de 6 meses con indicador medible (LDL < 100). Anticipa la objeción de costo directamente.",
+      "mejora": "El llamado a la acción podría ser más directo: proponer que la auditora genere la autorización en la misma sesión, en lugar de 'quedar a disposición'."
     }
   }
 }

@@ -225,151 +225,280 @@ async function iniciarMediaPipe() {
   }
 }
 
+// ─── CONEXIONES DEL ESQUELETO (MediaPipe Pose BlazePose indices) ───────────────
+const POSE_CONNECTIONS = [
+  // Torso
+  [11, 12], [11, 23], [12, 24], [23, 24],
+  // Brazo izquierdo
+  [11, 13], [13, 15], [15, 17], [15, 19], [15, 21], [17, 19],
+  // Brazo derecho
+  [12, 14], [14, 16], [16, 18], [16, 20], [16, 22], [18, 20],
+  // Pierna izquierda
+  [23, 25], [25, 27], [27, 29], [27, 31], [29, 31],
+  // Pierna derecha
+  [24, 26], [26, 28], [28, 30], [28, 32], [30, 32],
+  // Cara - nariz a ojos
+  [0, 1], [1, 2], [2, 3], [3, 7], [0, 4], [4, 5], [5, 6], [6, 8],
+  // Hombros a orejas
+  [9, 10], [11, 9], [12, 10]
+];
+
+// Landmarks relevantes para colorear por grupo
+const POSE_GROUPS = {
+  torso:    [11, 12, 23, 24],
+  brazos:   [13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+  piernas:  [25, 26, 27, 28, 29, 30, 31, 32],
+  cara:     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+};
+
+function dibujarEsqueleto(ctx, pose, canvas) {
+  if (!pose || pose.length === 0) return;
+
+  // Dibujar conexiones
+  POSE_CONNECTIONS.forEach(([a, b]) => {
+    const ptA = pose[a], ptB = pose[b];
+    if (!ptA || !ptB) return;
+    // Ocultar landmarks con baja visibilidad
+    if ((ptA.visibility !== undefined && ptA.visibility < 0.3) ||
+        (ptB.visibility !== undefined && ptB.visibility < 0.3)) return;
+
+    ctx.beginPath();
+    ctx.moveTo(ptA.x * canvas.width, ptA.y * canvas.height);
+    ctx.lineTo(ptB.x * canvas.width, ptB.y * canvas.height);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  });
+
+  // Dibujar landmarks por grupo con colores
+  const colores = {
+    torso:   '#38bdf8',  // azul claro
+    brazos:  '#f59e0b',  // naranja
+    piernas: '#a78bfa',  // violeta
+    cara:    '#86efac'   // verde claro
+  };
+
+  Object.entries(POSE_GROUPS).forEach(([grupo, indices]) => {
+    ctx.fillStyle = colores[grupo];
+    indices.forEach(i => {
+      const pt = pose[i];
+      if (!pt) return;
+      if (pt.visibility !== undefined && pt.visibility < 0.3) return;
+      ctx.beginPath();
+      ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 5, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.4)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+  });
+}
+
+function analizarPostura(pose) {
+  if (!pose) return { resultado: 'sin_datos', label: 'Sin datos', score: 0 };
+
+  const ombroIzq = pose[11], ombroDer = pose[12];
+  const caderaIzq = pose[23], caderaDer = pose[24];
+  const nariz    = pose[0];
+
+  let score = 0;
+  const detalles = [];
+
+  // 1. Hombros alineados horizontalmente (diferencia Y < 0.04)
+  if (ombroIzq && ombroDer) {
+    const difHombros = Math.abs(ombroIzq.y - ombroDer.y);
+    if (difHombros < 0.04) { score += 2; detalles.push('hombros_ok'); }
+    else if (difHombros < 0.08) { score += 1; detalles.push('hombros_leve'); }
+    else { detalles.push('hombros_mal'); }
+  }
+
+  // 2. Caderas alineadas (diferencia Y < 0.05)
+  if (caderaIzq && caderaDer) {
+    const difCaderas = Math.abs(caderaIzq.y - caderaDer.y);
+    if (difCaderas < 0.05) { score += 1; detalles.push('caderas_ok'); }
+    else { detalles.push('caderas_mal'); }
+  }
+
+  // 3. Columna vertical: nariz centrada entre hombros en X
+  if (ombroIzq && ombroDer && nariz) {
+    const centroHombros = (ombroIzq.x + ombroDer.x) / 2;
+    const desvCol = Math.abs(nariz.x - centroHombros);
+    if (desvCol < 0.07) { score += 1; detalles.push('columna_ok'); }
+    else { detalles.push('columna_mal'); }
+  }
+
+  // 4. Hombros visibles y abiertos (ancho suficiente)
+  if (ombroIzq && ombroDer) {
+    const anchoHombros = Math.abs(ombroIzq.x - ombroDer.x);
+    if (anchoHombros > 0.25) { score += 1; detalles.push('amplitud_ok'); }
+    else { detalles.push('amplitud_mal'); }
+  }
+
+  if (score >= 4) return { resultado: 'abierta', label: 'Abierta', score };
+  if (score >= 2) return { resultado: 'mixta',   label: 'Mixta',   score };
+  return            { resultado: 'cerrada',  label: 'Cerrada', score };
+}
+
 function procesarResultadosMediaPipe(results) {
   const face = results.faceLandmarks;
+  const pose = results.poseLandmarks;
   const canvas = document.getElementById('mediapipe-canvas');
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Presencia y alineación en tiempo real (siempre disponible si la cámara está activa)
+  // ── 1. ESQUELETO COMPLETO ────────────────────────────────────────────────────
+  dibujarEsqueleto(ctx, pose, canvas);
+
+  // ── 2. ANÁLISIS DE POSTURA ───────────────────────────────────────────────────
+  const posturaInfo = analizarPostura(pose);
+
+  // ── 3. CONTACTO VISUAL (iris + orientación de cabeza) ────────────────────────
   let presenciaText = 'No detectado';
+  let mirandoCamara = false;
+
   if (face && face[468] && face[473]) {
     const irisIzq = face[468];
     const irisDer = face[473];
     const promedioX = (irisIzq.x + irisDer.x) / 2;
-    if (promedioX >= 0.4 && promedioX <= 0.6) {
-      presenciaText = 'Centrado';
-    } else if (promedioX < 0.4) {
-      presenciaText = 'Desviado a la derecha';
+
+    if (promedioX >= 0.4 && promedioX <= 0.6) presenciaText = 'Centrado';
+    else if (promedioX < 0.4) presenciaText = 'Desviado derecha';
+    else presenciaText = 'Desviado izquierda';
+
+    if (face[33] && face[133] && face[362] && face[263] && face[4]) {
+      const leftEyeMinX  = Math.min(face[33].x, face[133].x);
+      const leftEyeMaxX  = Math.max(face[33].x, face[133].x);
+      const rightEyeMinX = Math.min(face[362].x, face[263].x);
+      const rightEyeMaxX = Math.max(face[362].x, face[263].x);
+
+      let eyeRatioCentrado = false;
+      if (leftEyeMaxX > leftEyeMinX && rightEyeMaxX > rightEyeMinX) {
+        const relLeftX  = (face[468].x - leftEyeMinX)  / (leftEyeMaxX  - leftEyeMinX);
+        const relRightX = (face[473].x - rightEyeMinX) / (rightEyeMaxX - rightEyeMinX);
+        eyeRatioCentrado = relLeftX >= 0.22 && relLeftX <= 0.78 && relRightX >= 0.22 && relRightX <= 0.78;
+      } else {
+        eyeRatioCentrado = promedioX > 0.35 && promedioX < 0.65;
+      }
+
+      // Yaw de la cabeza (tabique nasal vs esquinas de ojos)
+      const distIzq = Math.abs(face[4].x - face[33].x);
+      const distDer = Math.abs(face[4].x - face[263].x);
+      const headYaw = distIzq / (distIzq + distDer);
+      const headOk  = headYaw >= 0.35 && headYaw <= 0.65;
+
+      mirandoCamara = headOk && eyeRatioCentrado;
     } else {
-      presenciaText = 'Desviado a la izquierda';
+      mirandoCamara = promedioX > 0.35 && promedioX < 0.65;
     }
   }
-  const elPresencia = document.getElementById('stat-presencia');
-  if (elPresencia) {
-    elPresencia.textContent = `Presencia: ${presenciaText}`;
-  }
 
-  // Contacto visual: calcular relación del iris en el zócalo del ojo y la orientación del rostro
-  let mirandoCamara = false;
-  if (face && face[468] && face[473] && face[33] && face[133] && face[362] && face[263] && face[4]) {
-    const leftEyeMinX = Math.min(face[33].x, face[133].x);
-    const leftEyeMaxX = Math.max(face[33].x, face[133].x);
-    const rightEyeMinX = Math.min(face[362].x, face[263].x);
-    const rightEyeMaxX = Math.max(face[362].x, face[263].x);
-    
-    let eyeRatioCentrado = false;
-    if (leftEyeMaxX > leftEyeMinX && rightEyeMaxX > rightEyeMinX) {
-      const relLeftX = (face[468].x - leftEyeMinX) / (leftEyeMaxX - leftEyeMinX);
-      const relRightX = (face[473].x - rightEyeMinX) / (rightEyeMaxX - rightEyeMinX);
-      // Rango más amplio y tolerante a ruido de subpíxel
-      eyeRatioCentrado = relLeftX >= 0.22 && relLeftX <= 0.78 && relRightX >= 0.22 && relRightX <= 0.78;
-    } else {
-      const promedioX = (face[468].x + face[473].x) / 2;
-      eyeRatioCentrado = promedioX > 0.35 && promedioX < 0.65;
-    }
-    
-    // Rotación de cabeza (el tabique nasal debe estar centrado entre las esquinas de los ojos)
-    const distIzq = Math.abs(face[4].x - face[33].x);
-    const distDer = Math.abs(face[4].x - face[263].x);
-    const headYawRatio = distIzq / (distIzq + distDer);
-    const headFacingForward = headYawRatio >= 0.35 && headYawRatio <= 0.65;
-    
-    mirandoCamara = headFacingForward && eyeRatioCentrado;
-  } else if (face && face[468] && face[473]) {
-    const promedioX = (face[468].x + face[473].x) / 2;
-    mirandoCamara = promedioX > 0.35 && promedioX < 0.65;
-  }
-
-  // ─── DIBUJO EN CANVAS (FEEDBACK VISUAL EN TIEMPO REAL) ───────────────────
+  // ── 4. DIBUJO DE OJOS E IRIS ─────────────────────────────────────────────────
   if (face) {
+    const eyeColor  = mirandoCamara ? '#16a34a' : '#d51437';
+    const eyeFill   = mirandoCamara ? 'rgba(22,163,74,0.4)' : 'rgba(213,20,55,0.4)';
     ctx.lineWidth = 2;
-    
-    // Ojos: verde si mira a la cámara, rojo si no
-    ctx.strokeStyle = mirandoCamara ? '#16a34a' : '#d51437';
-    ctx.fillStyle = mirandoCamara ? 'rgba(22, 163, 74, 0.4)' : 'rgba(213, 20, 55, 0.4)';
-    
-    const leftEye = [face[33], face[133]];
-    const rightEye = [face[362], face[263]];
-    
-    leftEye.forEach(pt => {
-      ctx.beginPath();
-      ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 4, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.stroke();
+    ctx.strokeStyle = eyeColor;
+    ctx.fillStyle   = eyeFill;
+
+    [[face[33], face[133]], [face[362], face[263]]].forEach(eye => {
+      eye.forEach(pt => {
+        ctx.beginPath();
+        ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 4, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke();
+      });
     });
-    
-    rightEye.forEach(pt => {
-      ctx.beginPath();
-      ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 4, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.stroke();
-    });
-    
-    // Iris (amarillo/naranja)
+
     if (face[468] && face[473]) {
       ctx.fillStyle = '#f8a719';
       [face[468], face[473]].forEach(pt => {
         ctx.beginPath();
-        ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 3, 0, 2 * Math.PI);
+        ctx.arc(pt.x * canvas.width, pt.y * canvas.height, 3.5, 0, 2 * Math.PI);
         ctx.fill();
       });
     }
-
-    // Tarjeta de estado de alineación y contacto visual
-    ctx.fillStyle = 'rgba(0, 19, 91, 0.85)';
-    ctx.fillRect(10, 10, 190, 60);
-    ctx.strokeStyle = '#ffffff';
-    ctx.strokeRect(10, 10, 190, 60);
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 11px sans-serif';
-    ctx.fillText(`Presencia: ${presenciaText}`, 20, 28);
-    
-    ctx.fillStyle = mirandoCamara ? '#4ade80' : '#f87171';
-    ctx.fillText(`Contacto visual: ${mirandoCamara ? 'CONECTADO' : 'NO DETECTADO'}`, 20, 48);
-  } else {
-    // Si no se detecta rostro
-    ctx.fillStyle = 'rgba(213, 20, 55, 0.8)';
-    ctx.fillRect(10, 10, 190, 40);
-    ctx.strokeStyle = '#ffffff';
-    ctx.strokeRect(10, 10, 190, 40);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 12px sans-serif';
-    ctx.fillText("Rostro no detectado", 25, 34);
   }
+
+  // ── 5. HUD PANEL (esquina superior izquierda) ────────────────────────────────
+  const hudW = 210, hudH = face ? 90 : 44;
+  ctx.fillStyle = 'rgba(0,0,0,0.65)';
+  roundRect(ctx, 10, 10, hudW, hudH, 8);
+  ctx.fill();
+
+  ctx.font = 'bold 11px system-ui, sans-serif';
+  ctx.fillStyle = '#e5e7eb';
+  ctx.fillText(`Presencia: ${presenciaText}`, 20, 31);
+
+  if (face) {
+    ctx.fillStyle = mirandoCamara ? '#4ade80' : '#f87171';
+    ctx.fillText(`Visual: ${mirandoCamara ? 'CONECTADO ●' : 'NO CONECTADO ○'}`, 20, 51);
+
+    const posturaCol = posturaInfo.resultado === 'abierta' ? '#4ade80'
+                     : posturaInfo.resultado === 'mixta'   ? '#facc15' : '#f87171';
+    ctx.fillStyle = posturaCol;
+    ctx.fillText(`Postura: ${posturaInfo.label}  (${posturaInfo.score}/5)`, 20, 71);
+  } else {
+    ctx.fillStyle = '#f87171';
+    ctx.fillText('Rostro no detectado', 20, 30);
+  }
+
+  // ── Indicador de pose detectada ──────────────────────────────────────────────
+  if (pose) {
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    roundRect(ctx, 10, hudH + 20, 140, 28, 6);
+    ctx.fill();
+    ctx.fillStyle = '#93c5fd';
+    ctx.font = '10px system-ui, sans-serif';
+    ctx.fillText('Cuerpo detectado ✓', 18, hudH + 38);
+  }
+
+  // ── 6. ACTUALIZAR PILLS STATS en vivo ────────────────────────────────────────
+  const elPresencia = document.getElementById('stat-presencia');
+  if (elPresencia) elPresencia.textContent = `Presencia: ${presenciaText}`;
 
   if (!state.grabando) return;
 
   state.contactoFrames.push(mirandoCamara ? 1 : 0);
 
-  // Postura: hombro izq y hombro der de pose
-  const pose = results.poseLandmarks;
   if (pose && pose[11] && pose[12]) {
-    const difY = Math.abs(pose[11].y - pose[12].y);
-    const posturaFrame = difY < 0.05 ? 'abierta' : 'mixta';
-    state.posturaFrames.push(posturaFrame);
+    state.posturaFrames.push(posturaInfo.resultado);
   }
 
-  // Gestos: detectar manos visibles
   const manos = results.leftHandLandmarks || results.rightHandLandmarks;
   state.gestosFrames.push(manos ? 'ilustrativos' : 'ninguno');
 
-  // Actualizar stats en vivo
   actualizarStatsCamara();
+}
+
+// Helper: dibuja un rectángulo con bordes redondeados
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
 }
 
 function actualizarStatsCamara() {
   if (state.contactoFrames.length === 0) return;
   const cvPct = Math.round((state.contactoFrames.filter(v => v === 1).length / state.contactoFrames.length) * 100);
-  const posturaMode = state.posturaFrames.filter(v => v === 'abierta').length > state.posturaFrames.length / 2 ? 'abierta' : 'mixta';
-  
-  document.getElementById('stat-cv').textContent = `Contacto visual: ${cvPct}%`;
-  document.getElementById('stat-postura').textContent = `Postura: ${posturaMode}`;
+
+  const posturaCounts = state.posturaFrames.reduce((acc, v) => { acc[v] = (acc[v] || 0) + 1; return acc; }, {});
+  const posturaMode = Object.entries(posturaCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'mixta';
+  const posturaLabel = posturaMode === 'abierta' ? 'Abierta' : posturaMode === 'cerrada' ? 'Cerrada' : 'Mixta';
+
+  document.getElementById('stat-cv').textContent      = `Contacto visual: ${cvPct}%`;
+  document.getElementById('stat-postura').textContent = `Postura: ${posturaLabel}`;
 
   if (state.palabrasLive.length > 0) {
     const fillerCount = state.palabrasLive.filter(p => state.fillers.includes(p)).length;
-    const fillersPct = (fillerCount / state.palabrasLive.length) * 100;
+    const fillersPct  = (fillerCount / state.palabrasLive.length) * 100;
     document.getElementById('stat-fillers').textContent = `Fillers: ${fillersPct.toFixed(1)}%`;
   }
 
@@ -379,6 +508,9 @@ function actualizarStatsCamara() {
     document.getElementById('stat-ppm').textContent = `${ppm} ppm`;
   }
 }
+
+
+
 
 function iniciarWebSpeech() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
