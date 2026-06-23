@@ -1,10 +1,17 @@
+@font-face {
+    font-family: 'Publico Banner Web';
+    src: url('/static/PublicoBannerWeb-LightItalic_govlab.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
 :root {
     /* ============================================================
        IDENTIDAD VISUAL — Manual de Marca Universidad de La Sabana
        ============================================================ */
 
     /* Tipografías (máximo 3 familias) */
-    --font-display: 'Publico Banner', 'Playfair Display', serif;
+    --font-display: 'Publico Banner Web', 'Publico Banner', 'Playfair Display', serif;
     /* Display editorial — H1, H2 */
     --font-main: 'Libre Franklin', sans-serif;
     /* Principal — cuerpo, UI, botones */
@@ -63,7 +70,8 @@
 h1,
 h2 {
     font-family: var(--font-display);
-    font-weight: 800;
+    font-weight: normal;
+    font-style: italic;
     color: var(--c-blue-dark);
 }
 

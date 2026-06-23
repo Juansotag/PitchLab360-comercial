@@ -123,6 +123,7 @@ async function iniciarMediaPipe() {
       requestAnimationFrame(loop);
     }
     loop();
+    document.getElementById('camera-stats').style.display = 'flex';
     showToast('MediaPipe Holistic cargado y listo.', 'success');
   } catch (err) {
     console.error(err);
@@ -131,10 +132,29 @@ async function iniciarMediaPipe() {
 }
 
 function procesarResultadosMediaPipe(results) {
+  // Presencia y alineación en tiempo real (siempre disponible si la cámara está activa)
+  const face = results.faceLandmarks;
+  let presenciaText = 'No detectado';
+  if (face && face[468] && face[473]) {
+    const irisIzq = face[468];
+    const irisDer = face[473];
+    const promedioX = (irisIzq.x + irisDer.x) / 2;
+    if (promedioX >= 0.4 && promedioX <= 0.6) {
+      presenciaText = 'Centrado';
+    } else if (promedioX < 0.4) {
+      presenciaText = 'Desviado a la derecha';
+    } else {
+      presenciaText = 'Desviado a la izquierda';
+    }
+  }
+  const elPresencia = document.getElementById('stat-presencia');
+  if (elPresencia) {
+    elPresencia.textContent = `Presencia: ${presenciaText}`;
+  }
+
   if (!state.grabando) return;
 
   // Contacto visual: detectar si iris mira hacia la cámara
-  const face = results.faceLandmarks;
   let mirandoCamara = false;
   if (face && face[468] && face[473]) {
     const irisIzq = face[468];
@@ -165,8 +185,8 @@ function actualizarStatsCamara() {
   const cvPct = Math.round((state.contactoFrames.filter(v => v === 1).length / state.contactoFrames.length) * 100);
   const posturaMode = state.posturaFrames.filter(v => v === 'abierta').length > state.posturaFrames.length / 2 ? 'abierta' : 'mixta';
   
-  document.getElementById('stat-cv').textContent = `👁 Contacto visual: ${cvPct}%`;
-  document.getElementById('stat-postura').textContent = `🧍 Postura: ${posturaMode}`;
+  document.getElementById('stat-cv').textContent = `Contacto visual: ${cvPct}%`;
+  document.getElementById('stat-postura').textContent = `Postura: ${posturaMode}`;
 
   if (state.palabrasLive.length > 0) {
     const fillerCount = state.palabrasLive.filter(p => state.fillers.includes(p)).length;
@@ -177,7 +197,7 @@ function actualizarStatsCamara() {
   if (state.palabrasLive.length > 0 && state.inicioGrabacion) {
     const seg = (Date.now() - state.inicioGrabacion) / 1000;
     const ppm = Math.round((state.palabrasLive.length / seg) * 60);
-    document.getElementById('stat-ppm').textContent = `💬 ${ppm} ppm`;
+    document.getElementById('stat-ppm').textContent = `${ppm} ppm`;
   }
 }
 
@@ -395,7 +415,7 @@ function renderResultados(data) {
       <div class="scorecard-puntaje">${sc.puntaje_total}<span>/100</span></div>
       <div class="scorecard-banda" style="color: ${colorBanda[sc.banda] || '#888'}">${sc.banda}</div>
       <div class="scorecard-audiencia">Audiencia: ${sc.audiencia === 'paciente' ? 'Paciente' : 'Institución'}</div>
-      ${!sc.d3_disponible ? '<div class="scorecard-nota">⚠ D3 no evaluado — grabación sin cámara</div>' : ''}
+      ${!sc.d3_disponible ? '<div class="scorecard-nota">Atención: D3 no evaluado — grabación sin cámara</div>' : ''}
     </div>
 
     <div class="dims-grid">
