@@ -1,13 +1,9 @@
 fastapi
 uvicorn
-yt-dlp
 anthropic
 python-dotenv
 pydantic
 textstat
 httpx
-openai-whisper
-ffmpeg-python
-torch
-numpy
+yt-dlp
 fpdf2
