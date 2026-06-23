@@ -342,26 +342,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!scorecard) { body.innerHTML = errBlock('Sin datos'); return; }
         
         let warningBanner = '';
-        if (scorecard.veredicto_evidencia === 'violacion') {
+        if (scorecard.scores_por_dimension?.D4 <= 1) {
             warningBanner = `<div style="background-color: var(--c-red); color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-weight: bold; text-align: center;">
-                <i class="fa-solid fa-triangle-exclamation"></i> Violación a la Ficha Técnica (Límite duro aplicado)
+                <i class="fa-solid fa-triangle-exclamation"></i> Límite regulatorio aplicado (D4 <= 1): El puntaje global se limitó a 35/100.
             </div>`;
         }
 
         body.innerHTML = `
             ${warningBanner}
             <div class="result-card">
-                <div class="result-card-title">Scorecard Global</div>
-                <div class="score-gauge" style="justify-content: center; transform: scale(1.2); margin: 2rem 0;">
-                    ${gaugeCircle(scorecard.global || 0, 100)}
+                <div class="result-card-title">Resultado del Pitch</div>
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; margin: 1.5rem 0;">
+                    ${gaugeCircle(scorecard.puntaje_total || 0, 100)}
+                    <span style="font-size: 1.25rem; font-weight: bold; color: var(--c-blue-dark);">${scorecard.banda || ''}</span>
                 </div>
             </div>
             <div class="result-card">
-                <div class="result-card-title">Dimensiones</div>
-                <div style="display:flex;flex-direction:column;gap:0.6rem">
-                    ${Object.entries(scorecard.dimensiones || {}).map(([k, v]) => `
-                        <div style="display:flex; justify-content:space-between; padding: 0.5rem; background: #f8fafc; border-radius: 4px;">
-                            <strong>${k.replace(/_/g, ' ').toUpperCase()}:</strong> <span>${v}/100</span>
+                <div class="result-card-title">Resumen por Dimensión</div>
+                <div style="display:flex;flex-direction:column;gap:0.6rem; margin-top: 0.5rem;">
+                    ${Object.entries(scorecard.scores_por_dimension || {}).map(([k, v]) => `
+                        <div style="display:flex; justify-content:space-between; align-items: center; padding: 0.5rem; background: #f8fafc; border-radius: 4px;">
+                            <strong>Dimensión ${k}:</strong>
+                            <div style="display: flex; gap: 0.25rem;">
+                                ${'★'.repeat(v)}${'☆'.repeat(5-v)}
+                                <span style="margin-left: 0.5rem; font-weight: bold;">(${v}/5)</span>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
@@ -369,128 +374,144 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    function renderExactitudEvidencia(exactitud) {
-        const body = document.getElementById('body-exactitud-evidencia');
-        if (!exactitud?.ok) { body.innerHTML = errBlock(exactitud?.error || 'Sin datos'); return; }
-        const d = exactitud.data;
-        
-        let colorSemaforo = 'var(--c-blue-dark)';
-        let icono = 'fa-check-circle';
-        if (d.veredicto_global === 'violacion') { colorSemaforo = 'var(--c-red)'; icono = 'fa-xmark-circle'; }
-        else if (d.veredicto_global === 'advertencia') { colorSemaforo = '#eab308'; icono = 'fa-exclamation-triangle'; }
-        else if (d.veredicto_global === 'ok') { colorSemaforo = '#16a34a'; icono = 'fa-check-circle'; }
-
-        const getClaimColor = (estado) => {
-            if (estado === 'respaldado') return '#16a34a'; 
-            if (estado === 'exagerado' || estado === 'falta_seguridad') return '#eab308'; 
-            return 'var(--c-red)'; 
-        };
-
+    function renderD1(d1) {
+        const body = document.getElementById('body-d1');
+        if (!d1?.ok) { body.innerHTML = errBlock(d1?.error || 'Sin datos'); return; }
+        const d = d1.data;
         body.innerHTML = `
             <div class="result-card">
-                <div class="result-card-title">a. Veredicto Global</div>
-                <div style="display:flex; align-items:center; gap: 1rem; margin: 1rem 0;">
-                    <i class="fa-solid ${icono}" style="font-size: 3rem; color: ${colorSemaforo}"></i>
-                    <strong style="font-size: 1.5rem; text-transform: uppercase; color: ${colorSemaforo}">${d.veredicto_global}</strong>
+                <div class="result-card-title">Puntaje: ${d.score || 0}/5</div>
+                <div style="margin-top: 0.5rem;">
+                    <p><strong>Fortaleza:</strong> ${d.fortaleza || 'N/A'}</p>
+                    <p style="margin-top: 0.5rem;"><strong>Sugerencia de mejora:</strong> ${d.mejora || 'N/A'}</p>
                 </div>
             </div>
             <div class="result-card">
-                <div class="result-card-title">b. Afirmaciones vs Evidencia</div>
-                <div style="display:flex;flex-direction:column;gap:1rem; margin-top: 1rem;">
-                    ${(d.afirmaciones || []).map(c => `
-                        <div style="border-left: 4px solid ${getClaimColor(c.estado)}; padding-left: 1rem; background: #f8fafc; padding: 0.5rem; border-radius: 0 4px 4px 0;">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
-                                <strong style="color:var(--text-primary)">"${c.afirmacion}"</strong>
-                                <span style="background:${getClaimColor(c.estado)}; color:white; padding: 0.2rem 0.6rem; border-radius: 99px; font-size: 0.8rem; height: fit-content; text-transform:uppercase;">${c.estado}</span>
-                            </div>
-                            <div style="font-size: 0.9rem; color: var(--text-secondary);">
-                                <strong>Evidencia en Ficha:</strong> <i>${c.evidencia_ficha}</i>
-                            </div>
-                        </div>
-                    `).join('')}
+                <div class="result-card-title">Evidencia Encontrada</div>
+                <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+                    ${(d.evidencia_encontrada || []).map(item => `<li>${item}</li>`).join('') || '<li>Ninguna</li>'}
+                </ul>
+            </div>
+            ${d.afirmaciones_sin_respaldo?.length ? `
+            <div class="result-card" style="border-left: 4px solid var(--c-red);">
+                <div class="result-card-title" style="color: var(--c-red);">Afirmaciones Sin Respaldo / Off-Label</div>
+                <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+                    ${d.afirmaciones_sin_respaldo.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            </div>
+            ` : ''}
+        `;
+    }
+
+    function renderD2(d2) {
+        const body = document.getElementById('body-d2');
+        if (!d2?.ok) { body.innerHTML = errBlock(d2?.error || 'Sin datos'); return; }
+        const d = d2.data;
+        body.innerHTML = `
+            <div class="result-card">
+                <div class="result-card-title">Puntaje: ${d.score || 0}/5</div>
+                <div style="margin-top: 0.5rem;">
+                    <p><strong>Nivel técnico apropiado:</strong> ${d.nivel_tecnico_apropiado ? 'Sí' : 'No'}</p>
+                    <p style="margin-top: 0.25rem;"><strong>Fortaleza:</strong> ${d.fortaleza || 'N/A'}</p>
+                    <p style="margin-top: 0.25rem;"><strong>Mejora:</strong> ${d.mejora || 'N/A'}</p>
                 </div>
+            </div>
+            <div class="result-card">
+                <div class="result-card-title">Ejemplos Bien Calibrados</div>
+                <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+                    ${(d.ejemplos_bien_calibrados || []).map(item => `<li>${item}</li>`).join('') || '<li>Ninguno</li>'}
+                </ul>
+            </div>
+            ${d.deslices_de_registro?.length ? `
+            <div class="result-card" style="border-left: 4px solid var(--c-orange);">
+                <div class="result-card-title" style="color: var(--c-orange);">Deslices de Registro</div>
+                <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+                    ${d.deslices_de_registro.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            </div>
+            ` : ''}
+        `;
+    }
+
+    function renderD3(d3) {
+        const body = document.getElementById('body-d3');
+        if (!d3) { body.innerHTML = errBlock('Sin datos'); return; }
+        body.innerHTML = `
+            <div class="result-card">
+                <div class="result-card-title">Puntaje: ${d3.score || 0}/5</div>
+                <div style="margin-top: 0.5rem;">
+                    <p><strong>Detección de Video:</strong> ${d3.tiene_video ? 'Cámara Activa' : 'Solo Audio'}</p>
+                    <p style="margin-top: 0.25rem;"><strong>Nota:</strong> ${d3.nota || ''}</p>
+                </div>
+            </div>
+            <div class="result-card">
+                <div class="result-card-title">Observaciones de Ritmo y Fluidez</div>
+                <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+                    ${(d3.observaciones || []).map(item => `<li>${item}</li>`).join('') || '<li>Ritmo adecuado</li>'}
+                </ul>
             </div>
         `;
     }
 
-    function renderFuerzaDefensa(fuerza, objeciones, cobertura) {
-        const body = document.getElementById('body-fuerza-defensa');
-        let html = '';
-
-        if (fuerza?.ok) {
-            const d = fuerza.data;
-            html += `
-            <div class="result-card">
-                <div class="result-card-title">a. Solidez de la Defensa</div>
-                <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.5rem;">
-                    <div><strong>¿Ancló en evidencia?:</strong> ${d.anclo_en_evidencia ? 'Sí <i class="fa-solid fa-check" style="color:green"></i>' : 'No <i class="fa-solid fa-xmark" style="color:red"></i>'}</div>
-                    <div><strong>¿Ancló en caso particular?:</strong> ${d.anclo_en_caso_particular ? 'Sí <i class="fa-solid fa-check" style="color:green"></i>' : 'No <i class="fa-solid fa-xmark" style="color:red"></i>'}</div>
-                    <div><strong>¿Justificó vs alternativa?:</strong> ${d.justifico_vs_alternativa ? 'Sí <i class="fa-solid fa-check" style="color:green"></i>' : 'No <i class="fa-solid fa-xmark" style="color:red"></i>'}</div>
-                    <div style="margin-top:0.5rem; color:var(--text-secondary); font-size:0.9rem;">
-                        <strong>Observaciones:</strong>
-                        <ul style="padding-left:1.5rem; margin-top:0.2rem;">
-                            ${(d.observaciones || []).map(o => `<li>${o}</li>`).join('')}
-                        </ul>
-                    </div>
+    function renderD4(d4) {
+        const body = document.getElementById('body-d4');
+        if (!d4?.ok) { body.innerHTML = errBlock(d4?.error || 'Sin datos'); return; }
+        const d = d4.data;
+        body.innerHTML = `
+            <div class="result-card" style="${d.score <= 1 ? 'border-left: 4px solid var(--c-red);' : ''}">
+                <div class="result-card-title" style="${d.score <= 1 ? 'color: var(--c-red);' : ''}">Puntaje: ${d.score || 0}/5</div>
+                <div style="margin-top: 0.5rem;">
+                    <p><strong>Indicaciones correctas:</strong> ${d.indicaciones_correctas ? 'Sí' : 'No'}</p>
+                    <p><strong>Menciona efectos adversos:</strong> ${d.menciona_efectos_adversos ? 'Sí' : 'No'}</p>
+                    <p style="margin-top: 0.25rem;"><strong>Fortaleza:</strong> ${d.fortaleza || 'N/A'}</p>
+                    <p style="margin-top: 0.25rem;"><strong>Mejora:</strong> ${d.mejora || 'N/A'}</p>
                 </div>
-            </div>`;
-        }
-
-        if (objeciones?.ok) {
-            const d = objeciones.data;
-            html += `
+            </div>
+            ${d.afirmaciones_absolutas?.length ? `
             <div class="result-card">
-                <div class="result-card-title">b. Manejo de Objeciones</div>
-                <div style="margin-top:0.5rem;">
-                    <div><strong>Objeción central detectada:</strong> ${d.objecion_central}</div>
-                    <div><strong>¿Fue abordada?:</strong> ${d.fue_abordada ? 'Sí' : 'No'}</div>
-                    <div><strong>Calidad de respuesta:</strong> ${d.calidad}</div>
-                </div>
-            </div>`;
-        }
-
-        if (cobertura?.ok) {
-            const d = cobertura.data;
-            html += `
-            <div class="result-card">
-                <div class="result-card-title">c. Argumentación de Cobertura</div>
-                <div style="margin-top:0.5rem;">
-                    <div><strong>Argumentos usados:</strong> ${(d.argumentos_usados || []).join(', ') || 'Ninguno'}</div>
-                    <div style="margin-top:0.5rem;"><strong>Argumentos faltantes:</strong> ${(d.argumentos_faltantes || []).join(', ') || 'Ninguno'}</div>
-                </div>
-            </div>`;
-        }
-
-        body.innerHTML = html || errBlock('Sin datos');
+                <div class="result-card-title">Afirmaciones Absolutas Detectadas</div>
+                <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+                    ${d.afirmaciones_absolutas.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            </div>
+            ` : ''}
+            ${d.comparaciones_sin_respaldo?.length ? `
+            <div class="result-card" style="border-left: 4px solid var(--c-orange);">
+                <div class="result-card-title" style="color: var(--c-orange);">Comparaciones Sin Respaldo</div>
+                <ul style="padding-left: 1.25rem; margin-top: 0.5rem;">
+                    ${d.comparaciones_sin_respaldo.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            </div>
+            ` : ''}
+        `;
     }
 
-    function renderClaridad(claridad, metricas) {
-        const body = document.getElementById('body-claridad-estructura');
-        let html = '';
-        if (metricas) {
-            html += `
+    function renderD5(d5) {
+        const body = document.getElementById('body-d5');
+        if (!d5?.ok) { body.innerHTML = errBlock(d5?.error || 'Sin datos'); return; }
+        const d = d5.data;
+        body.innerHTML = `
             <div class="result-card">
-                <div class="result-card-title">Métricas de Complejidad</div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
-                    <div style="background: #f8fafc; padding: 1rem; border-radius: 6px; text-align: center;">
-                        <div style="font-size:2rem; font-weight:bold; color:var(--c-blue-dark)">${metricas.densidad_jerga || 0}</div>
-                        <div style="font-size:0.8rem; color:var(--text-muted)">Términos Médicos</div>
-                    </div>
-                    <div style="background: #f8fafc; padding: 1rem; border-radius: 6px; text-align: center;">
-                        <div style="font-size:2rem; font-weight:bold; color:var(--c-blue-dark)">${metricas.conteo_cifras || 0}</div>
-                        <div style="font-size:0.8rem; color:var(--text-muted)">Cifras / Datos</div>
-                    </div>
+                <div class="result-card-title">Puntaje: ${d.score || 0}/5</div>
+                <div style="margin-top: 0.5rem;">
+                    <p><strong>Abre con problema:</strong> ${d.abre_con_problema ? 'Sí' : 'No'}</p>
+                    <p><strong>Presenta evidencia en contexto:</strong> ${d.presenta_evidencia_en_contexto ? 'Sí' : 'No'}</p>
+                    <p><strong>Cierre con llamado a la acción:</strong> ${d.cierre_con_llamado_accion ? 'Sí' : 'No'}</p>
+                    <p><strong>Maneja objeciones anticipadas:</strong> ${d.maneja_objeciones_anticipadas ? 'Sí' : 'No'}</p>
+                    <p style="margin-top: 0.25rem;"><strong>Fortaleza:</strong> ${d.fortaleza || 'N/A'}</p>
+                    <p style="margin-top: 0.25rem;"><strong>Mejora:</strong> ${d.mejora || 'N/A'}</p>
                 </div>
-            </div>`;
-        }
-        body.innerHTML = html || errBlock('Sin datos');
+            </div>
+        `;
     }
 
     function renderResults(data, escenario) {
         renderScorecard(data.scorecard, escenario);
-        renderExactitudEvidencia(data.exactitud_evidencia);
-        renderFuerzaDefensa(data.fuerza_justificacion, data.manejo_objeciones, data.argumentacion_cobertura);
-        renderClaridad(data.comunicacion_empatia, data.metricas);
+        renderD1(data.D1_evidencia_cientifica);
+        renderD2(data.D2_claridad_lenguaje);
+        renderD3(data.D3_no_verbal || (data.scorecard?.scores_por_dimension ? {score: data.scorecard.scores_por_dimension.D3} : null));
+        renderD4(data.D4_cumplimiento_regulatorio);
+        renderD5(data.D5_estructura_narrativa);
         showResultsInSidebar();
         showToast('Análisis completado. Revise los resultados en el panel lateral.', 'success', 5000);
     }
@@ -574,5 +595,125 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ─── PITCHMED360: UPLOAD + TRANSCRIPCIÓN ───────────────────────────────────
+
+    const pitchFileInput = document.getElementById('pitch-file');
+    const uploadLabel = document.getElementById('upload-label-text');
+    const transcripcionPreview = document.getElementById('transcripcion-preview');
+    const transcripcionTexto = document.getElementById('transcripcion-texto');
+    const transcripcionMeta = document.getElementById('transcripcion-meta');
+    const btnEvaluar = document.getElementById('btn-evaluar');
+    const audienciaSelect = document.getElementById('audiencia-select');
+
+    let textoParaAnalizar = '';
+    let audienciaActual = 'paciente';
+    let duracionSeg = 0;
+    let palabrasTotal = 0;
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+        document.getElementById('tab-' + btn.dataset.tab).style.display = 'block';
+        
+        // Enable/disable btnEvaluar based on tab status
+        if (btn.dataset.tab === 'text') {
+          btnEvaluar.disabled = !discourseText.value.trim();
+        } else {
+          btnEvaluar.disabled = !textoParaAnalizar;
+        }
+      });
+    });
+
+    // Enable evaluate button in text mode when user types
+    discourseText.addEventListener('input', () => {
+      const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+      if (activeTab === 'text') {
+        btnEvaluar.disabled = !discourseText.value.trim();
+      }
+    });
+
+    // Upload label click
+    document.querySelector('.upload-label').addEventListener('click', () => {
+      pitchFileInput.click();
+    });
+
+    // File selected → upload to /transcribir
+    pitchFileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      uploadLabel.textContent = `Transcribiendo "${file.name}"…`;
+      transcripcionPreview.style.display = 'none';
+      btnEvaluar.disabled = true;
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('audiencia', audienciaSelect.value);
+      formData.append('producto_id', 'demo'); // TODO: conectar con selector de producto
+
+      try {
+        const res = await fetch('/transcribir', { method: 'POST', body: formData });
+        const data = await res.json();
+
+        if (data.transcripcion) {
+          textoParaAnalizar = data.transcripcion.texto;
+          duracionSeg = data.transcripcion.duracion_seg || 0;
+          palabrasTotal = textoParaAnalizar.split(/\s+/).length;
+
+          transcripcionTexto.textContent = textoParaAnalizar.substring(0, 400) + (textoParaAnalizar.length > 400 ? '…' : '');
+          transcripcionMeta.textContent = `Duración: ${duracionSeg}s · Palabras: ${palabrasTotal} · Idioma: ${data.transcripcion.idioma}`;
+          transcripcionPreview.style.display = 'block';
+          uploadLabel.textContent = `✓ ${file.name} transcrito`;
+          btnEvaluar.disabled = false;
+        } else {
+          uploadLabel.textContent = `Error: ${data.detail || 'Fallo en la transcripción'}`;
+        }
+      } catch (err) {
+        uploadLabel.textContent = `Error: ${err.message}`;
+      }
+    });
+
+    // Botón evaluar → POST /analizar/pitchmed
+    btnEvaluar.addEventListener('click', async () => {
+      const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+      if (activeTab === 'text') {
+        textoParaAnalizar = discourseText.value.trim();
+      }
+
+      if (!textoParaAnalizar) return;
+
+      audienciaActual = audienciaSelect.value;
+      btnEvaluar.disabled = true;
+      btnEvaluar.textContent = 'Evaluando…';
+
+      const payload = {
+        texto: textoParaAnalizar,
+        escenario: {
+          medicamento_id: 'demo',
+          interlocutor_id: audienciaActual,
+          reto: 'Presentar el producto de forma efectiva y compliant'
+        }
+      };
+
+      try {
+        const res = await fetch('/analizar/pitchmed', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        renderResults(data, payload.escenario);
+      } catch (err) {
+        console.error(err);
+        showToast('Error al evaluar el pitch', 'error');
+      } finally {
+        btnEvaluar.disabled = false;
+        btnEvaluar.innerHTML = '<i class="fa-solid fa-microscope"></i> Evaluar pitch';
+      }
+    });
 
 });

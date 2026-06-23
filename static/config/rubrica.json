@@ -1,11 +1,46 @@
 {
   "dimensiones": [
-    {"id": "exactitud_compliance", "peso": 0.35, "limite_duro": true},
-    {"id": "manejo_objeciones", "peso": 0.20},
-    {"id": "claridad_estructura", "peso": 0.15},
-    {"id": "descubrimiento", "peso": 0.10},
-    {"id": "cierre_compromiso", "peso": 0.15},
-    {"id": "disciplina_tiempo", "peso": 0.05}
+    {
+      "id": "D1",
+      "nombre": "Precisión Científica y Evidencia Clínica",
+      "peso_paciente": 0.20,
+      "peso_institucion": 0.25,
+      "limite_duro": false
+    },
+    {
+      "id": "D2",
+      "nombre": "Claridad y Lenguaje según Audiencia",
+      "peso_paciente": 0.25,
+      "peso_institucion": 0.20,
+      "limite_duro": false
+    },
+    {
+      "id": "D3",
+      "nombre": "Comunicación No Verbal",
+      "peso_paciente": 0.20,
+      "peso_institucion": 0.15,
+      "limite_duro": false
+    },
+    {
+      "id": "D4",
+      "nombre": "Cumplimiento Regulatorio INVIMA/Fedesalud",
+      "peso_paciente": 0.15,
+      "peso_institucion": 0.20,
+      "limite_duro": true
+    },
+    {
+      "id": "D5",
+      "nombre": "Estructura Narrativa del Pitch",
+      "peso_paciente": 0.20,
+      "peso_institucion": 0.20,
+      "limite_duro": false
+    }
   ],
-  "regla_limite_duro": "Si veredicto de compliance == 'violacion', el puntaje global se topa en 40/100."
+  "regla_limite_duro": "Si D4 score <= 1, el puntaje global se topa en 35/100.",
+  "bandas": [
+    {"min": 85, "max": 100, "label": "Destacado", "color": "#1A7A4A"},
+    {"min": 70, "max": 84,  "label": "Competente", "color": "#B8860B"},
+    {"min": 55, "max": 69,  "label": "En desarrollo", "color": "#CC5500"},
+    {"min": 0,  "max": 54,  "label": "Insuficiente", "color": "#CC0000"}
+  ]
 }

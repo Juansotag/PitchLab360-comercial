@@ -1,8 +1,10 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import os
+import tempfile
+from transcriber import transcribir
 
 # Fix Anaconda Fortran MKL crash on Windows when pressing Ctrl+C
 os.environ["FOR_DISABLE_CONSOLE_CTRL_HANDLER"] = "1"
@@ -208,56 +210,65 @@ DEFENSA / TRANSCRIPCIÓN A EVALUAR:
 Devuelve ÚNICAMENTE JSON válido con la estructura indicada.
 """
 
-PROMPTS = {
-  "exactitud_evidencia": """
+PROMPTS_PITCHMED = {
+  "D1_evidencia_cientifica": """
 {base}
-Contrasta CADA afirmación clínica de la defensa contra la evidencia aprobada. No uses
-conocimiento externo: si no está en la ficha, es "sin_respaldo".
-Estructura requerida:
+Evalúa la precisión científica del pitch. Contrasta cada afirmación clínica contra la ficha técnica del producto.
+Estructura requerida (JSON puro, sin markdown):
 {{
-  "veredicto_global": "ok" | "advertencia" | "violacion",
-  "afirmaciones": [
-    {{ "afirmacion": str, "estado": "respaldado" | "exagerado" | "off_label" | "sin_respaldo",
-       "evidencia_ficha": str, "gravedad": "alta" | "media" | "baja" }}
-  ]
+  "score": <int 0-5>,
+  "evidencia_encontrada": [<str>],
+  "afirmaciones_sin_respaldo": [<str>],
+  "fortaleza": <str>,
+  "mejora": <str>
 }}
-REGLA DURA: un "off_label" o "exagerado" de gravedad alta => veredicto_global = "violacion".
+REGLA: score <= 1 si hay afirmaciones off-label sin justificación.
 """,
 
-  "fuerza_justificacion": """
+  "D2_claridad_lenguaje": """
 {base}
-Evalúa qué tan sólida fue la defensa: ¿ancló en la evidencia, en el CASO PARTICULAR del
-paciente, y en por qué la alternativa no aplica? ¿O fueron afirmaciones genéricas?
-Estructura requerida:
-{{ "anclo_en_evidencia": bool, "anclo_en_caso_particular": bool,
-   "justifico_vs_alternativa": bool, "puntaje": int, "observaciones": [str] }}
+Evalúa si el lenguaje está calibrado para la audiencia declarada ({audiencia_tipo}).
+Para paciente: ¿evitó jerga? ¿usó analogías? Para institución: ¿usó terminología técnica precisa?
+Estructura requerida (JSON puro):
+{{
+  "score": <int 0-5>,
+  "nivel_tecnico_apropiado": <bool>,
+  "ejemplos_bien_calibrados": [<str>],
+  "deslices_de_registro": [<str>],
+  "fortaleza": <str>,
+  "mejora": <str>
+}}
 """,
 
-  "manejo_objeciones": """
+  "D4_cumplimiento_regulatorio": """
 {base}
-Identifica la objeción central del interlocutor y evalúa si el médico la abordó de frente
-o la evadió.
-Estructura requerida:
-{{ "objecion_central": str, "fue_abordada": bool,
-   "calidad": "con_evidencia" | "generica" | "evasiva", "puntaje": int }}
+Evalúa el cumplimiento con el marco regulatorio colombiano (INVIMA, Fedesalud).
+Estructura requerida (JSON puro):
+{{
+  "score": <int 0-5>,
+  "indicaciones_correctas": <bool>,
+  "menciona_efectos_adversos": <bool>,
+  "comparaciones_sin_respaldo": [<str>],
+  "afirmaciones_absolutas": [<str>],
+  "fortaleza": <str>,
+  "mejora": <str>
+}}
+REGLA DURA: Si hay promesas de resultado garantizado o afirmaciones off-label graves => score = 0 o 1.
 """,
 
-  "argumentacion_cobertura": """
+  "D5_estructura_narrativa": """
 {base}
-Solo para interlocutor tipo auditor/EPS. ¿El médico usó los argumentos VÁLIDOS para
-sustentar la autorización? (necesidad clínica del caso, fracaso/contraindicación de la
-alternativa financiada, criterios de uso, costo-efectividad cuando aplica).
-Estructura requerida:
-{{ "argumentos_usados": [str], "argumentos_faltantes": [str], "puntaje": int }}
-""",
-
-  "comunicacion_empatia": """
-{base}
-Solo para interlocutor tipo paciente. Evalúa claridad sin jerga, empatía, manejo del miedo
-y consentimiento informado. NO premies la venta dura.
-Estructura requerida:
-{{ "claridad_sin_jerga": bool, "reconocio_preocupacion": bool,
-   "consentimiento_informado": bool, "puntaje": int }}
+Evalúa si el pitch sigue una estructura narrativa efectiva: problema → evidencia → solución → llamado a la acción.
+Estructura requerida (JSON puro):
+{{
+  "score": <int 0-5>,
+  "abre_con_problema": <bool>,
+  "presenta_evidencia_en_contexto": <bool>,
+  "cierre_con_llamado_accion": <bool>,
+  "maneja_objeciones_anticipadas": <bool>,
+  "fortaleza": <str>,
+  "mejora": <str>
+}}
 """
 }
 
@@ -309,47 +320,199 @@ PESOS = {
                       "manejo_objeciones": 0.20, "comunicacion_empatia": 0.30},
 }
 
-def construir_scorecard(resultados: dict, interlocutor_id: str) -> dict:
-    pesos = PESOS.get(interlocutor_id, PESOS["auditor_eps"])
-    dims = {}
-    comp = resultados.get("exactitud_evidencia", {}).get("data", {})
-    veredicto = comp.get("veredicto_global", "ok")
-    dims["exactitud_evidencia"] = {"ok": 100, "advertencia": 60, "violacion": 25}.get(veredicto, 60)
-    for k in pesos:
-        if k != "exactitud_evidencia":
-            dims[k] = resultados.get(k, {}).get("data", {}).get("puntaje", 0)
-    global_score = round(sum(dims.get(k, 0) * pesos.get(k, 0) for k in pesos))
-    if veredicto == "violacion":
-        global_score = min(global_score, 40)
-    return {"global": global_score, "dimensiones": dims, "veredicto_evidencia": veredicto}
+def construir_scorecard_med(resultados: dict, audiencia: str) -> dict:
+    rubrica = _cargar_json("rubrica.json")
+    dims_config = {d["id"]: d for d in rubrica["dimensiones"]}
+    
+    peso_key = "peso_paciente" if audiencia == "paciente" else "peso_institucion"
+    
+    scores = {}
+    for dim_id in ["D1", "D2", "D4", "D5"]:
+        modulo_key = [k for k in resultados if k.startswith(dim_id)][0] if any(k.startswith(dim_id) for k in resultados) else None
+        if modulo_key:
+            scores[dim_id] = resultados[modulo_key].get("data", {}).get("score", 0)
+        else:
+            scores[dim_id] = 0
+    
+    # D3 viene del análisis de video (determinista)
+    scores["D3"] = resultados.get("D3_no_verbal", {}).get("score", 0)
+    
+    puntaje = 0
+    for dim_id, cfg in dims_config.items():
+        puntaje += scores.get(dim_id, 0) * 20 * cfg.get(peso_key, 0.2)
+    puntaje = round(puntaje)
+    
+    # Límite duro: D4 regulatorio
+    if scores.get("D4", 5) <= 1:
+        puntaje = min(puntaje, 35)
+    
+    # Banda
+    banda = "Insuficiente"
+    for b in rubrica["bandas"]:
+        if b["min"] <= puntaje <= b["max"]:
+            banda = b["label"]
+            break
+    
+    return {
+        "puntaje_total": puntaje,
+        "banda": banda,
+        "scores_por_dimension": scores,
+        "audiencia": audiencia
+    }
 
 @app.post("/analizar/todo")
 def analizar_todo(req: AnalizarRequest):
+    return analizar_pitchmed(req)
+
+@app.post("/analizar/{modulo}")
+def analizar_modulo(modulo: str, req: AnalizarRequest):
+    if modulo not in PROMPTS_PITCHMED:
+        return {"error": f"Módulo '{modulo}' no existe"}
     metricas = calcular_metricas(req.texto)
+    audiencia = req.escenario.interlocutor_id
+    return ejecutar_modulo_med(modulo, req.texto, req.escenario.model_dump(), metricas, audiencia, api_key=req.api_key)
+
+def calcular_d3_no_verbal(duracion_seg: float, palabras_total: int, tiene_video: bool = False) -> dict:
+    """
+    Calificación determinista de D3 basada en métricas de voz.
+    Con video: el frontend puede enviar señales adicionales (contacto_visual_pct, postura).
+    Sin video: evalúa solo ritmo y fluidez vocal.
+    """
+    score = 3  # baseline
+    observaciones = []
+    
+    # Velocidad de habla (palabras por minuto)
+    if duracion_seg > 0:
+        wpm = (palabras_total / duracion_seg) * 60
+        if 120 <= wpm <= 160:
+            score += 1
+            observaciones.append(f"Velocidad apropiada: {round(wpm)} ppm")
+        elif wpm > 200:
+            score -= 1
+            observaciones.append(f"Habla demasiado rápido: {round(wpm)} ppm")
+        elif wpm < 90:
+            score -= 1
+            observaciones.append(f"Ritmo muy lento: {round(wpm)} ppm")
+    
+    score = max(0, min(5, score))
+    
+    return {
+        "score": score,
+        "tiene_video": tiene_video,
+        "observaciones": observaciones,
+        "nota": "Evaluación completa de video disponible en versión con cámara activa"
+    }
+
+@app.post("/analizar/no-verbal")
+def analizar_no_verbal(
+    duracion_seg: float = Form(0),
+    palabras_total: int = Form(0),
+    tiene_video: bool = Form(False)
+):
+    return calcular_d3_no_verbal(duracion_seg, palabras_total, tiene_video)
+
+@app.post("/transcribir")
+async def transcribir_audio(
+    file: UploadFile = File(...),
+    audiencia: str = Form("paciente"),
+    producto_id: str = Form("demo")
+):
+    """
+    Recibe archivo de audio o video, devuelve transcripción y dispara análisis completo.
+    Formatos soportados: .mp3, .mp4, .wav, .webm, .m4a
+    """
+    extension = os.path.splitext(file.filename)[-1].lower()
+    if extension not in [".mp3", ".mp4", ".wav", ".webm", ".m4a", ".ogg"]:
+        raise HTTPException(status_code=400, detail=f"Formato no soportado: {extension}")
+    
+    file_bytes = await file.read()
+    
+    try:
+        resultado_transcripcion = transcribir(file_bytes, extension)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error en transcripción: {str(e)}")
+    
+    return {
+        "transcripcion": resultado_transcripcion,
+        "audiencia": audiencia,
+        "producto_id": producto_id,
+        "siguiente_paso": "POST /analizar/pitchmed con el texto transcrito"
+    }
+
+@app.post("/analizar/pitchmed")
+def analizar_pitchmed(req: AnalizarRequest):
+    """
+    Endpoint principal de PitchMed360.
+    Recibe texto (transcripto o directo), audiencia y producto.
+    Corre D1, D2, D4, D5 en paralelo. D3 se evalúa por separado si hay video.
+    """
+    metricas = calcular_metricas(req.texto)
+    audiencia = req.escenario.interlocutor_id  # "paciente" | "institucion"
+    
+    modulos_activos = ["D1_evidencia_cientifica", "D2_claridad_lenguaje", 
+                       "D4_cumplimiento_regulatorio", "D5_estructura_narrativa"]
+    
     resultados = {"metricas": metricas}
     metadatos_dict = req.escenario.model_dump()
-    interlocutor_id = metadatos_dict.get("interlocutor_id", "auditor_eps")
     
-    modulos_activos = list(PESOS.get(interlocutor_id, PESOS["auditor_eps"]).keys())
+    # Evaluar D3 no verbal basado en la duración estimada del pitch
+    palabras_total = len(req.texto.split())
+    # Si no nos pasan la duración, la estimamos a un ritmo normal de 130 palabras por minuto
+    duracion_est = (palabras_total / 130.0) * 60.0
+    resultados["D3_no_verbal"] = calcular_d3_no_verbal(duracion_est, palabras_total, tiene_video=False)
     
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         f2m = {
-            executor.submit(ejecutar_modulo, modulo, req.texto, metadatos_dict, metricas, req.api_key): modulo
+            executor.submit(ejecutar_modulo_med, modulo, req.texto, metadatos_dict, metricas, audiencia, req.api_key): modulo
             for modulo in modulos_activos
         }
         for future in concurrent.futures.as_completed(f2m):
             modulo = f2m[future]
             resultados[modulo] = future.result()
-            
-    resultados["scorecard"] = construir_scorecard(resultados, interlocutor_id)
+    
+    resultados["scorecard"] = construir_scorecard_med(resultados, audiencia)
     return resultados
 
-@app.post("/analizar/{modulo}")
-def analizar_modulo(modulo: str, req: AnalizarRequest):
-    if modulo not in PROMPTS:
-        return {"error": f"Módulo '{modulo}' no existe"}
-    metricas = calcular_metricas(req.texto)
-    return ejecutar_modulo(modulo, req.texto, req.escenario.model_dump(), metricas, api_key=req.api_key)
+def ejecutar_modulo_med(modulo: str, texto: str, metadatos: dict, metricas: dict, audiencia: str, api_key: str = None) -> dict:
+    key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+    if not key:
+        return {"ok": False, "error": "API Key no configurada"}
+    
+    http_client = httpx.Client(verify=_SSL_VERIFY, timeout=90.0)
+    client = anthropic.Anthropic(api_key=key, http_client=http_client)
+    
+    ficha = cargar_ficha(metadatos.get("medicamento_id", "demo"))
+    inter_id = metadatos.get("interlocutor_id", "paciente")
+    if inter_id in ["paciente", "paciente_dudoso"]:
+        inter_id = "paciente_dudoso"
+    elif inter_id in ["institucion", "institución"]:
+        inter_id = "institución"
+    interlocutor = cargar_interlocutor(inter_id)
+    
+    base = BASE_CONTEXTO.format(
+        interlocutor_tipo=interlocutor.get("tipo", audiencia),
+        medicamento=ficha.get("nombre_comercial", "No especificado"),
+        interlocutor=interlocutor.get("nombre", audiencia),
+        reto=metadatos.get("reto", "Presentar el producto de forma efectiva y compliant"),
+        ficha_tecnica=json.dumps(ficha, ensure_ascii=False, indent=2),
+        contexto_cobertura=json.dumps(ficha.get("contexto_cobertura", {}), ensure_ascii=False, indent=2),
+        metricas=json.dumps(metricas, ensure_ascii=False, indent=2),
+        texto=texto
+    )
+    
+    prompt_template = PROMPTS_PITCHMED.get(modulo, "")
+    prompt = prompt_template.format(base=base, audiencia_tipo=audiencia)
+    
+    try:
+        response = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=1024,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        raw = response.content[0].text.strip().replace("```json", "").replace("```", "").strip()
+        return {"ok": True, "data": json.loads(raw)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
 
 SYSTEM_INTERLOCUTOR = """
 {persona_prompt}
