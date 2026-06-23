@@ -26,7 +26,10 @@ const state = {
   inicioGrabacion: null,
   // Detectores de visión
   moveNetDetector: null,
+  cocoModel: null,
   faceApiLoaded: false,
+  // Buffer de estabilización de emoción (moda de los últimos N frames, como en index_ejemplo)
+  emocionBuffer: [],
   // Frames acumulados
   contactoFrames: [],
   posturaFrames: [],
@@ -348,8 +351,17 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-// ─── PROCESAMIENTO DE FRAME (MoveNet + face-api) ─────────────────────────────────
-function procesarFrame(ctx, canvas, pose, faceResult) {
+// ─── PROCESAMIENTO DE FRAME (MoveNet + face-api + COCO-SSD) ────────────────────────────
+const EMOCION_BUFFER_SIZE = 8;  // frames para estabilizar emoción (como en index_ejemplo)
+
+function modeArray(arr) {
+  if (arr.length === 0) return 'neutral';
+  const freq = {};
+  arr.forEach(v => { freq[v] = (freq[v] || 0) + 1; });
+  return Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0];
+}
+
+function procesarFrame(ctx, canvas, pose, faceResult, cocoPreds) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // 1. Esqueleto (MoveNet)
@@ -357,96 +369,123 @@ function procesarFrame(ctx, canvas, pose, faceResult) {
   if (kps.length) dibujarEsqueletoMoveNet(ctx, canvas, kps);
   const posturaInfo = kps.length ? analizarPosturaMoveNet(kps) : { resultado:'sin_datos', label:'Sin datos', score:0 };
 
-  // 2. Gaze y emoción (face-api.js 68-point landmarks)
-  let presenciaText = 'No detectado';
+  // 2. COCO-SSD: dibujar bounding boxes de personas detectadas
+  let personaDetectadaCoco = false;
+  if (cocoPreds && cocoPreds.length > 0) {
+    const W = canvas.width;
+    cocoPreds.forEach(p => {
+      const [x, y, w, h] = p.bbox;
+      const mirrorX = W - x - w;  // espejo horizontal (la cámara web suele estar en espejo)
+      const isPerson = p.class === 'person';
+      if (isPerson) personaDetectadaCoco = true;
+      const color = isPerson ? '#22c55e' : '#3b82f6';
+      ctx.strokeStyle = color;
+      ctx.lineWidth   = isPerson ? 2 : 1.5;
+      ctx.shadowColor = color;
+      ctx.shadowBlur  = isPerson ? 8 : 0;
+      ctx.strokeRect(mirrorX, y, w, h);
+      ctx.shadowBlur = 0;
+      // Etiqueta de confianza
+      const label = `${p.class} ${Math.round(p.score * 100)}%`;
+      ctx.font = 'bold 11px system-ui,sans-serif';
+      const tw = ctx.measureText(label).width + 10;
+      const ly = y > 22 ? y - 22 : y + 2;
+      ctx.fillStyle = color + 'cc';
+      roundRect(ctx, mirrorX, ly, tw, 18, 4); ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.fillText(label, mirrorX + 5, ly + 12);
+    });
+  }
+
+  // 3. Gaze y emoción (face-api.js 68-point landmarks)
+  let presenciaText = personaDetectadaCoco ? 'Presente' : 'No detectado';
   let mirandoCamara = false;
-  let emocion = 'neutral';
-  let emocionConf = 0;
+  let emocionRaw    = 'neutral';
+  let emocionConf   = 0;
 
   if (faceResult) {
     const lms = faceResult.landmarks?.positions || [];
     if (lms.length >= 48) {
-      // Ojo izquierdo: 36-41, Ojo derecho: 42-47
       const lOuter = lms[36], rOuter = lms[45], noseTip = lms[30];
-
-      // Head yaw: distancia del tabique a cada lado
-      const distIzq = Math.hypot(noseTip.x-lOuter.x, noseTip.y-lOuter.y);
-      const distDer = Math.hypot(noseTip.x-rOuter.x, noseTip.y-rOuter.y);
+      const distIzq = Math.hypot(noseTip.x - lOuter.x, noseTip.y - lOuter.y);
+      const distDer = Math.hypot(noseTip.x - rOuter.x, noseTip.y - rOuter.y);
       const headYaw = distIzq / (distIzq + distDer);
       const headOk  = headYaw >= 0.32 && headYaw <= 0.68;
 
-      // Presencia (posición del centro del rostro en el frame)
-      const box   = faceResult.detection?.box;
-      const faceCX = box ? (box.x + box.width/2) / canvas.width : 0.5;
+      const box    = faceResult.detection?.box;
+      const faceCX = box ? (box.x + box.width / 2) / canvas.width : 0.5;
 
-      if      (faceCX < 0.3)  presenciaText = 'Desviado derecha';
-      else if (faceCX > 0.7)  presenciaText = 'Desviado izquierda';
-      else                    presenciaText = 'Centrado';
+      if      (faceCX < 0.3) presenciaText = 'Desviado derecha';
+      else if (faceCX > 0.7) presenciaText = 'Desviado izquierda';
+      else                   presenciaText = 'Centrado';
 
       mirandoCamara = headOk && faceCX >= 0.3 && faceCX <= 0.7;
 
-      // Dibujar esquinas de ojos
+      // Ojos
       const eyeCol  = mirandoCamara ? '#16a34a' : '#d51437';
       const eyeFill = mirandoCamara ? 'rgba(22,163,74,0.35)' : 'rgba(213,20,55,0.35)';
       ctx.strokeStyle = eyeCol;
       ctx.fillStyle   = eyeFill;
-      ctx.lineWidth = 1.5;
-      // ojo izq (36-41), ojo der (42-47)
+      ctx.lineWidth   = 1.5;
       [[36,37,38,39,40,41],[42,43,44,45,46,47]].forEach(pts => {
         ctx.beginPath();
         ctx.moveTo(lms[pts[0]].x, lms[pts[0]].y);
         pts.slice(1).forEach(i => ctx.lineTo(lms[i].x, lms[i].y));
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
+        ctx.closePath(); ctx.fill(); ctx.stroke();
       });
     }
 
-    // Emoción dominante
     if (faceResult.expressions) {
-      const sorted = Object.entries(faceResult.expressions).sort((a,b) => b[1]-a[1]);
-      emocion     = sorted[0][0];
+      const sorted = Object.entries(faceResult.expressions).sort((a, b) => b[1] - a[1]);
+      emocionRaw  = sorted[0][0];
       emocionConf = sorted[0][1];
     }
   }
 
-  // 3. HUD
-  dibujarHUD(ctx, presenciaText, mirandoCamara, posturaInfo, emocion, emocionConf, kps.length > 0);
+  // Buffer de estabilización de emoción (moda de los últimos EMOCION_BUFFER_SIZE frames)
+  state.emocionBuffer.push(emocionRaw);
+  if (state.emocionBuffer.length > EMOCION_BUFFER_SIZE) state.emocionBuffer.shift();
+  const emocionEstable = modeArray(state.emocionBuffer);
 
-  // 4. Pills de stats en vivo
+  // 4. HUD (usa emoción estabilizada)
+  dibujarHUD(ctx, presenciaText, mirandoCamara, posturaInfo, emocionEstable, emocionConf, kps.length > 0);
+
+  // 5. Pills de stats en vivo
   const elPresencia = document.getElementById('stat-presencia');
   if (elPresencia) elPresencia.textContent = `Presencia: ${presenciaText}`;
   const elEmocion = document.getElementById('stat-emocion');
-  if (elEmocion) elEmocion.textContent = `Emoción: ${emocion}`;
+  if (elEmocion) elEmocion.textContent = `Emoción: ${emocionEstable}`;
 
   if (!state.grabando) return;
 
   state.contactoFrames.push(mirandoCamara ? 1 : 0);
   if (kps.length) state.posturaFrames.push(posturaInfo.resultado);
-  state.emocionFrames.push(emocion);
-  state.gestosFrames.push(emocion === 'happy' && emocionConf > 0.4 ? 'ilustrativos' : 'ninguno');
+  state.emocionFrames.push(emocionEstable);
+  state.gestosFrames.push(emocionEstable === 'happy' && emocionConf > 0.4 ? 'ilustrativos' : 'ninguno');
 
   actualizarStatsCamara();
 }
 
-// ─── INICIAR VISIÓN: MoveNet + face-api.js ─────────────────────────────────────────
+// ─── INICIAR VISIÓN: MoveNet + COCO-SSD + face-api.js ──────────────────────────────
 const FACEAPI_MODELS = 'https://vladmandic.github.io/face-api/model';
 
 async function iniciarVisionComputador() {
   try {
-    showToast('Cargando TF.js MoveNet...', 'info');
-    // TensorFlow.js core
+    showToast('Cargando TF.js + MoveNet...', 'info');
     await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js');
-    // Pose detection (incluye MoveNet)
     await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection@2.1.3/dist/pose-detection.min.js');
-
     state.moveNetDetector = await window.poseDetection.createDetector(
       window.poseDetection.SupportedModels.MoveNet,
       { modelType: window.poseDetection.movenet.modelType.SINGLEPOSE_THUNDER }
     );
-    showToast('MoveNet listo. Cargando face-api.js...', 'info');
 
-    // Face-api.js (vladmandic fork, soporta ESM y UMD)
+    // COCO-SSD (deteción de personas y objetos, lite_mobilenet_v2 ~5 MB)
+    showToast('Cargando COCO-SSD...', 'info');
+    await loadScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js');
+    state.cocoModel = await window.cocoSsd.load({ base: 'lite_mobilenet_v2' });
+
+    // face-api.js: inputSize 608 (más preciso que 224, como en index_ejemplo)
+    showToast('Cargando face-api.js...', 'info');
     await loadScript('https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/dist/face-api.js');
     await Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri(FACEAPI_MODELS),
@@ -458,16 +497,20 @@ async function iniciarVisionComputador() {
     const video  = document.getElementById('video-preview');
     const canvas = document.getElementById('mediapipe-canvas');
     const ctx    = canvas.getContext('2d');
-    const faceOpts = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.4 });
+    // inputSize 608 = mejor precisión de emociones (vs 224 anterior)
+    const faceOpts = new faceapi.TinyFaceDetectorOptions({ inputSize: 608, scoreThreshold: 0.25 });
 
     async function loop() {
       if (state.mediaStream && video.videoWidth > 0) {
         if (canvas.width  !== video.videoWidth)  canvas.width  = video.videoWidth;
         if (canvas.height !== video.videoHeight) canvas.height = video.videoHeight;
 
-        // Correr MoveNet y face-api en paralelo
-        const [poses, faceResult] = await Promise.all([
+        // MoveNet + COCO-SSD + face-api en paralelo
+        const [poses, cocoPreds, faceResult] = await Promise.all([
           state.moveNetDetector.estimatePoses(video, { flipHorizontal: false }),
+          state.cocoModel
+            ? state.cocoModel.detect(video)
+            : Promise.resolve([]),
           state.faceApiLoaded
             ? faceapi.detectSingleFace(video, faceOpts)
                 .withFaceLandmarks(true)
@@ -475,13 +518,13 @@ async function iniciarVisionComputador() {
             : Promise.resolve(null)
         ]);
 
-        procesarFrame(ctx, canvas, poses[0] || null, faceResult || null);
+        procesarFrame(ctx, canvas, poses[0] || null, faceResult || null, cocoPreds || []);
       }
       requestAnimationFrame(loop);
     }
     loop();
     document.getElementById('camera-stats').style.display = 'flex';
-    showToast('MoveNet + face-api listos. Postura, mirada y emoción activos.', 'success');
+    showToast('MoveNet + COCO-SSD + face-api listos.', 'success');
   } catch (err) {
     console.error(err);
     showToast('Error al cargar modelos: ' + err.message, 'error');
@@ -893,10 +936,11 @@ document.getElementById('btn-iniciar-camara').addEventListener('click', iniciarC
 document.getElementById('btn-grabar').addEventListener('click', () => {
   state.grabando = true;
   state.inicioGrabacion = Date.now();
-  state.contactoFrames = [];
-  state.posturaFrames  = [];
-  state.gestosFrames   = [];
-  state.emocionFrames  = [];
+  state.contactoFrames  = [];
+  state.posturaFrames   = [];
+  state.gestosFrames    = [];
+  state.emocionFrames   = [];
+  state.emocionBuffer   = [];
   state.transcripcionLive = '';
   state.textoLiveActual = '';
   state.transcripcionesPrevias = [];

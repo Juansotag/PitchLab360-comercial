@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GovLab · Visión Artificial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/dist/face-api.js"></script>
+  <style>
+    :root{--navy:#0f1d45;--glass:rgba(255,255,255,0.06);--border:rgba(255,255,255,0.13);--text:#e2e8f0;--muted:#94a3b8;--green:#22c55e;--blue:#3b82f6;--red:#ef4444;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#0d1530,#0a1228,#0d1530);min-height:100vh;color:var(--text);display:flex;flex-direction:column;align-items:center;}
+
+    header{width:100%;max-width:1280px;padding:18px 24px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .logo-wrap{background:#fff;border-radius:10px;padding:5px 14px;height:52px;display:flex;align-items:center;}
+    .logo-wrap img{height:36px;width:auto;}
+    .title-block h1{font-size:1.15rem;font-weight:700;color:#fff;}
+    .title-block p{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+
+    main{width:100%;max-width:1280px;padding:16px 24px 32px;display:grid;grid-template-columns:1fr 300px;gap:16px;}
+    @media(max-width:900px){main{grid-template-columns:1fr;} header{flex-direction:column;align-items:flex-start;}}
+
+    /* Camera */
+    .cam-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;overflow:hidden;backdrop-filter:blur(10px);}
+    .video-wrapper{position:relative;width:100%;line-height:0;background:#000;}
+    #video{width:100%;max-height:520px;object-fit:cover;display:block;transform:scaleX(-1);}
+    #canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+    .status-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:rgba(0,0,0,0.35);border-top:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+    .status-pill{display:flex;align-items:center;gap:7px;font-size:0.78rem;font-weight:500;}
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--muted);transition:background 0.4s;}
+    .dot.active{background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.8s infinite;}
+    .dot.loading{background:var(--blue);box-shadow:0 0 8px var(--blue);}
+    .dot.error{background:var(--red);}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;}
+    .chip{display:flex;align-items:center;gap:5px;padding:4px 11px;border-radius:999px;font-size:0.74rem;font-weight:600;border:1px solid;}
+    .chip.g{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.4);color:#4ade80;}
+    .chip.b{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.4);color:#93c5fd;}
+
+    /* Loading overlay */
+    #ov{position:absolute;inset:0;background:rgba(8,14,38,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:10;transition:opacity .5s;}
+    #ov.hidden{opacity:0;pointer-events:none;}
+    .spinner{width:44px;height:44px;border:3px solid rgba(255,255,255,.12);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    #ov-msg{font-size:.85rem;color:var(--muted);}
+    .progress-bar{width:200px;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;}
+    .progress-fill{height:100%;background:var(--blue);border-radius:4px;transition:width .4s;width:0%;}
+
+    /* Detection panel */
+    .panel{display:flex;flex-direction:column;gap:12px;}
+    .panel-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:14px;backdrop-filter:blur(10px);}
+    .panel-title{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+
+    /* Emotions */
+    .emotion-entry{margin-bottom:10px;}
+    .emotion-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;font-size:.78rem;}
+    .emotion-name{display:flex;align-items:center;gap:5px;font-weight:600;}
+    .emotion-pct{color:var(--muted);font-size:.72rem;}
+    .emo-bar{height:5px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-bottom:2px;}
+    .emo-fill{height:100%;border-radius:4px;transition:width .3s;}
+    .face-box{border:1px solid var(--border);border-radius:10px;padding:8px 10px;margin-bottom:8px;}
+    .face-label{font-size:.7rem;color:var(--muted);margin-bottom:6px;}
+    #emotions-empty{font-size:.78rem;color:var(--muted);text-align:center;padding:12px 0;}
+
+    /* Objects list */
+    .obj-row{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-radius:8px;margin-bottom:4px;background:rgba(255,255,255,.04);}
+    .obj-name{display:flex;align-items:center;gap:7px;font-size:.78rem;font-weight:500;}
+    .obj-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+    .obj-count{font-size:.72rem;background:rgba(255,255,255,.08);padding:1px 7px;border-radius:999px;color:var(--muted);}
+    #objs-empty{font-size:.78rem;color:var(--muted);text-align:center;padding:12px 0;}
+
+    footer{font-size:.7rem;color:var(--muted);text-align:center;padding:0 24px 20px;opacity:.6;}
+
+    /* chart section */
+    #chart-section{width:100%;max-width:1280px;padding:0 24px 28px;display:flex;flex-direction:column;gap:12px;}
+    .chart-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:18px 20px;backdrop-filter:blur(10px);}
+    .chart-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
+    .chart-title{font-size:.9rem;font-weight:700;display:flex;align-items:center;gap:8px;}
+    .chart-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .ctrl-label{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:6px;}
+    .ctrl-input{background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.78rem;padding:4px 8px;width:64px;text-align:center;}
+    .ctrl-input:focus{outline:none;border-color:var(--blue);}
+    .btn{padding:5px 13px;border-radius:8px;font-size:.75rem;font-weight:600;border:1px solid;cursor:pointer;transition:all .2s;}
+    .btn-blue{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.5);color:#93c5fd;}
+    .btn-blue:hover{background:rgba(59,130,246,.3);}
+    .btn-green{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.5);color:#4ade80;}
+    .btn-green:hover{background:rgba(34,197,94,.3);}
+    .stat-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+    .stat-pill{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:6px 14px;font-size:.76rem;}
+    .stat-pill strong{color:#fff;font-size:.9rem;display:block;margin-top:1px;}
+    #chart-canvas{width:100%;height:180px;display:block;border-radius:10px;}
+
+    /* ── Welcome toast ── */
+    #toast{
+      position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);
+      background:linear-gradient(135deg,rgba(34,197,94,.95),rgba(16,185,129,.95));
+      color:#000;font-weight:700;font-size:1rem;
+      padding:14px 28px;border-radius:999px;
+      box-shadow:0 8px 32px rgba(34,197,94,.5);
+      display:flex;align-items:center;gap:10px;
+      opacity:0;transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .35s;
+      pointer-events:none;z-index:100;white-space:nowrap;
+    }
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+    .toast-icon{font-size:1.4rem;}
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-wrap"><img src="Govlab.png" alt="GovLab"/></div>
+  <div class="title-block">
+    <h1>Visión Artificial en Tiempo Real</h1>
+    <p>COCO-SSD · face-api.js · TensorFlow.js &nbsp;|&nbsp; 80 clases · Detección de emociones</p>
+  </div>
+</header>
+
+<main>
+  <!-- Camera -->
+  <div class="cam-card">
+    <div class="video-wrapper">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+      <div id="ov">
+        <div class="spinner"></div>
+        <p id="ov-msg">Iniciando cámara…</p>
+        <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+      </div>
+    </div>
+    <div class="status-bar">
+      <div class="status-pill">
+        <span class="dot loading" id="dot"></span>
+        <span id="status-txt">Cargando…</span>
+      </div>
+      <div class="chips">
+        <div class="chip g">🧍 <span id="cnt-person">0</span> persona(s)</div>
+        <div class="chip b">📦 <span id="cnt-obj">0</span> objeto(s)</div>
+        <div class="chip b">⚡ <span id="cnt-fps">--</span> FPS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div class="panel">
+    <div class="panel-card">
+      <div class="panel-title">😊 Emociones detectadas</div>
+      <div id="emotions-list"><p id="emotions-empty">Sin rostros detectados</p></div>
+    </div>
+    <div class="panel-card">
+      <div class="panel-title">🔍 Objetos detectados</div>
+      <div id="objs-list"><p id="objs-empty">Sin objetos detectados</p></div>
+    </div>
+  </div>
+</main>
+
+<footer>GovLab · Universidad de La Sabana &nbsp;|&nbsp; Todo el procesamiento ocurre localmente en tu dispositivo</footer>
+
+<section id="chart-section">
+  <div class="chart-card">
+    <div class="chart-top">
+      <div class="chart-title">&#x1F4CA; Aforo histórico de sesión &mdash; <span style="color:var(--muted);font-weight:400;font-size:.8rem">Promedio movil 5 min</span></div>
+      <div class="chart-controls">
+        <label class="ctrl-label">Medir cada
+          <input id="interval-inp" class="ctrl-input" type="number" min="5" max="120" value="20"> seg
+        </label>
+        <button class="btn btn-blue" onclick="connectCSV()" id="btn-csv">&#x1F4BE; Conectar CSV</button>
+        <button class="btn btn-green" onclick="downloadCSV()">&#x2B07; Descargar CSV</button>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-pill">Ultimo conteo<strong id="stat-last">--</strong></div>
+      <div class="stat-pill">Prom. movil (5 min)<strong id="stat-avg">--</strong></div>
+      <div class="stat-pill">Muestras<strong id="stat-n">0</strong></div>
+      <div class="stat-pill">Maximo<strong id="stat-max">--</strong></div>
+      <div class="stat-pill">Proxima muestra<strong id="stat-next">--</strong></div>
+    </div>
+    <canvas id="chart-canvas"></canvas>
+  </div>
+</section>
+
+<!-- Welcome toast -->
+<div id="toast"><span class="toast-icon">👋</span> ¡Hola, bienvenido al GovLab!</div>
+
+<script>
+const video   = document.getElementById('video');
+const canvas  = document.getElementById('canvas');
+const ctx     = canvas.getContext('2d');
+const ov      = document.getElementById('ov');
+const ovMsg   = document.getElementById('ov-msg');
+const prog    = document.getElementById('prog');
+const dotEl   = document.getElementById('dot');
+const statusEl= document.getElementById('status-txt');
+
+// ── Translations ──────────────────────────────────────────────────────────────
+const ES = {
+  person:'Persona',bicycle:'Bicicleta',car:'Auto',motorcycle:'Moto',airplane:'Avión',
+  bus:'Bus',train:'Tren',truck:'Camión',boat:'Bote','traffic light':'Semáforo',
+  'fire hydrant':'Hidrante','stop sign':'Señal Pare','parking meter':'Parquímetro',
+  bench:'Banco',bird:'Pájaro',cat:'Gato',dog:'Perro',horse:'Caballo',sheep:'Oveja',
+  cow:'Vaca',elephant:'Elefante',bear:'Oso',zebra:'Cebra',giraffe:'Jirafa',
+  backpack:'Mochila',umbrella:'Paraguas',handbag:'Bolso',tie:'Corbata',suitcase:'Maleta',
+  frisbee:'Frisbee',skis:'Esquíes',snowboard:'Snowboard','sports ball':'Pelota',
+  kite:'Cometa','baseball bat':'Bate','baseball glove':'Guante',skateboard:'Patineta',
+  surfboard:'Tabla surf','tennis racket':'Raqueta',bottle:'Botella',
+  'wine glass':'Copa',cup:'Taza',fork:'Tenedor',knife:'Cuchillo',spoon:'Cuchara',
+  bowl:'Tazón',banana:'Banano',apple:'Manzana',sandwich:'Sándwich',orange:'Naranja',
+  broccoli:'Brócoli',carrot:'Zanahoria','hot dog':'Hot Dog',pizza:'Pizza',
+  donut:'Donut',cake:'Torta',chair:'Silla',couch:'Sofá','potted plant':'Planta',
+  bed:'Cama','dining table':'Mesa',toilet:'Inodoro',tv:'TV',laptop:'Laptop',
+  mouse:'Mouse',remote:'Control',keyboard:'Teclado','cell phone':'Celular',
+  microwave:'Microondas',oven:'Horno',toaster:'Tostadora',sink:'Lavamanos',
+  refrigerator:'Nevera',book:'Libro',clock:'Reloj',vase:'Florero',
+  scissors:'Tijeras','teddy bear':'Osito','hair drier':'Secador',toothbrush:'Cepillo'
+};
+
+const EMOTION_ES = {
+  happy:    {label:'Feliz',      emoji:'😄', color:'#facc15'},
+  sad:      {label:'Triste',     emoji:'😢', color:'#60a5fa'},
+  angry:    {label:'Enojado',    emoji:'😠', color:'#f87171'},
+  fearful:  {label:'Asustado',   emoji:'😨', color:'#c084fc'},
+  disgusted:{label:'Disgustado', emoji:'🤢', color:'#4ade80'},
+  surprised:{label:'Sorprendido',emoji:'😲', color:'#fb923c'},
+  neutral:  {label:'Neutral',    emoji:'😐', color:'#94a3b8'},
+};
+
+function getCatColor(cls){
+  if(cls==='person') return '#22c55e';
+  if(['bicycle','car','motorcycle','airplane','bus','train','truck','boat'].includes(cls)) return '#3b82f6';
+  if(['bird','cat','dog','horse','sheep','cow','elephant','bear','zebra','giraffe'].includes(cls)) return '#f97316';
+  if(['tv','laptop','mouse','remote','keyboard','cell phone','microwave','oven','toaster','refrigerator'].includes(cls)) return '#a855f7';
+  if(['banana','apple','sandwich','orange','broccoli','carrot','hot dog','pizza','donut','cake','cup','bottle'].includes(cls)) return '#eab308';
+  if(['chair','couch','potted plant','bed','dining table','toilet'].includes(cls)) return '#ec4899';
+  return '#64748b';
+}
+
+// ── Models ────────────────────────────────────────────────────────────────────
+const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.13/model';
+let cocoModel = null, faceReady = false;
+
+async function loadModels(){
+  ovMsg.textContent = 'Cargando detector de objetos…'; prog.style.width='20%';
+  cocoModel = await cocoSsd.load({base:'lite_mobilenet_v2'});
+
+  ovMsg.textContent = 'Cargando detector facial…'; prog.style.width='55%';
+  await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+
+  ovMsg.textContent = 'Cargando modelo de emociones…'; prog.style.width='80%';
+  await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+
+  prog.style.width='100%'; faceReady = true;
+}
+
+// ── Camera ────────────────────────────────────────────────────────────────────
+async function startCamera(){
+  ovMsg.textContent = 'Solicitando cámara…';
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video:{facingMode:'user', width:{ideal:1280}, height:{ideal:720}}
+  });
+  video.srcObject = stream;
+  await new Promise(r => video.addEventListener('loadedmetadata', r, {once:true}));
+}
+
+// ── Drawing helpers ───────────────────────────────────────────────────────────
+function drawBox(x, y, w, h, color, label){
+  ctx.strokeStyle = color;
+  ctx.lineWidth   = 2;
+  ctx.shadowColor = color;
+  ctx.shadowBlur  = 8;
+  ctx.strokeRect(x, y, w, h);
+  ctx.shadowBlur  = 0;
+
+  ctx.font = 'bold 13px Inter,sans-serif';
+  const tw = ctx.measureText(label).width + 12;
+  const ly = y > 24 ? y - 24 : y + 2;
+  ctx.fillStyle = color + 'cc';
+  ctx.beginPath(); ctx.roundRect(x, ly, tw, 20, 4); ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.fillText(label, x+6, ly+14);
+
+  // corner marks
+  const cs = 12;
+  ctx.strokeStyle = color; ctx.lineWidth = 3;
+  [[x,y],[x+w,y],[x,y+h],[x+w,y+h]].forEach(([px,py])=>{
+    const dx = px===x?1:-1, dy = py===y?1:-1;
+    ctx.beginPath();
+    ctx.moveTo(px+dx*cs, py); ctx.lineTo(px,py); ctx.lineTo(px, py+dy*cs);
+    ctx.stroke();
+  });
+}
+
+// ── Panel updaters ────────────────────────────────────────────────────────────
+function updateEmotionsPanel(faces){
+  const el = document.getElementById('emotions-list');
+  if(!faces || faces.length===0){
+    el.innerHTML = '<p id="emotions-empty" style="font-size:.78rem;color:var(--muted);text-align:center;padding:12px 0">Sin rostros detectados</p>';
+    return;
+  }
+  el.innerHTML = faces.map((f,i)=>{
+    const exps = f.expressions;
+    const sorted = Object.entries(exps).sort((a,b)=>b[1]-a[1]);
+    const [topKey, topVal] = sorted[0];
+    const top3 = sorted.slice(0,3);
+    const info = EMOTION_ES[topKey]||{label:topKey,emoji:'🤔',color:'#94a3b8'};
+    return `
+    <div class="face-box">
+      <div class="face-label">Rostro ${i+1} &mdash; <strong style="color:${info.color}">${info.emoji} ${info.label}</strong></div>
+      ${top3.map(([k,v])=>{
+        const ei = EMOTION_ES[k]||{label:k,emoji:'',color:'#64748b'};
+        const pct = Math.round(v*100);
+        return `<div class="emotion-entry">
+          <div class="emotion-header">
+            <span class="emotion-name">${ei.emoji} ${ei.label}</span>
+            <span class="emotion-pct">${pct}%</span>
+          </div>
+          <div class="emo-bar"><div class="emo-fill" style="width:${pct}%;background:${ei.color}"></div></div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+
+function updateObjectsPanel(preds){
+  const el = document.getElementById('objs-list');
+  const counts = {};
+  preds.forEach(p=>{ counts[p.class]=(counts[p.class]||0)+1; });
+  const entries = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  if(entries.length===0){
+    el.innerHTML='<p id="objs-empty" style="font-size:.78rem;color:var(--muted);text-align:center;padding:12px 0">Sin objetos detectados</p>';
+    return;
+  }
+  el.innerHTML = entries.map(([cls,cnt])=>{
+    const color = getCatColor(cls);
+    const name  = ES[cls]||cls;
+    return `<div class="obj-row">
+      <div class="obj-name">
+        <span class="obj-dot" style="background:${color}"></span>${name}
+      </div>
+      <span class="obj-count">×${cnt}</span>
+    </div>`;
+  }).join('');
+}
+
+// ── Estabilización del conteo de personas ─────────────────────────────────────
+// Problema: COCO-SSD fluctúa frame a frame → usamos la MODA de los últimos N frames
+const STABILITY_BUF = 8;          // frames a considerar para estabilizar
+const personBuf     = [];          // buffer circular de conteos raw
+let stablePersonCnt = 0;           // conteo estable actual (moda del buffer)
+let prevStableCnt   = 0;           // conteo estable del ciclo anterior
+
+function getMode(arr){
+  const freq = {};
+  arr.forEach(v => freq[v] = (freq[v]||0)+1);
+  return +Object.entries(freq).sort((a,b)=>b[1]-a[1])[0][0];
+}
+
+// ── Greeting (Speech + Toast) ────────────────────────────────────────────────
+const toast      = document.getElementById('toast');
+let lastGreetTime = 0;
+const GREET_COOLDOWN = 10000; // ms — mínimo entre saludos
+let toastTimer;
+
+function greet(newCount){
+  const now = Date.now();
+  if(now - lastGreetTime < GREET_COOLDOWN) return;
+  lastGreetTime = now;
+
+  // Mensaje dinámico según cuántas personas nuevas entraron
+  const msgs = newCount === 1
+    ? ['¡Hola, bienvenido al GovLab!', '👋 ¡Bienvenido!']
+    : [`¡Bienvenidos! Detecté ${newCount} personas 👋`, `👥 ¡Hola a todos!`];
+  const [speech, visual] = msgs;
+
+  // Visual toast actualizado
+  toast.querySelector('.toast-icon').textContent = newCount > 1 ? '👥' : '👋';
+  toast.childNodes[1].textContent = ' ' + visual;
+  clearTimeout(toastTimer);
+  toast.classList.add('show');
+  toastTimer = setTimeout(()=> toast.classList.remove('show'), 5000);
+
+  // Speech synthesis
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(speech);
+    utt.lang  = 'es-CO';
+    utt.rate  = 0.95;
+    utt.pitch = 1.05;
+    const esVoice = window.speechSynthesis.getVoices().find(v=> v.lang.startsWith('es'));
+    if(esVoice) utt.voice = esVoice;
+    window.speechSynthesis.speak(utt);
+  }
+}
+
+// ── Detect loop ───────────────────────────────────────────────────────────────
+let lastT = performance.now(), frames = 0;
+
+async function detect(){
+  if(!cocoModel || video.readyState < 2){ requestAnimationFrame(detect); return; }
+
+  if(canvas.width!==video.videoWidth){ canvas.width=video.videoWidth; canvas.height=video.videoHeight; }
+
+  const [preds, faces] = await Promise.all([
+    cocoModel.detect(video),
+    faceReady ? faceapi.detectAllFaces(video,
+        // inputSize 608 → más preciso; scoreThreshold 0.25 → más sensible
+        new faceapi.TinyFaceDetectorOptions({inputSize:608, scoreThreshold:0.25}))
+                       .withFaceExpressions() : Promise.resolve([])
+  ]);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const W = canvas.width;
+
+  // ── Estabilizar conteo de personas ──────────────────────────────────────────
+  const rawPersonCnt = preds.filter(p=>p.class==='person').length;
+  personBuf.push(rawPersonCnt);
+  if(personBuf.length > STABILITY_BUF) personBuf.shift();
+  // Solo actualizar el conteo estable cuando el buffer está lleno (evita arranques ruidosos)
+  stablePersonCnt = personBuf.length >= Math.floor(STABILITY_BUF/2) ? getMode(personBuf) : rawPersonCnt;
+
+  // Draw COCO boxes — mirror x manually so text stays readable
+  preds.forEach(p=>{
+    const [x,y,w,h] = p.bbox;
+    const mx = W - x - w;
+    const color = getCatColor(p.class);
+    const name  = ES[p.class]||p.class;
+    // Resaltar personas con borde más grueso
+    if(p.class==='person'){
+      ctx.lineWidth=3;
+      drawBox(mx, y, w, h, color, `${name} ${Math.round(p.score*100)}%`);
+    } else {
+      drawBox(mx, y, w, h, color, `${name} ${Math.round(p.score*100)}%`);
+    }
+  });
+
+  // Draw face boxes (emotion overlay)
+  faces.forEach((f, i)=>{
+    const {x,y,width:w,height:h} = f.detection.box;
+    const mx = W - x - w;
+    const exps = f.expressions;
+    const [topKey] = Object.entries(exps).sort((a,b)=>b[1]-a[1])[0];
+    const ei = EMOTION_ES[topKey]||{label:topKey,emoji:'🤔',color:'#facc15'};
+    const pct = Math.round(exps[topKey]*100);
+
+    ctx.strokeStyle='#06b6d4'; ctx.lineWidth=2;
+    ctx.shadowColor='#06b6d4'; ctx.shadowBlur=10;
+    ctx.strokeRect(mx,y,w,h); ctx.shadowBlur=0;
+
+    const label=`${ei.emoji} ${ei.label} ${pct}%`;
+    ctx.font='bold 13px Inter,sans-serif';
+    const tw=ctx.measureText(label).width+12;
+    const ly=y>26?y-26:y+h+4;
+    ctx.fillStyle=ei.color+'cc';
+    ctx.beginPath(); ctx.roundRect(mx,ly,tw,20,4); ctx.fill();
+    ctx.fillStyle='#000';
+    ctx.fillText(label,mx+6,ly+14);
+  });
+
+  // ── Actualizar UI con conteo estable ────────────────────────────────────────
+  document.getElementById('cnt-person').textContent = stablePersonCnt;
+  document.getElementById('cnt-obj').textContent = preds.length;
+
+  // ── Detectar nueva(s) persona(s) entrando al frame ─────────────────────────
+  // Se dispara cuando el conteo ESTABLE sube (no el raw, para evitar falsas alarmas)
+  if(stablePersonCnt > prevStableCnt){
+    const newPeople = stablePersonCnt - prevStableCnt;
+    greet(newPeople);
+  }
+  prevStableCnt = stablePersonCnt;
+
+  // Update panels (throttle a 1s)
+  frames++;
+  const now = performance.now();
+  if(now-lastT>=1000){
+    document.getElementById('cnt-fps').textContent=frames;
+    frames=0; lastT=now;
+    updateEmotionsPanel(faces);
+    updateObjectsPanel(preds);
+  }
+
+  requestAnimationFrame(detect);
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function init(){
+  try{
+    await startCamera();
+    await loadModels();
+    ov.classList.add('hidden');
+    dotEl.className='dot active';
+    statusEl.textContent='Detectando en tiempo real';
+    detect();
+  } catch(e){
+    dotEl.className='dot error';
+    statusEl.textContent='Error: '+e.message;
+    ovMsg.textContent='⚠ '+e.message;
+  }
+}
+
+init();
+
+// Sampling starts once models are loaded
+function startSampling(){ scheduleSample(); }
+
+// -- Sampling & Chart & CSV --
+const MA_WINDOW_MS = 5 * 60 * 1000;
+let samples    = [];
+let csvHandle  = null;
+let csvContent = 'Timestamp,Fecha,Hora,Personas,Promedio_Movil_5min\n';
+let sampleTimer = null;
+
+const intervalInp = document.getElementById('interval-inp');
+function getSampleInterval(){ return Math.max(5, Math.min(120, parseInt(intervalInp.value)||20)) * 1000; }
+
+function takeSample(){
+  const now   = Date.now();
+  const count = parseInt(document.getElementById('cnt-person').textContent)||0;
+
+  // Calcular promedio móvil solo con la ventana de 5 min — sin borrar el histórico
+  const cutoff = now - MA_WINDOW_MS;
+  const win = samples.filter(s => s.t >= cutoff);
+  const avg = +([...win, {count}].reduce((a,s)=>a+s.count,0)/([...win,{count}].length)).toFixed(2);
+
+  // Guardar siempre en el histórico completo
+  samples.push({t:now,count,avg});
+
+  const maxC = Math.max(...samples.map(s=>s.count));
+  document.getElementById('stat-last').textContent = count;
+  document.getElementById('stat-avg').textContent  = avg;
+  document.getElementById('stat-n').textContent    = samples.length;
+  document.getElementById('stat-max').textContent  = maxC;
+  drawChart();
+  appendCSVRow(now, count, avg);
+  scheduleSample();
+}
+
+function scheduleSample(){
+  clearTimeout(sampleTimer);
+  const ms = getSampleInterval();
+  const start = Date.now();
+  function tick(){
+    const left = Math.ceil((ms-(Date.now()-start))/1000);
+    document.getElementById('stat-next').textContent = left>0?left+'s':'0s';
+    if(left>0) setTimeout(tick,500);
+  }
+  tick();
+  sampleTimer = setTimeout(takeSample, ms);
+}
+intervalInp.addEventListener('change', scheduleSample);
+scheduleSample();
+
+// -- Canvas chart --
+const cc   = document.getElementById('chart-canvas');
+const cctx = cc.getContext('2d');
+
+function drawChart(){
+  const dpr = window.devicePixelRatio||1;
+  const W   = cc.offsetWidth;
+  const H   = 180;
+  cc.width  = W*dpr; cc.height = H*dpr;
+  cctx.scale(dpr,dpr);
+  const PAD = {top:20,right:16,bottom:34,left:36};
+  const cW  = W-PAD.left-PAD.right;
+  const cH  = H-PAD.top-PAD.bottom;
+  cctx.clearRect(0,0,W,H);
+  if(samples.length<1){
+    cctx.fillStyle='rgba(255,255,255,.25)'; cctx.font='13px Inter,sans-serif'; cctx.textAlign='center';
+    cctx.fillText('Esperando primera muestra...', W/2, H/2); return;
+  }
+  const maxY  = Math.max(...samples.map(s=>s.count),1);
+  const minT  = samples[0].t, maxT = samples[samples.length-1].t;
+  const rangeT = Math.max(maxT-minT,1);
+  const tx = t => PAD.left+((t-minT)/rangeT)*cW;
+  const ty = v => PAD.top+cH-(v/(maxY*1.2))*cH;
+  // grid
+  cctx.strokeStyle='rgba(255,255,255,.07)'; cctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=PAD.top+(cH/4)*i;
+    cctx.beginPath(); cctx.moveTo(PAD.left,y); cctx.lineTo(PAD.left+cW,y); cctx.stroke();
+    cctx.fillStyle='rgba(255,255,255,.3)'; cctx.font='10px Inter,sans-serif'; cctx.textAlign='right';
+    cctx.fillText((maxY*1.2*(1-i/4)).toFixed(1), PAD.left-4, y+4);
+  }
+  // area
+  cctx.beginPath();
+  cctx.moveTo(tx(samples[0].t),ty(0));
+  samples.forEach(s=>cctx.lineTo(tx(s.t),ty(s.count)));
+  cctx.lineTo(tx(samples[samples.length-1].t),ty(0)); cctx.closePath();
+  const g=cctx.createLinearGradient(0,PAD.top,0,PAD.top+cH);
+  g.addColorStop(0,'rgba(34,197,94,.3)'); g.addColorStop(1,'rgba(34,197,94,.02)');
+  cctx.fillStyle=g; cctx.fill();
+  // count line
+  cctx.beginPath(); cctx.strokeStyle='#22c55e'; cctx.lineWidth=2;
+  samples.forEach((s,i)=>i===0?cctx.moveTo(tx(s.t),ty(s.count)):cctx.lineTo(tx(s.t),ty(s.count)));
+  cctx.stroke();
+  // MA line
+  cctx.beginPath(); cctx.strokeStyle='#facc15'; cctx.lineWidth=2; cctx.setLineDash([5,4]);
+  samples.forEach((s,i)=>i===0?cctx.moveTo(tx(s.t),ty(s.avg)):cctx.lineTo(tx(s.t),ty(s.avg)));
+  cctx.stroke(); cctx.setLineDash([]);
+  // dots
+  samples.forEach(s=>{ cctx.beginPath(); cctx.arc(tx(s.t),ty(s.count),3.5,0,Math.PI*2); cctx.fillStyle='#22c55e'; cctx.fill(); });
+  // x labels
+  cctx.fillStyle='rgba(255,255,255,.35)'; cctx.font='10px Inter,sans-serif'; cctx.textAlign='center';
+  const step=Math.max(1,Math.floor(samples.length/6));
+  samples.filter((_,i)=>i%step===0).forEach(s=>{
+    const d=new Date(s.t);
+    const lbl=d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')+':'+d.getSeconds().toString().padStart(2,'0');
+    cctx.fillText(lbl, tx(s.t), H-PAD.bottom+14);
+  });
+  // legend
+  cctx.textAlign='left';
+  [['-- Personas','#22c55e'],['.. Prom. movil','#facc15']].forEach(([lbl,col],i)=>{
+    cctx.fillStyle=col; cctx.font='bold 10px Inter,sans-serif';
+    cctx.fillText(lbl, PAD.left+i*120, PAD.top-6);
+  });
+}
+new ResizeObserver(()=>{ if(samples.length) drawChart(); }).observe(cc);
+
+// -- CSV --
+async function appendCSVRow(t,count,avg){
+  const d=new Date(t), pad=n=>n.toString().padStart(2,'0');
+  const date=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  const time=pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
+  csvContent += t+','+date+','+time+','+count+','+avg+'\n';
+  if(csvHandle){
+    try{
+      const w=await csvHandle.createWritable();
+      await w.write(csvContent); await w.close();
+    }catch(e){ console.warn('CSV write:',e); }
+  }
+}
+async function connectCSV(){
+  if(!('showSaveFilePicker' in window)){ alert('Usa Descargar CSV en tu navegador.'); return; }
+  try{
+    csvHandle = await window.showSaveFilePicker({
+      suggestedName:'govlab_aforo_'+new Date().toISOString().slice(0,10)+'.csv',
+      types:[{description:'CSV',accept:{'text/csv':['.csv']}}]
+    });
+    document.getElementById('btn-csv').textContent='OK CSV conectado';
+  }catch(e){}
+}
+function downloadCSV(){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csvContent],{type:'text/csv;charset=utf-8;'}));
+  a.download='govlab_aforo_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+</script>
+</body>
+</html>
